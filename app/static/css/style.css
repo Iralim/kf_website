@@ -1,0 +1,111 @@
+/* Круглые кнопки соцсетей */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  transition: transform 0.2s;
+}
+
+.social-btn:hover {
+  transform: scale(1.2);
+}
+
+.social-telegram {
+  background-color: #0088cc;
+}
+
+.social-vk {
+  background-color: #4c75a3;
+}
+
+/* Стили для навигации */
+.navbar-nav .nav-link {
+  text-transform: uppercase;
+}
+
+/* Стили для бейджей */
+.badge-accent {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.badge-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Градиенты */
+.bg-gradient-primary {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  color: #fff;
+}
+
+.bg-gradient-info {
+  background: linear-gradient(90deg, #bfdbfe, #93c5fd);
+  color: #1e293b;
+}
+
+/* Заголовок героя */
+.hero-title {
+  font-family: 'Oswald', sans-serif;
+}
+
+
+/* Карточки преимуществ */
+.card {
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.card i {
+  transition: transform 0.3s ease;
+}
+
+.card:hover i {
+  transform: scale(1.1);
+}
+
+/* Секция проектов */
+.project-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card img {
+  height: 240px;
+  object-fit: cover;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.project-card .card-title {
+  font-family: 'Oswald', sans-serif;
+}
+
+.project-card .btn {
+  border-radius: 8px;
+}
