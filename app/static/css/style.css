@@ -1,3 +1,24 @@
+/* Логотип по умолчанию — крупнее на десктопах */
+.navbar-brand img {
+  max-width: 100%;
+  height: auto;
+  width: 340px; 
+}
+
+/* 📱 Когда ширина 427px и меньше — уменьшаем логотип */
+@media (max-width: 427px) {
+  .navbar-brand img {
+    width: 230px;
+  }
+}
+ /* Background picture */
+.b-img-with-bg {
+  background-image: url(../images/tskny5iwscpyekaoxngoxll8t7hiibna.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
 /* Круглые кнопки соцсетей */
 .social-btn {
   display: inline-flex;
@@ -29,13 +50,42 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%; /* сразу под navbar */
+    left: 0;
+    width: 100%;
+    background: white; /* фон, чтобы текст был читаем */
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .navbar-collapse.collapse.show {
+    display: block; /* чтобы не прыгало */
+  }
+}
+/* Projects buttons */
+.btn-projects {
+  background-color: rgba(0, 0, 0, 0.6); /* тёмный прозрачный фон */
+  color: #fff; /* белый текст */
+  border: none; /* убираем рамку, если нужно */
+  transition: background-color 0.3s ease;
+}
+
+.btn-projects:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* чуть менее прозрачный при наведении */
+}
+
+
 /* Стили для бейджей */
 .badge-accent {
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.45rem 0.9rem;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 8px rgba(0,0,0,0.12);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
