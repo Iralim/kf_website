@@ -1,3 +1,28 @@
+/* Отступ для контента, чтобы не прятался под фиксированным меню */
+    body {
+      padding-top: 140px;
+      transition: padding-top 0.3s ease;
+    }
+
+    /* Анимации для плавности */
+    .navbar, .navbar img {
+      transition: all 0.3s ease;
+    }
+   /* .navbar .container{
+    /* border: 1px solid black; */
+    /* height: 35px; */
+   } */
+    /* Класс, который добавляется при прокрутке */
+    .navbar.shrink {
+      padding-top: 0.3rem !important;
+      padding-bottom: 0.3rem !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.shrink img {
+      width: 250px !important;
+    }
+
 /* Логотип по умолчанию — крупнее на десктопах */
 .navbar-brand img {
   max-width: 100%;

@@ -16,146 +16,159 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 
-<link rel="apple-touch-icon" sizes="180x180" href="../static/favicon_kf/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../static/favicon_kf/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../static/favicon_kf/favicon-16x16.png">
-<link rel="manifest" href="../static/favicon_kf/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon_kf/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon_kf/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon_kf/favicon-16x16.png">
+  <link rel="manifest" href="../static/favicon_kf/site.webmanifest">
 
 </head>
 <body>
   
-  <!-- 🔹 Верхняя панель (Top Bar) -->
-  <div class="topbar py-1 bg-secondary">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between justify-content-md-end">
-
-      <!-- Телефон -->
-      <div class="order-0 order-md-0 me-md-3">
-        📞 <a href="tel:+79173755545" class="text-white text-decoration-none">+7 (917) 37-555-45</a>
-      </div>
-
-      <!-- Соцсети -->
-      <div class="d-flex gap-2 order-1">
-        <a href="https://t.me/username" target="_blank" class="social-btn text-white" aria-label="Telegram">
-          <i class="fab fa-telegram"></i>
-        </a>
-        <a href="https://vk.com/username" target="_blank" class="social-btn text-white" aria-label="VK">
-          <i class="fab fa-vk"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="b-img-with-bg t">
-
-    <!-- 🔹 Основное меню -->
-   <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom py-2 transparent-background">
-     <div class="container align-items-center justify-content-between">
-       
-       <!-- Логотип -->
-       <a class="navbar-brand fw-bold me-2" href="#">
-         <img src="../static/images/logo_krepkii_fundament.png" alt="Logo" width="340">
-       </a>
-   
-       <!-- Бургер -->
-       <button
-         class="navbar-toggler"
-         type="button"
-         data-bs-toggle="collapse"
-         data-bs-target="#mainNavbar"
-         aria-controls="mainNavbar"
-         aria-expanded="false"
-         aria-label="Toggle navigation"
-       >
-         <span class="navbar-toggler-icon"></span>
-       </button>
-     
-       <!-- Меню -->
-       <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-         <ul class="navbar-nav">
-           <li class="nav-item"><a class="nav-link active" href="#">Проекты</a></li>
-           <li class="nav-item"><a class="nav-link" href="#">Ипотека</a></li>
-           <li class="nav-item"><a class="nav-link" href="#">О нас</a></li>
-           <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
-         </ul>
-   
-         <!-- Телефон (для мобильных — показывается внутри меню) -->
-         <div class="d-md-none text-center mt-3">
-           <a href="tel:+79173755545" class="btn btn-outline-primary">
-             📞 +7 (917) 37 555 45
-           </a>
-           <p class="text-secondary mb-0">Пн–Пт: с 9:00 до 18:00</p>
-         </div>
-       </div>
-     </div>
-   </nav>
-   
-   
-   
-    <!-- 🔹 Герой-блок (основный рекламный текст) -->
-   <section class="py-5 transparent-background">
-     <div class="container" >
-       <div class="row justify-content-start">
-         <div class="col-12 col-xs-10 col-sm-10 col-md-9 col-lg-8 text-center">
-
-
-           
-           <h1 class="fw-bold mb-3" style="font-family: 'Inter', sans-serif;">
-       СТРОИМ ДОМА ПОД КЛЮЧ <img src="../static/images/key_6497462.png" width="60px" alt="" > <br>ВСЕГО ЗА 3 МЕСЯЦА! 
-   </h1>
-   
-   <h2 class="h4 fw-semibold text-secondary text-uppercase mb-4">
-     Быстро • Качественно • Надежно
-   </h2>
-   
-   <!-- Строгий горизонтальный список с разделителями -->
-   <p class="text-muted mb-4 text-center fs-6">
-     Современные энергоэффективные дома 
-     <span class="mx-2">|</span>
-     Без бюрократии и вашего участия 
-     <span class="mx-2">|</span>
-     С полной суперчистовой отделкой
-   </p>
-   
-   <ul class="list-inline text-muted fs-5 mb-2 text-center">
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Стерлитамак
-     </li>
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Салават
-     </li>
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Ишимбай
-     </li>
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Кумертау
-     </li>
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Северо-Восток
-     </li>
-     <li class="list-inline-item me-3">
-       <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Булгаково
-     </li>
-   </ul>
-   
+  <!-- 🔹 Фиксированный верх -->
+  <div class="fixed-top">
     
-           <p class="lead mb-4 text-secondary"></p>
-   
-           <div class="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center text-center">
-     <div class="d-flex gap-2 justify-content-center flex-wrap">
-       <span class="badge-accent bg-gradient-primary">Расширенная гарантия</span>
-       <span class="badge-accent bg-gradient-info text-dark">Ипотека через эскроу</span>
-     </div>
-     <a href="#projects" class=" btn-projects btn btn-outline-secondary btn-lg">Посмотреть проекты</a>
-   </div>
-   
-   
-         </div>
-       </div>
-     </div>
-   </section>
-   
+    <!-- 🔹 Верхняя панель -->
+    <div class="topbar py-1 bg-secondary">
+      <div class="container d-flex flex-wrap align-items-center justify-content-between justify-content-md-end">
+        <div class="order-0 order-md-0 me-md-3">
+          📞 <a href="tel:+79173755545" class="text-white text-decoration-none">+7 (917) 37-555-45</a>
+        </div>
+        <div class="d-flex gap-2 order-1">
+          <a href="https://t.me/username" target="_blank" class="social-btn text-white" aria-label="Telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+          <a href="https://vk.com/username" target="_blank" class="social-btn text-white" aria-label="VK">
+            <i class="fab fa-vk"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 Меню -->
+    <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom py-3" id="mainNav">
+      <div class="container align-items-center justify-content-between">
+        <a class="navbar-brand fw-bold me-2" href="#">
+          <img src="../static/images/logo_krepkii_fundament.png" alt="Logo" width="340">
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link active" href="#">Проекты</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Ипотека</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">О нас</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+          </ul>
+          <div class="d-md-none text-center mt-3">
+            <a href="tel:+79173755545" class="btn btn-outline-primary">
+              📞 +7 (917) 37 555 45
+            </a>
+            <p class="text-secondary mb-0">Пн–Пт: с 9:00 до 18:00</p>
+          </div>
+        </div>
+      </div>
+    </nav>
+
   </div>
+  
+  <!-- 🔹 Контент -->
+  <div class="b-img-with-bg t">
+    <section class="py-5 transparent-background">
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-12 col-xs-10 col-sm-10 col-md-9 col-lg-8 text-center">
+            <h1 class="fw-bold mb-3" style="font-family: 'Inter', sans-serif;">
+              СТРОИМ ДОМА ПОД КЛЮЧ 
+              <img src="../static/images/key_6497462.png" width="60px" alt=""> 
+              <br>ВСЕГО ЗА 3 МЕСЯЦА!
+            </h1>
+            <h2 class="h4 fw-semibold text-secondary text-uppercase mb-4">
+              Быстро • Качественно • Надежно
+            </h2>
+            <p class="text-muted mb-4 text-center fs-6">
+              Современные энергоэффективные дома 
+              <span class="mx-2">|</span>
+              Без бюрократии и вашего участия 
+              <span class="mx-2">|</span>
+              С полной суперчистовой отделкой
+            </p>
+            <ul class="list-inline text-muted fs-5 mb-2 text-center">
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Стерлитамак
+              </li>
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Салават
+              </li>
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Ишимбай
+              </li>
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Кумертау
+              </li>
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Северо-Восток
+              </li>
+              <li class="list-inline-item me-3">
+                <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Булгаково
+              </li>
+            </ul>
+            <div class="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center text-center">
+              <div class="d-flex gap-2 justify-content-center flex-wrap">
+                <span class="badge-accent bg-gradient-primary">Расширенная гарантия</span>
+                <span class="badge-accent bg-gradient-info text-dark">Ипотека через эскроу</span>
+              </div>
+              <a href="#projects" class="btn-projects btn btn-outline-secondary btn-lg">Посмотреть проекты</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔹 JS для плавного уменьшения и закрытия меню -->
+  <script>
+    // Плавное уменьшение при скролле
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('mainNav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('shrink');
+      } else {
+        navbar.classList.remove('shrink');
+      }
+    });
+
+    // Закрытие меню при клике на ссылку (правильное решение)
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      const navbarCollapse = document.querySelector('#mainNavbar');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          // Закрываем меню через Bootstrap API
+          if (window.bootstrap) {
+            const collapse = bootstrap.Collapse.getInstance(navbarCollapse);
+            if (collapse) {
+              collapse.hide();
+            }
+          } else {
+            // Fallback для случаев, когда Bootstrap не загрузился
+            navbarCollapse.classList.remove('show');
+          }
+        });
+      });
+    });
+  </script>
 
 <!-- 🔹 Наши преимущества -->
 <section class="py-5 bg-white">
@@ -166,8 +179,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card h-100 shadow-sm border-0 p-4">
           <div class="mb-3 text-primary fs-1">
-            <!-- <i class="bi bi-house-heart"></i> -->
-            <i class="bi bi-key-fill"></i> <!-- Ключ - символ "под ключ" -->
+            <i class="bi bi-key-fill"></i>
           </div>
           <h3 class="h5 fw-bold mb-3">Ремонт под ключ</h3>
           <p class="text-secondary small mb-0">
@@ -193,8 +205,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card h-100 shadow-sm border-0 p-4">
           <div class="mb-3 text-warning fs-1">
-            <!-- <i class="bi bi-tools"></i> -->
-            <i class="bi bi-headset"></i> <!-- Гарнитура - поддержка и сервис -->
+            <i class="bi bi-headset"></i>
           </div>
           <h3 class="h5 fw-bold mb-3">Полное сопровождение</h3>
           <p class="text-secondary small mb-0">
@@ -278,9 +289,5 @@
   </div>
 </section>
 
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
