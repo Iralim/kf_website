@@ -1,3 +1,48 @@
+/* Отступ для контента, чтобы не прятался под фиксированным меню */
+    body {
+      padding-top: 140px;
+      transition: padding-top 0.3s ease;
+    }
+
+    /* Анимации для плавности */
+    .navbar, .navbar img {
+      transition: all 0.3s ease;
+    }
+   /* .navbar .container{
+    /* border: 1px solid black; */
+    /* height: 35px; } */
+    /* Класс, который добавляется при прокрутке */
+    .navbar.shrink {
+      padding-top: 0.3rem !important;
+      padding-bottom: 0.3rem !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.shrink img {
+      width: 250px !important;
+    }
+
+/* Логотип по умолчанию — крупнее на десктопах */
+.navbar-brand img {
+  max-width: 100%;
+  height: auto;
+  width: 340px; 
+}
+
+/* 📱 Когда ширина 427px и меньше — уменьшаем логотип */
+@media (max-width: 427px) {
+  .navbar-brand img {
+    width: 230px;
+  }
+}
+ /* Background picture */
+.b-img-with-bg {
+  background-image: url(../images/tskny5iwscpyekaoxngoxll8t7hiibna.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
 /* Круглые кнопки соцсетей */
 .social-btn {
   display: inline-flex;
@@ -29,13 +74,42 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%; /* сразу под navbar */
+    left: 0;
+    width: 100%;
+    background: white; /* фон, чтобы текст был читаем */
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .navbar-collapse.collapse.show {
+    display: block; /* чтобы не прыгало */
+  }
+}
+/* Projects buttons */
+.btn-projects {
+  background-color: rgba(0, 0, 0, 0.6); /* тёмный прозрачный фон */
+  color: #fff; /* белый текст */
+  border: none; /* убираем рамку, если нужно */
+  transition: background-color 0.3s ease;
+}
+
+.btn-projects:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* чуть менее прозрачный при наведении */
+}
+
+
 /* Стили для бейджей */
 .badge-accent {
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.45rem 0.9rem;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 8px rgba(0,0,0,0.12);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -108,4 +182,98 @@
 
 .project-card .btn {
   border-radius: 8px;
+}
+/* Рубли */
+
+
+/* Или альтернативный вариант с Unicode символом */
+.rub::after {
+    content: "₽";
+    font-family: system-ui;
+    margin-left: 2px;
+}
+*/
+/* Галерея проекта */
+.gallery-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.main-image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Подсказка "Увеличить" */
+.zoom-hint {
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.main-image:hover .zoom-hint {
+  opacity: 1;
+}
+
+/* Миниатюры */
+.thumb-img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+.thumb-img:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.thumb-img.active {
+  opacity: 1;
+  border: 3px solid #0d6efd;
+}
+
+/* Полноэкранная модалка */
+.modal-dialog {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.modal-content {
+  height: 100%;
+  border-radius: 0;
+}
+
+.modal-img {
+  max-height: 95vh;
+  max-width: 95vw;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Исправляем поведение на мобильных */
+@media (max-width: 768px) {
+  .modal-dialog {
+    height: 100vh;
+  }
+  .modal-img {
+    max-height: 90vh;
+    width: 100%;
+  }
+}
+
+/* Добавить в ваш CSS файл */
+@media (max-width: 768px) {
+    .table-responsive table {
+        font-size: 0.875rem;
+    }
+    .table-responsive th,
+    .table-responsive td {
+        padding: 0.5rem;
+    }
 }

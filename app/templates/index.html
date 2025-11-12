@@ -1,274 +1,111 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Крепкий Фундамент</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-  >
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/style.css">
+{% extends "base.html" %}
+{% block tittle %} Крепкий Фундамент {% endblock %}
 
-<link rel="apple-touch-icon" sizes="180x180" href="../static/favicon_kf/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../static/favicon_kf/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../static/favicon_kf/favicon-16x16.png">
-<link rel="manifest" href="../static/favicon_kf/site.webmanifest">
-
-</head>
-<body>
-  
-  <!-- 🔹 Верхняя панель (Top Bar) -->
-  <div class="topbar py-1 bg-secondary">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between justify-content-md-end">
-
-      <!-- Телефон -->
-      <div class="order-0 order-md-0 me-md-3">
-        📞 <a href="tel:+79173755545" class="text-white text-decoration-none">+7 (917) 37-555-45</a>
-      </div>
-
-      <!-- Соцсети -->
-      <div class="d-flex gap-2 order-1">
-        <a href="https://t.me/username" target="_blank" class="social-btn text-white" aria-label="Telegram">
-          <i class="fab fa-telegram"></i>
-        </a>
-        <a href="https://vk.com/username" target="_blank" class="social-btn text-white" aria-label="VK">
-          <i class="fab fa-vk"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 🔹 Основное меню -->
-  <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom py-2">
-    <div class="container align-items-center">
-      
-      <!-- Логотип -->
-      <a class="navbar-brand fw-bold me-2" href="#">
-        <img src="../static/images/logo_krepkii_fundament.png" alt="Logo" width="340">
-      </a>
-
-      <!-- Бургер -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#mainNavbar"
-        aria-controls="mainNavbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <!-- Меню -->
-      <div class="navbar-collapse justify-content-end" id="mainNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="#">Проекты</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Ипотека</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">О нас</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
-        </ul>
-        <!-- Телефон (для мобильных — показывается внутри меню) -->
-        <div class="d-md-none text-center mt-3">
-          <a href="tel:+79173755545" class="btn btn-outline-primary w-100">
-            📞 Позвонить: +7 (917) 37 555 45
-          </a>
-          <p class="text-secondary mb-0">Пн–Пт: с 9:00 до 18:00</p>
-        </div>
-      </div>
-    </div>
-  </nav>
-
- <!-- 🔹 Герой-блок (основный рекламный текст) -->
-<section class="py-5 bg-light">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-10 text-center">
-        
-        <h1 class="fw-bold mb-3" style="font-family: 'Inter', sans-serif;">
-    СТРОИМ ДОМА ПОД КЛЮЧ <img src="../static/images/key_6497462.png" width="60px" alt="" > <br>ВСЕГО ЗА 3 МЕСЯЦА! 
-</h1>
-
-<h2 class="h4 fw-semibold text-secondary text-uppercase mb-4">
-  Быстро • Качественно • Надежно
-</h2>
-
-<!-- Строгий горизонтальный список с разделителями -->
-<p class="text-muted mb-4 text-center fs-6">
-  Современные энергоэффективные дома 
-  <span class="mx-2">|</span>
-  Без бюрократии и вашего участия 
-  <span class="mx-2">|</span>
-  С полной суперчистовой отделкой
-</p>
-
-<ul class="list-inline text-muted fs-5 mb-2 text-center">
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Стерлитамак
-  </li>
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Салават
-  </li>
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Ишимбай
-  </li>
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Кумертау
-  </li>
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Северо-Восток
-  </li>
-  <li class="list-inline-item me-3">
-    <i class="bi bi-geo-alt-fill text-secondary me-1"></i> Булгаково
-  </li>
-</ul>
-
- 
-        <p class="lead mb-4 text-secondary"></p>
-
-        <div class="d-flex gap-3 justify-content-center align-items-center flex-wrap">
-          <div class="d-flex gap-2 flex-wrap">
-            <span class="badge-accent bg-gradient-primary">Расширенная гарантия</span> <span class="badge-accent bg-gradient-info text-dark">Ипотека через эскроу</span>
-          </div><a href="#projects" class="btn btn-outline-secondary btn-lg">Посмотреть проекты</a>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 🔹 Наши преимущества -->
-<section class="py-5 bg-white">
-  <div class="container">
-    <div class="row text-center g-4">
-
-      <!-- Ремонт под ключ -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 shadow-sm border-0 p-4">
-          <div class="mb-3 text-primary fs-1">
-            <!-- <i class="bi bi-house-heart"></i> -->
-            <i class="bi bi-key-fill"></i> <!-- Ключ - символ "под ключ" -->
-          </div>
-          <h3 class="h5 fw-bold mb-3">Ремонт под ключ</h3>
-          <p class="text-secondary small mb-0">
-            Получите дом с готовой чистовой отделкой «под ключ»: всё для комфорта уже есть. При желании добавим финальные штрихи — от напольных покрытий до полностью укомплектованной кухни. Осталось только заехать.
-          </p>
-        </div>
-      </div>
-
-      <!-- Финансирование «всё включено» -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 shadow-sm border-0 p-4">
-          <div class="mb-3 text-success fs-1">
-            <i class="bi bi-cash-stack"></i>
-          </div>
-          <h3 class="h5 fw-bold mb-3">Финансирование «всё включено»</h3>
-          <p class="text-secondary small mb-0">
-            Получите выгодную ипотеку по льготной ставке, которая покроет не только дом, но и все дополнительные постройки и даже мебель.
-          </p>
-        </div>
-      </div>
-
-      <!-- Полное сопровождение -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 shadow-sm border-0 p-4">
-          <div class="mb-3 text-warning fs-1">
-            <!-- <i class="bi bi-tools"></i> -->
-            <i class="bi bi-headset"></i> <!-- Гарнитура - поддержка и сервис -->
-          </div>
-          <h3 class="h5 fw-bold mb-3">Полное сопровождение</h3>
-          <p class="text-secondary small mb-0">
-            Мы берём на себя все этапы — от выбора земли и подведения коммуникаций до официальной сдачи объекта. Вам не нужно вникать в процесс.
-          </p>
-        </div>
-      </div>
-
-      <!-- Продуманный дизайн -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 shadow-sm border-0 p-4">
-          <div class="mb-3 text-danger fs-1">
-            <i class="bi bi-brush"></i>
-          </div>
-          <h3 class="h5 fw-bold mb-3">Продуманный дизайн</h3>
-          <p class="text-secondary small mb-0">
-            Над проектами работают профессиональные архитекторы. Мы создаём дома, которые радуют глаз своей эстетикой и продуманы до мелочей для вашего удобства.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- 🔹 Проекты -->
+{% block content %}
 <section id="projects" class="py-5 bg-light">
   <div class="container text-center">
-    <h2 class="fw-bold mb-4" style="font-family: 'Oswald', sans-serif;">Наши проекты</h2>
-    <p class="text-secondary mb-5 mx-auto" style="max-width: 700px;">
-      В стоимость каждого проекта входит полностью готовая чистовая отделка, 
+    <h2 class="fw-bold mb-3 display-5" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px;">
+      Наши проекты
+    </h2>
+    <p class="text-secondary mb-5 mx-auto" style="max-width: 750px; font-size: 1.05rem; color: #6c757d;">
+      В стоимость каждого проекта входит полностью готовая чистовая отделка,
       отделка санузла, тёплые полы, сантехника, все инженерные системы и коммуникации.
     </p>
 
-    <!-- Сетка карточек проектов -->
     <div class="row g-4">
-      
-      <!-- Проект 1 -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card project-card h-100 shadow-sm border-0">
-          <img src="../static/images/house.png" class="card-img-top" alt="Проект дома 1">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Дом «Солнечный»</h5>
-            <p class="card-text text-secondary small">
-              120 м² • 3 спальни • тёплый пол • панорамные окна
-            </p>
-            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Проект 2 -->
+      {% for house in houses %}
       <div class="col-md-6 col-lg-4">
-        <div class="card project-card h-100 shadow-sm border-0">
-          <img src="../static/images/house2.png" class="card-img-top" alt="Проект дома 2">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Дом «Уют»</h5>
-            <p class="card-text text-secondary small">
-              95 м² • 2 спальни • гараж • отделка под ключ
-            </p>
-            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
-          </div>
-        </div>
-      </div>
+        <a href="{{ url_for('main.details') }}" class="text-decoration-none text-reset">
+          <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
+            <div class="project-image-wrapper">
+              <img src="../static/images/house.png" class="card-img-top" alt="Проект дома {{ house.title }}">
+            </div>
 
-      <!-- Проект 3 -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card project-card h-100 shadow-sm border-0">
-          <img src="../static/images/house3.png" class="card-img-top" alt="Проект дома 3">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Дом «Комфорт»</h5>
-            <p class="card-text text-secondary small">
-              135 м² • 4 спальни • тёплый пол • терраса
-            </p>
-            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
+            <div class="card-body text-start p-4">
+              <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
+                {{ house.title }}
+              </h5>
+
+              <table class="table table-borderless text-secondary small mb-0 compact-table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Тёплый контур:</th>
+                        <td class="text-end text-dark fw-normal">{{ house.price_base | money }} &#8381;</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">С коммуникациями:</th>
+                        <td class="text-end text-dark fw-normal">{{ house.price_with_communications | money }} &#8381;</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Заезжай и живи:</th>
+                        <td class="text-end text-dark fw-normal">{{ house.price_ready | money }} &#8381;</td>
+                    </tr>
+                    <tr class="border-top">
+                        <th scope="row" class="pt-2">Ипотека от:</th>
+                        <td class="text-end fw-semibold pt-2">{{ house.mortgage_price_per_month | money }} &#8381;/мес</td>
+                    </tr>
+                </tbody>
+              </table>
+
+            </div>
           </div>
-        </div>
+        </a>
       </div>
+      {% endfor %}
 
     </div>
   </div>
 </section>
 
+<style>
+  /* Карточка проекта */
+  .project-card {
+    border-radius: 1rem;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    background-color: #fff;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Кликабельность */
+  .project-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+  }
+
+  .project-image-wrapper {
+    overflow: hidden;
+  }
+
+  /* Мягкий текст */
+  .project-card th {
+    font-weight: 400;
+    color: #7a7a7a;
+  }
+  .project-card td {
+    color: #555;
+  }
+
+  /* Уплотнённая таблица */
+  .compact-table th,
+  .compact-table td {
+    padding: 0.25rem 0;
+    line-height: 1.2;
+  }
+
+  /* Эффект наведения */
+  a.text-reset:hover .project-card {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  }
+
+  a.text-reset {
+    display: block;
+  }
+</style>
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock%}
