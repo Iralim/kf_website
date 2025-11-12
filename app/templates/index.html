@@ -16,7 +16,7 @@
 
       {% for house in houses %}
       <div class="col-md-6 col-lg-4">
-        <a href="{{ url_for('main.details') }}" class="text-decoration-none text-reset">
+        <a href="{{ url_for('main.details', id=house.id) }}" class="text-decoration-none text-reset">
           <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
             <div class="project-image-wrapper">
               <img src="../static/images/house.png" class="card-img-top" alt="Проект дома {{ house.title }}">

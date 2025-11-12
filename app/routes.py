@@ -11,9 +11,10 @@ def index():
     houses = House.query.all()
     return render_template('index.html',houses=houses)
 
-@main_bp.route('/details')
-def details():
-    return render_template('details.html')
+@main_bp.route('/details/<int:id>')
+def details(id):
+    house = House.query.get(id)
+    return render_template('details.html', house=house)
 
 @main_bp.route('/admin/')
 def admin():

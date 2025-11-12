@@ -15,10 +15,9 @@
 
       <!-- Основной текст -->
       <div class="col-lg-8">
-        <h1 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">Дом «Солнечный»</h1>
+        <h1 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">{{ house.title }}</h1>
         <p class="text-secondary fs-6 mb-4">
-          Современный одноэтажный дом с большой кухней-гостиной, панорамными окнами и просторной террасой.
-          Идеален для семьи из 3–5 человек. В проекте предусмотрено всё для комфортной жизни круглый год.
+            {{ house.description }}
         </p>
 
         <h5 class="fw-semibold mt-4 mb-3">Что входит в стоимость:</h5>
@@ -30,10 +29,6 @@
           <li>Все инженерные системы и коммуникации.</li>
         </ul>
 
-        <h5 class="fw-semibold mt-4 mb-3">Планировка:</h5>
-        <p class="text-secondary">
-          3 спальни, кухня-гостиная 32 м², санузел, техпомещение, гардеробная и терраса.
-        </p>
 
         <div class="mt-4">
           <a href="tel:+79173755545" class="btn btn-primary btn-lg">
@@ -48,13 +43,33 @@
           <h5 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">Характеристики</h5>
           <table class="table table-borderless text-secondary small mb-0">
             <tbody>
-              <tr><th scope="row">Площадь:</th><td>120 м²</td></tr>
-              <tr><th scope="row">Этажность:</th><td>1 этаж</td></tr>
-              <tr><th scope="row">Спальни:</th><td>3</td></tr>
-              <tr><th scope="row">Гараж:</th><td>Нет (опция)</td></tr>
-              <tr><th scope="row">Тип отделки:</th><td>Суперчистовая</td></tr>
-              <tr><th scope="row">Цена от:</th><td><strong>7,8 млн ₽</strong></td></tr>
+                <tr>
+                    <th scope="row">Площадь:</th>
+                    <td>{{ house.square }} м²</td>
+                </tr>
+                <tr>
+                    <th scope="row">Район:</th>
+                    <td>{{ house.area }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Базовая цена:</th>
+                    <td>{{ house.price_base | money }} ₽</td>
+                </tr>
+                <tr>
+                    <th scope="row">С коммуникациями:</th>
+                    <td>{{ house.price_with_communications | money }} ₽</td>
+                </tr>
+                <tr>
+                    <th scope="row">Цена готового дома:</th>
+                    <td>{{ house.price_ready | money }} ₽</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ипотека (в месяц):</th>
+                    <td>{{ house.mortgage_price_per_month | money }} ₽</td>
+                </tr>
             </tbody>
+
+
           </table>
         </div>
       </div>
