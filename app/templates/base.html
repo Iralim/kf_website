@@ -203,62 +203,8 @@
 
   {% block content %}
   <!-- 🔹 Проекты -->
-  <section id="projects" class="py-5 bg-light">
-    <div class="container text-center">
-      <h2 class="fw-bold mb-4" style="font-family: 'Oswald', sans-serif;">Наши проекты</h2>
-      <p class="text-secondary mb-5 mx-auto" style="max-width: 700px;">
-        В стоимость каждого проекта входит полностью готовая чистовая отделка, 
-        отделка санузла, тёплые полы, сантехника, все инженерные системы и коммуникации.
-      </p>
 
-      <!-- Сетка карточек проектов -->
-      <div class="row g-4">
-        
-        <!-- Проект 1 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card project-card h-100 shadow border-0">
-            <img src="../static/images/house.png" class="card-img-top" alt="Проект дома 1">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">Дом «Солнечный»</h5>
-              <p class="card-text text-secondary small">
-                120 м² • 3 спальни • тёплый пол • панорамные окна
-              </p>
-              <a href="{{ url_for('main.details') }}" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Проект 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card project-card h-100 shadow border-0">
-            <img src="../static/images/house2.png" class="card-img-top" alt="Проект дома 2">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">Дом «Уют»</h5>
-              <p class="card-text text-secondary small">
-                95 м² • 2 спальни • гараж • отделка под ключ
-              </p>
-              <a href="#" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Проект 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card project-card h-100 shadow border-0">
-            <img src="../static/images/house3.png" class="card-img-top" alt="Проект дома 3">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">Дом «Комфорт»</h5>
-              <p class="card-text text-secondary small">
-                135 м² • 4 спальни • тёплый пол • терраса
-              </p>
-              <a href="#" class="btn btn-outline-primary btn-sm mt-2">Подробнее</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
   {% endblock %}
 
   {% block scripts %}

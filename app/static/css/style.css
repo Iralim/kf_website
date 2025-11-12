@@ -183,8 +183,16 @@
 .project-card .btn {
   border-radius: 8px;
 }
+/* Рубли */
 
 
+/* Или альтернативный вариант с Unicode символом */
+.rub::after {
+    content: "₽";
+    font-family: system-ui;
+    margin-left: 2px;
+}
+*/
 /* Галерея проекта */
 .gallery-wrapper {
   max-width: 900px;
@@ -259,3 +267,13 @@
   }
 }
 
+/* Добавить в ваш CSS файл */
+@media (max-width: 768px) {
+    .table-responsive table {
+        font-size: 0.875rem;
+    }
+    .table-responsive th,
+    .table-responsive td {
+        padding: 0.5rem;
+    }
+}
