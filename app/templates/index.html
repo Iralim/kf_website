@@ -16,42 +16,63 @@
 
       {% for house in houses %}
       <div class="col-md-6 col-lg-4">
-        <a href="{{ url_for('main.details', id=house.id) }}" class="text-decoration-none text-reset">
-          <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
-            <div class="project-image-wrapper">
-              <img src="../static/images/house.png" class="card-img-top" alt="Проект дома {{ house.title }}">
-            </div>
+  <a href="{{ url_for('main.details', id=house.id) }}" class="text-decoration-none text-reset">
+    <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
 
-            <div class="card-body text-start p-4">
-              <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
-                {{ house.title }}
-              </h5>
-
-              <table class="table table-borderless text-secondary small mb-0 compact-table">
-                <tbody>
-                    <tr>
-                        <th scope="row">Тёплый контур:</th>
-                        <td class="text-end text-dark fw-normal">{{ house.price_base | money }} &#8381;</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">С коммуникациями:</th>
-                        <td class="text-end text-dark fw-normal">{{ house.price_with_communications | money }} &#8381;</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Заезжай и живи:</th>
-                        <td class="text-end text-dark fw-normal">{{ house.price_ready | money }} &#8381;</td>
-                    </tr>
-                    <tr class="border-top">
-                        <th scope="row" class="pt-2">Ипотека от:</th>
-                        <td class="text-end fw-semibold pt-2">{{ house.mortgage_price_per_month | money }} &#8381;/мес</td>
-                    </tr>
-                </tbody>
-              </table>
-
-            </div>
+      <!-- Слайдер -->
+      <div id="carouselHouse1" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../static/houses_images/house_1/1.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
           </div>
-        </a>
+          <div class="carousel-item">
+            <img src="../static/houses_images/house_1/2.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
+          </div>
+          <div class="carousel-item">
+            <img src="../static/houses_images/house_1/3.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
+          </div>
+        </div>
+
+        <!-- Стрелки -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse1" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse1" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
       </div>
+
+      <div class="card-body text-start p-4">
+        <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
+          {{ house.title }}
+        </h5>
+
+        <table class="table table-borderless text-secondary small mb-0 compact-table">
+          <tbody>
+            <tr>
+              <th scope="row">Тёплый контур:</th>
+              <td class="text-end text-dark fw-normal">{{ house.price_base | money }} &#8381;</td>
+            </tr>
+            <tr>
+              <th scope="row">С коммуникациями:</th>
+              <td class="text-end text-dark fw-normal">{{ house.price_with_communications | money }} &#8381;</td>
+            </tr>
+            <tr>
+              <th scope="row">Заезжай и живи:</th>
+              <td class="text-end text-dark fw-normal">{{ house.price_ready | money }} &#8381;</td>
+            </tr>
+            <tr class="border-top">
+              <th scope="row" class="pt-2">Ипотека от:</th>
+              <td class="text-end fw-semibold pt-2">{{ house.mortgage_price_per_month | money }} &#8381;/мес</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </a>
+</div>
+
       {% endfor %}
 
     </div>
@@ -59,52 +80,7 @@
 </section>
 
 <style>
-  /* Карточка проекта */
-  .project-card {
-    border-radius: 1rem;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    background-color: #fff;
-  }
 
-  .project-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Кликабельность */
-  .project-card:hover img {
-    transform: scale(1.05);
-    transition: transform 0.5s ease;
-  }
-
-  .project-image-wrapper {
-    overflow: hidden;
-  }
-
-  /* Мягкий текст */
-  .project-card th {
-    font-weight: 400;
-    color: #7a7a7a;
-  }
-  .project-card td {
-    color: #555;
-  }
-
-  /* Уплотнённая таблица */
-  .compact-table th,
-  .compact-table td {
-    padding: 0.25rem 0;
-    line-height: 1.2;
-  }
-
-  /* Эффект наведения */
-  a.text-reset:hover .project-card {
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
-  }
-
-  a.text-reset {
-    display: block;
-  }
 </style>
 
 

@@ -1,26 +1,24 @@
 /* Отступ для контента, чтобы не прятался под фиксированным меню */
-    body {
-      padding-top: 140px;
-      transition: padding-top 0.3s ease;
-    }
+body {
+  padding-top: 140px;
+  transition: padding-top 0.3s ease;
+}
 
-    /* Анимации для плавности */
-    .navbar, .navbar img {
-      transition: all 0.3s ease;
-    }
-   /* .navbar .container{
-    /* border: 1px solid black; */
-    /* height: 35px; } */
-    /* Класс, который добавляется при прокрутке */
-    .navbar.shrink {
-      padding-top: 0.3rem !important;
-      padding-bottom: 0.3rem !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+/* Анимации для плавности */
+.navbar, .navbar img {
+  transition: all 0.3s ease;
+}
 
-    .navbar.shrink img {
-      width: 250px !important;
-    }
+/* Класс, который добавляется при прокрутке */
+.navbar.shrink {
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.shrink img {
+  width: 250px !important;
+}
 
 /* Логотип по умолчанию — крупнее на десктопах */
 .navbar-brand img {
@@ -35,12 +33,12 @@
     width: 230px;
   }
 }
- /* Background picture */
+
+/* Background picture */
 .b-img-with-bg {
   background-image: url(../images/tskny5iwscpyekaoxngoxll8t7hiibna.webp);
   background-position: center;
   background-repeat: no-repeat;
-  
 }
 
 /* Круглые кнопки соцсетей */
@@ -77,31 +75,31 @@
 @media (max-width: 767.98px) {
   .navbar-collapse {
     position: absolute;
-    top: 100%; /* сразу под navbar */
+    top: 100%;
     left: 0;
     width: 100%;
-    background: white; /* фон, чтобы текст был читаем */
+    background: white;
     z-index: 1000;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
   }
 
   .navbar-collapse.collapse.show {
-    display: block; /* чтобы не прыгало */
+    display: block;
   }
 }
+
 /* Projects buttons */
 .btn-projects {
-  background-color: rgba(0, 0, 0, 0.6); /* тёмный прозрачный фон */
-  color: #fff; /* белый текст */
-  border: none; /* убираем рамку, если нужно */
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
   transition: background-color 0.3s ease;
 }
 
 .btn-projects:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* чуть менее прозрачный при наведении */
+  background-color: rgba(0, 0, 0, 0.8);
 }
-
 
 /* Стили для бейджей */
 .badge-accent {
@@ -134,7 +132,6 @@
   font-family: 'Oswald', sans-serif;
 }
 
-
 /* Карточки преимуществ */
 .card {
   border-radius: 16px;
@@ -159,40 +156,78 @@
   transform: scale(1.1);
 }
 
-/* Секция проектов */
+/* Секция проектов - ОДИН РАЗ */
 .project-card {
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card img {
-  height: 240px;
-  object-fit: cover;
+  border-radius: 1rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background-color: #fff;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.project-card .card-title {
-  font-family: 'Oswald', sans-serif;
+.project-image-wrapper {
+  overflow: hidden;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
-.project-card .btn {
-  border-radius: 8px;
+/* Анимация изображений - единый подход */
+.carousel-inner img {
+  transition: transform 0.5s ease;
 }
-/* Рубли */
 
+.project-card:hover .carousel-inner img {
+  transform: scale(1.05);
+}
 
-/* Или альтернативный вариант с Unicode символом */
+/* Мягкий текст */
+.project-card th {
+  font-weight: 400;
+  color: #7a7a7a;
+}
+
+.project-card td {
+  color: #555;
+}
+
+/* Уплотнённая таблица */
+.compact-table th,
+.compact-table td {
+  padding: 0.25rem 0;
+  line-height: 1.2;
+}
+
+/* Эффект наведения */
+a.text-reset:hover .project-card {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+a.text-reset {
+  display: block;
+}
+
+/* Убираем фон у стрелок */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+}
+
+/* Небольшие стрелки для карточки */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+}
+
+/* Рубли с Unicode символом */
 .rub::after {
-    content: "₽";
-    font-family: system-ui;
-    margin-left: 2px;
+  content: "₽";
+  font-family: system-ui;
+  margin-left: 2px;
 }
-*/
+
 /* Галерея проекта */
 .gallery-wrapper {
   max-width: 900px;
@@ -212,6 +247,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .main-image:hover .zoom-hint {
   opacity: 1;
 }
@@ -226,11 +262,13 @@
   opacity: 0.8;
   transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
 }
+
 .thumb-img:hover {
   opacity: 1;
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
+
 .thumb-img.active {
   opacity: 1;
   border: 3px solid #0d6efd;
@@ -265,15 +303,12 @@
     max-height: 90vh;
     width: 100%;
   }
-}
-
-/* Добавить в ваш CSS файл */
-@media (max-width: 768px) {
-    .table-responsive table {
-        font-size: 0.875rem;
-    }
-    .table-responsive th,
-    .table-responsive td {
-        padding: 0.5rem;
-    }
+  
+  .table-responsive table {
+    font-size: 0.875rem;
+  }
+  .table-responsive th,
+  .table-responsive td {
+    padding: 0.5rem;
+  }
 }
