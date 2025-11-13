@@ -79,86 +79,109 @@
 </section>
 
 <!-- 🔹 Галерея проекта -->
-<section class="py-4 bg-light">
+<section class="py-5 bg-light">
   <div class="container">
-    <div class="gallery-wrapper text-center">
-
-      <!-- Основное изображение -->
-      <div class="main-image mb-3 position-relative">
-        <img 
-          id="mainImage" 
-          src="{{ url_for('static', filename='house_project_1/1.jpg') }}" 
-          class="img-fluid rounded shadow-sm"
-          alt="Основное изображение проекта"
-          style="cursor: zoom-in;"
-          data-bs-toggle="modal"
-          data-bs-target="#imageModal"
-        >
+    <div class="card border-0 shadow p-3">
+      <div class="text-center mb-3">
+        <img id="mainImage" src="../static/houses_images/house_1/1.webp" class="gallery-main img-fluid" alt="Главное изображение">
       </div>
 
-      <!-- Миниатюры -->
-      <div class="thumbnail-list d-flex justify-content-center flex-wrap gap-2">
-        <img src="{{ url_for('static', filename='house_project_1/1.jpg') }}" class="thumb-img active" alt="Вид 1" onclick="changeImage(this)">
-        <img src="{{ url_for('static', filename='house_project_1/2.webp') }}" class="thumb-img" alt="Вид 2" onclick="changeImage(this)">
-        <img src="{{ url_for('static', filename='house_project_1/3.webp') }}" class="thumb-img" alt="Вид 3" onclick="changeImage(this)">
-        <img src="{{ url_for('static', filename='house_project_1/4.webp') }}" class="thumb-img" alt="Вид 4" onclick="changeImage(this)">
+      <div class="gallery-thumbs">
+        <img src="../static/houses_images/house_1/1.webp" class="gallery-thumb active" onclick="changeImage(this)">
+        <img src="../static/houses_images/house_1/2.webp" class="gallery-thumb" onclick="changeImage(this)">
+        <img src="../static/houses_images/house_1/3.webp" class="gallery-thumb" onclick="changeImage(this)">
+        <img src="../static/houses_images/house_1/3.webp" class="gallery-thumb" onclick="changeImage(this)">
+
       </div>
     </div>
   </div>
+
+<style>
+    .gallery-main {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .gallery-main {
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    background-color: #000;
+  }
+}
+
+
+    .gallery-thumbs {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .gallery-thumb {
+      flex: 0 0 auto;
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 8px;
+      opacity: 0.85;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .gallery-thumb:hover,
+    .gallery-thumb.active {
+      opacity: 1;
+      transform: scale(1.05);
+      border: 2px solid #0d6efd;
+    }
+
+    /* Стилизация скроллбара */
+    .gallery-thumbs::-webkit-scrollbar {
+      height: 6px;
+    }
+    .gallery-thumbs::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 576px) {
+      .gallery-thumb {
+        width: 90px;
+        height: 60px;
+      }
+    }
+  </style>
+
+<script>
+    function changeImage(el) {
+      const main = document.getElementById('mainImage');
+      main.style.opacity = 0;
+      setTimeout(() => {
+        main.src = el.src.replace('/300/200', '/1000/600');
+        main.style.opacity = 1;
+      }, 200);
+
+      document.querySelectorAll('.gallery-thumb').forEach(img => img.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </section>
 
-<!-- 🔹 Модальное окно для полноэкранного просмотра -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content bg-dark border-0">
-      <div class="modal-body p-0 position-relative d-flex justify-content-center align-items-center">
-
-        <!-- Кнопка закрытия -->
-        <button 
-          type="button" 
-          class="btn-close btn-close-white position-absolute top-0 end-0 m-3"
-          data-bs-dismiss="modal" 
-          aria-label="Закрыть"
-          style="z-index: 1056; filter: drop-shadow(0 0 3px black);"
-        ></button>
-
-        <!-- Слайдер -->
-        <div id="modalCarousel" class="carousel slide w-100 h-100" data-bs-ride="false">
-          <div class="carousel-inner" id="modalCarouselInner">
-            <!-- Слайды генерируются JS -->
-          </div>
-
-          <!-- Кнопки навигации -->
-          <button 
-            class="carousel-control-prev" 
-            type="button" 
-            data-bs-target="#modalCarousel" 
-            data-bs-slide="prev"
-            style="z-index: 1055;"
-          >
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button 
-            class="carousel-control-next" 
-            type="button" 
-            data-bs-target="#modalCarousel" 
-            data-bs-slide="next"
-            style="z-index: 1055;"
-          >
-            <span class="carousel-control-next-icon"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<script>
+<!-- <script>
   const mainImage = document.getElementById('mainImage');
   const thumbs = document.querySelectorAll('.thumb-img');
   const modalCarouselInner = document.getElementById('modalCarouselInner');
@@ -190,5 +213,5 @@
     const currentIndex = imageSources.indexOf(mainImage.src);
     carousel.to(currentIndex);
   });
-</script>
+</script> -->
 {% endblock %}
