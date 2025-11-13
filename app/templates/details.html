@@ -7,6 +7,10 @@
 {% block features %} {% endblock %}
 
 {% block content %}
+{% block styles %} 
+{{ super() }}
+<link rel="stylesheet" href="../static/css/style_gallery.css">
+{% endblock %}
 
 <!-- 🔹 Информация о проекте -->
 <section class="py-5">
@@ -76,142 +80,150 @@
 
     </div>
   </div>
+  
 </section>
+
 
 <!-- 🔹 Галерея проекта -->
 <section class="py-5 bg-light">
   <div class="container">
     <div class="card border-0 shadow p-3">
       <div class="text-center mb-3">
-        <img id="mainImage" src="../static/houses_images/house_1/1.webp" class="gallery-main img-fluid" alt="Главное изображение">
+        <img id="mainImage" src="../static/houses_images/house_1/1.webp"
+             class="gallery-main img-fluid" alt="Главное изображение">
       </div>
 
       <div class="gallery-thumbs">
         <img src="../static/houses_images/house_1/1.webp" class="gallery-thumb active" onclick="changeImage(this)">
         <img src="../static/houses_images/house_1/2.webp" class="gallery-thumb" onclick="changeImage(this)">
         <img src="../static/houses_images/house_1/3.webp" class="gallery-thumb" onclick="changeImage(this)">
-        <img src="../static/houses_images/house_1/3.webp" class="gallery-thumb" onclick="changeImage(this)">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Модалка с полноэкранным просмотром -->
+  <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-body p-0">
+  <button class="nav-btn left" id="prevBtn" aria-label="Предыдущее">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  </button>
+
+  <img id="fullscreenImage" src="" class="img-fluid rounded" alt="Просмотр изображения">
+
+  <button class="nav-btn right" id="nextBtn" aria-label="Следующее">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  </button>
+
+  <button type="button" class="btn btn-light position-absolute top-0 end-0 m-3"
+          data-bs-dismiss="modal">✕</button>
+</div>
 
       </div>
     </div>
   </div>
 
-<style>
-    .gallery-main {
-  width: 100%;
-  height: 60vh;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: opacity 0.3s ease;
-}
+ 
 
-@media (max-width: 768px) {
-  .gallery-main {
-    height: auto;
-    max-height: 70vh;
-    object-fit: contain;
-    background-color: #000;
-  }
-}
+  <script>
+    let currentIndex = 0;
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+    const mainImage = document.getElementById('mainImage');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    const modalEl = document.getElementById('fullscreenModal');
 
-
-    .gallery-thumbs {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding: 10px 0;
-      display: flex;
-      gap: 10px;
-    }
-
-    .gallery-thumb {
-      flex: 0 0 auto;
-      width: 120px;
-      height: 80px;
-      object-fit: cover;
-      cursor: pointer;
-      border-radius: 8px;
-      opacity: 0.85;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .gallery-thumb:hover,
-    .gallery-thumb.active {
-      opacity: 1;
-      transform: scale(1.05);
-      border: 2px solid #0d6efd;
-    }
-
-    /* Стилизация скроллбара */
-    .gallery-thumbs::-webkit-scrollbar {
-      height: 6px;
-    }
-    .gallery-thumbs::-webkit-scrollbar-thumb {
-      background-color: #ccc;
-      border-radius: 3px;
-    }
-
-    @media (max-width: 576px) {
-      .gallery-thumb {
-        width: 90px;
-        height: 60px;
-      }
-    }
-  </style>
-
-<script>
     function changeImage(el) {
       const main = document.getElementById('mainImage');
       main.style.opacity = 0;
       setTimeout(() => {
-        main.src = el.src.replace('/300/200', '/1000/600');
+        main.src = el.src;
         main.style.opacity = 1;
       }, 200);
-
-      document.querySelectorAll('.gallery-thumb').forEach(img => img.classList.remove('active'));
+      thumbs.forEach(img => img.classList.remove('active'));
       el.classList.add('active');
+      currentIndex = Array.from(thumbs).indexOf(el);
     }
+
+    // Открытие модалки
+    mainImage.addEventListener('click', () => {
+      fullscreenImage.src = mainImage.src;
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    });
+
+    // Навигация по изображениям
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.addEventListener('click', showPrev);
+    nextBtn.addEventListener('click', showNext);
+
+    function fadeChange(newSrc) {
+      fullscreenImage.style.opacity = 0;
+      setTimeout(() => {
+        fullscreenImage.src = newSrc;
+        fullscreenImage.style.opacity = 1;
+      }, 200);
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
+      fadeChange(thumbs[currentIndex].src);
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % thumbs.length;
+      fadeChange(thumbs[currentIndex].src);
+    }
+
+    // Поддержка стрелок клавиатуры
+    document.addEventListener('keydown', (e) => {
+      if (modalEl.classList.contains('show')) {
+        if (e.key === 'ArrowLeft') showPrev();
+        if (e.key === 'ArrowRight') showNext();
+      }
+    });
   </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // --- Поддержка свайпов на сенсорных устройствах ---
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const swipeZone = document.getElementById('fullscreenImage');
+
+  swipeZone.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  swipeZone.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+    if (Math.abs(swipeDistance) < 50) return; // фильтруем мелкие движения
+    if (swipeDistance < 0) {
+      showNext(); // свайп влево → следующее
+    } else {
+      showPrev(); // свайп вправо → предыдущее
+    }
+  }
+</script>
+
 </section>
-
-
 
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<!-- <script>
-  const mainImage = document.getElementById('mainImage');
-  const thumbs = document.querySelectorAll('.thumb-img');
-  const modalCarouselInner = document.getElementById('modalCarouselInner');
-
-  // Смена изображения в блоке
-  function changeImage(element) {
-    mainImage.src = element.src;
-    thumbs.forEach(img => img.classList.remove('active'));
-    element.classList.add('active');
-  }
-
-  // Генерация слайдов
-  const imageSources = Array.from(thumbs).map(img => img.src);
-  modalCarouselInner.innerHTML = ''; // очищаем, если открываем заново
-  imageSources.forEach((src, index) => {
-    const div = document.createElement('div');
-    div.classList.add('carousel-item');
-    if (index === 0) div.classList.add('active');
-    div.innerHTML = `
-      <div class="d-flex justify-content-center align-items-center" style="height:100vh;">
-        <img src="${src}" class="d-block modal-img" alt="Фото ${index + 1}">
-      </div>`;
-    modalCarouselInner.appendChild(div);
-  });
-
-  // При открытии модалки — показать текущий слайд
-  mainImage.addEventListener('click', () => {
-    const carousel = bootstrap.Carousel.getOrCreateInstance('#modalCarousel');
-    const currentIndex = imageSources.indexOf(mainImage.src);
-    carousel.to(currentIndex);
-  });
-</script> -->
 {% endblock %}
