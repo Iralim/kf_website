@@ -2,14 +2,13 @@
 
 {% block title %}Дом "Солнечный" - Крепкий Фундамент{% endblock %}
 
-{% block hero %} {% endblock %}
-
+{% block hero %}{% endblock %}
 {% block features %} {% endblock %}
 
 {% block content %}
 {% block styles %} 
 {{ super() }}
-<link rel="stylesheet" href="../static/css/style_gallery.css">
+<link rel="stylesheet" href="{{ url_for('static', filename = '/css/style_details.css') }}">
 {% endblock %}
 
 <!-- 🔹 Информация о проекте -->
@@ -18,70 +17,91 @@
     <div class="row g-4 align-items-start">
 
       <!-- Основной текст -->
-      <div class="col-lg-8">
-        <h1 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">{{ house.title }}</h1>
-        <p class="text-secondary fs-6 mb-4">
-            {{ house.description }}
-        </p>
+      <div class="col-lg-6">
+        
+        <h1 class="fw-normal mb-3 d-flex flex-column"
+    style="font-family: 'Oswald', sans-serif; color: #4a4a4a; letter-spacing: 0.5px;">
 
-        <h5 class="fw-semibold mt-4 mb-3">Что входит в стоимость:</h5>
-        <ul class="text-secondary">
-          <li>Полностью готовая чистовая отделка;</li>
-          <li>Тёплые полы по всему дому;</li>
-          <li>Сантехника и электрика под ключ;</li>
-          <li>Отделка санузла и котельной;</li>
-          <li>Все инженерные системы и коммуникации.</li>
-        </ul>
-
-
-        <div class="mt-4">
-          <a href="tel:+79173755545" class="btn btn-primary btn-lg">
-            📞 Получить консультацию
-          </a>
-        </div>
-      </div>
-
-      <!-- Характеристики -->
-      <div class="col-lg-4">
-        <div class="card border-0 shadow-sm p-4">
-          <h5 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">Характеристики</h5>
-          <table class="table table-borderless text-secondary small mb-0">
-            <tbody>
-                <tr>
-                    <th scope="row">Площадь:</th>
-                    <td>{{ house.square }} м²</td>
-                </tr>
-                <tr>
-                    <th scope="row">Район:</th>
-                    <td>{{ house.area }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Базовая цена:</th>
-                    <td>{{ house.price_base | money }} ₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">С коммуникациями:</th>
-                    <td>{{ house.price_with_communications | money }} ₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Цена готового дома:</th>
-                    <td>{{ house.price_ready | money }} ₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Ипотека (в месяц):</th>
-                    <td>{{ house.mortgage_price_per_month | money }} ₽</td>
-                </tr>
-            </tbody>
-
-
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  {{ project.title }}
+  <small class="fw-normal text-secondary mt-2">
+    <i class="bi bi-aspect-ratio"></i> {{ project.square }} м² 
+    &nbsp;•&nbsp;
   
+
+    <i class="bi bi-arrows-angle-expand"></i> {{ project.area }}
+  </small>
+</h1>
+
+        
+        <p class="text-secondary fs-6 mb-4">
+          {{ project.description }}
+        </p>
+    
+      </div>
+
+    <!-- Характеристики -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
+          <!-- <h5 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">Характеристики</h5> -->
+
+          <div class="table-responsive">
+            <table class="table table-borderless align-middle mb-0 beautiful-table">
+              <tbody>
+                <tr>
+                  <th><i class="bi bi-aspect-ratio me-2 text-primary"></i>Площадь</th>
+                  <td>{{ project.square }} м²</td>
+                </tr>
+                <tr>
+                  <th><i class="bi bi-geo-alt me-2 text-danger"></i>Район</th>
+                  <td>{{ project.area }}</td>
+                </tr>
+                <tr>
+                  <th><i class="bi bi-cash-stack me-2 text-success"></i>Базовая цена</th>
+                  <td>{{ project.price_base | money }} ₽</td>
+                </tr>
+                <tr>
+                  <th><i class="bi bi-lightning-charge me-2 text-warning"></i>С коммуникациями</th>
+                  <td>{{ project.price_with_communications | money }} ₽</td>
+                </tr>
+                <tr>
+                  <th><i class="bi bi-house-door me-2 text-info"></i>Цена готового дома</th>
+                  <td>{{ project.price_ready | money }} ₽</td>
+                </tr>
+                <tr>
+                  <th><i class="bi bi-credit-card me-2 text-primary"></i>Ипотека / месяц</th>
+                  <td>{{ project.mortgage_price_per_month | money }} ₽</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  
+  </div>
 </section>
+
+<style>
+  .beautiful-table th {
+  white-space: nowrap;
+  font-weight: 600;
+  color: #333;
+  padding: 0.7rem 0;
+}
+
+.beautiful-table td {
+  text-align: right;
+  color: #555;
+  padding: 0.7rem 0;
+}
+
+.beautiful-table tr + tr th,
+.beautiful-table tr + tr td {
+  border-top: 1px solid #eee;
+}
+
+</style>
 
 
 <!-- 🔹 Галерея проекта -->
@@ -89,14 +109,17 @@
   <div class="container">
     <div class="card border-0 shadow p-3">
       <div class="text-center mb-3">
-        <img id="mainImage" src="../static/houses_images/house_1/1.webp"
+        <img id="mainImage" src="{{ url_for('static', filename=project.images.first().url) }}"
              class="gallery-main img-fluid" alt="Главное изображение">
       </div>
 
       <div class="gallery-thumbs">
-        <img src="../static/houses_images/house_1/1.webp" class="gallery-thumb active" onclick="changeImage(this)">
-        <img src="../static/houses_images/house_1/2.webp" class="gallery-thumb" onclick="changeImage(this)">
-        <img src="../static/houses_images/house_1/3.webp" class="gallery-thumb" onclick="changeImage(this)">
+        {% for image in project.images.all() %}
+        <img src="{{ url_for('static', filename=image.url) }}" class="gallery-thumb" onclick="changeImage(this)">
+        {% endfor %}
+        <!-- <img src="../static/houses_images/house_1/1.webp" class="gallery-thumb active" onclick="changeImage(this)">
+        <img src="../static/houses_images/house_1/2.webp" class="gallery-thumb" onclick="changeImage(this)"> -->
+        
       </div>
     </div>
   </div>

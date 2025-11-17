@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}{% endblock %}</title>
   
-  {% block styles %}
+ {% block styles %}
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -16,13 +16,13 @@
   >
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon_kf/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon_kf/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon_kf/favicon-16x16.png">
-  <link rel="manifest" href="../static/favicon_kf/site.webmanifest">
-  {% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_kf/apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_kf/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_kf/favicon-16x16.png') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='favicon_kf/site.webmanifest') }}">
+{% endblock %}
 </head>
 <body>
   {% block header %}
@@ -50,7 +50,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom py-3" id="mainNav">
       <div class="container align-items-center justify-content-between">
         <a class="navbar-brand fw-bold me-2" href="{{ url_for('main.index') }}">
-          <img src="../static/images/logo_krepkii_fundament.png" alt="Logo" width="340">
+          <img src="{{ url_for('static', filename='images/logo_krepkii_fundament.png')}}" alt="Logo" width="340">
         </a>
         <button
           class="navbar-toggler"
@@ -202,9 +202,6 @@
   {% endblock %}
 
   {% block content %}
-  <!-- 🔹 Проекты -->
-
-
   {% endblock %}
 
   {% block scripts %}

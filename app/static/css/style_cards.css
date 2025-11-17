@@ -51,11 +51,6 @@ a.text-reset {
   display: block;
 }
 
-/* Убираем фон у стрелок */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(1) grayscale(100);
-}
 
 /* Небольшие стрелки для карточки */
 .carousel-control-prev,

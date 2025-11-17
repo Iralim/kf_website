@@ -74,43 +74,10 @@
       <div class="row g-4 align-items-start">
         <!-- Основной текст + поля ввода -->
         <div class="col-lg-8">
-          <!-- Название Проекта -->
+          <!-- Название дома -->
           <div class="mb-4">
             <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Название проекта</label>
             {{ form.title(class="form-control form-control-lg") }}
-            <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const titleInput = document.querySelector("input[name='title']");
-    const messageBox = document.createElement("div");
-    messageBox.style.marginTop = "5px";
-    titleInput.after(messageBox);
-
-    let timeout = null;
-
-    titleInput.addEventListener("input", () => {
-        clearTimeout(timeout);
-
-        timeout = setTimeout(() => {
-            const title = titleInput.value.trim();
-            if (!title) {
-                messageBox.textContent = "";
-                return;
-            }
-
-            fetch(`/check_title?title=${encodeURIComponent(title)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.exists) {
-                        messageBox.innerHTML = "<span style='color: red;'>Проект с таким названием уже существует</span>";
-                    } else {
-                        messageBox.innerHTML = "<span style='color: green;'>Название свободно</span>";
-                    }
-                });
-        }, 400); // таймаут, чтобы не спамить сервер каждый символ
-    });
-});
-</script>
-
           </div>
 
           <!-- Описание -->
@@ -180,93 +147,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div class="row g-4">
 
-{% for project in projects %}
-<div class="col-md-6 col-lg-4">
-    <a href="{{ url_for('main.edit_project', id=project.id) }}" class="text-decoration-none text-reset">
-        <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
+      {% for project in projects %}
+      <div class="col-md-6 col-lg-4">
+        <a href="#" class="text-decoration-none text-reset">
+          <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
 
-            <div id="carouselProject{{ project.id }}" class="carousel slide project-image-wrapper">
-                <div class="carousel-inner">
-                    {% for image in project.images.all() %}
-                    <div class="carousel-item active">
-                        <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="Проект дома {{ project.title }}">
-                    </div>
-                    {% endfor %}
+            <!-- Слайдер с уникальным ID -->
+            <!-- <div id="carouselHouse{{ house.id }}" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000"> -->
+            <div id="carouselHouse{{ house.id }}" class="carousel slide project-image-wrapper">
+              <div class="carousel-inner">
+                {% for image in house.images.all() %}
+                <div class="carousel-item active">
+                  <img src="{{ url_for('static', filename=image.image_url) }}" class="card-img-top" alt="Проект дома {{ house.title }}">
                 </div>
+                {% endfor %}
+              </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselProject{{ project.id }}" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselProject{{ project.id }}" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+              <!-- Стрелки -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse{{ house.id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse{{ house.id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
             </div>
 
             <div class="card-body text-start p-4">
-                <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
-                    {{ project.title }}
-                </h5>
+              <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
+                {{ house.title }}
+              </h5>
 
-                <table class="table table-borderless text-secondary small mb-0 compact-table">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Тёплый контур:</th>
-                            <td class="text-end text-dark fw-normal">{{ project.price_base | money }} &#8381;</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">С коммуникациями:</th>
-                            <td class="text-end text-dark fw-normal">{{ project.price_with_communications | money }} &#8381;</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Заезжай и живи:</th>
-                            <td class="text-end text-dark fw-normal">{{ project.price_ready | money }} &#8381;</td>
-                        </tr>
-                        <tr class="border-top">
-                            <th scope="row" class="pt-2">Ипотека от:</th>
-                            <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} &#8381;/мес</td>
-                        </tr>
-                    </tbody>
-                </table>
+              <table class="table table-borderless text-secondary small mb-0 compact-table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Тёплый контур:</th>
+                    <td class="text-end text-dark fw-normal">{{ house.price_base | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">С коммуникациями:</th>
+                    <td class="text-end text-dark fw-normal">{{ house.price_with_communications | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Заезжай и живи:</th>
+                    <td class="text-end text-dark fw-normal">{{ house.price_ready | money }} &#8381;</td>
+                  </tr>
+                  <tr class="border-top">
+                    <th scope="row" class="pt-2">Ипотека от:</th>
+                    <td class="text-end fw-semibold pt-2">{{ house.mortgage_price_per_month | money }} &#8381;/мес</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-        </div>
-    </a>
-
-    <!-- Кнопка удаления -->
-    <button class="btn btn-danger btn-sm delete-btn mt-2" data-id="{{ project.id }}">DELETE</button>
-
-</div>
-{% endfor %}
-
-<script>
-document.addEventListener("click", async function(event) {
-    const btn = event.target.closest(".delete-btn");
-    if (!btn) return;
-
-    const id = btn.dataset.id;
-
-    if (!confirm("Удалить проект?")) return;
-
-    try {
-        const response = await fetch(`/api/project/${id}`, {
-            method: "DELETE",
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        });
-
-        if (response.ok) {
-            btn.closest(".col-md-6.col-lg-4").remove();
-        } else {
-            alert("Ошибка удаления");
-        }
-
-    } catch (e) {
-        alert("Ошибка удаления");
-    }
-});
-</script>
-
+          </div>
+        </a>
+      </div>
+      {% endfor %}
 
     </div>
   </div>

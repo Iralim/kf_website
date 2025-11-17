@@ -3,7 +3,7 @@
 
 {% block styles %} 
 {{ super() }}
-<link rel="stylesheet" href="../static/css/style_cards.css"
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_cards.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -19,74 +19,68 @@
 
     <div class="row g-4">
 
-      {% for house in houses %}
+      {% for project in projects %}
       <div class="col-md-6 col-lg-4">
-  <a href="{{ url_for('main.details', id=house.id) }}" class="text-decoration-none text-reset">
-    <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
+        <a href="{{ url_for('main.details', id=project.id) }}" class="text-decoration-none text-reset">
+          <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
 
-      <!-- Слайдер -->
-      <div id="carouselHouse1" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="../static/houses_images/house_1/1.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
-          </div>
-          <div class="carousel-item">
-            <img src="../static/houses_images/house_1/2.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
-          </div>
-          <div class="carousel-item">
-            <img src="../static/houses_images/house_1/3.webp" class="card-img-top" alt="Проект дома {{ house.title }}">
-          </div>
-        </div>
+            <!-- Слайдер с уникальным ID -->
+            <!-- <div id="carouselHouse{{ project.id }}" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000"> -->
+            <div id="carouselHouse{{ project.id }}" class="carousel slide project-image-wrapper">
+              <div class="carousel-inner">
+                {% for image in project.images.all() %}
+              
+                <div class="carousel-item active">
+                  <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="Проект дома {{ project.title }}">
+                </div>
+                {% endfor %}
 
-        <!-- Стрелки -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse1" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse1" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
+              </div>
+
+              <!-- Стрелки -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse{{ project.id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse{{ project.id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+
+            <div class="card-body text-start p-4">
+              <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
+                {{ project.title }}
+              </h5>
+
+              <table class="table table-borderless text-secondary small mb-0 compact-table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Тёплый контур:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_base | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">С коммуникациями:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_with_communications | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Заезжай и живи:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_ready | money }} &#8381;</td>
+                  </tr>
+                  <tr class="border-top">
+                    <th scope="row" class="pt-2">Ипотека от:</th>
+                    <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} &#8381;/мес</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </a>
       </div>
-
-      <div class="card-body text-start p-4">
-        <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
-          {{ house.title }}
-        </h5>
-
-        <table class="table table-borderless text-secondary small mb-0 compact-table">
-          <tbody>
-            <tr>
-              <th scope="row">Тёплый контур:</th>
-              <td class="text-end text-dark fw-normal">{{ house.price_base | money }} &#8381;</td>
-            </tr>
-            <tr>
-              <th scope="row">С коммуникациями:</th>
-              <td class="text-end text-dark fw-normal">{{ house.price_with_communications | money }} &#8381;</td>
-            </tr>
-            <tr>
-              <th scope="row">Заезжай и живи:</th>
-              <td class="text-end text-dark fw-normal">{{ house.price_ready | money }} &#8381;</td>
-            </tr>
-            <tr class="border-top">
-              <th scope="row" class="pt-2">Ипотека от:</th>
-              <td class="text-end fw-semibold pt-2">{{ house.mortgage_price_per_month | money }} &#8381;/мес</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </a>
-</div>
-
       {% endfor %}
 
     </div>
   </div>
 </section>
-
-<style>
-
-</style>
 
 
 {% endblock%}
