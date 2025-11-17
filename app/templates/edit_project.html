@@ -1,194 +1,162 @@
 {% extends 'base.html' %}
-{% block title %}Admin{% endblock %}
+{% block title %}Редактирование проекта{% endblock %}
 
 {% block styles %} 
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style_edit_project.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 {% endblock %}
 
 {% block hero %}{% endblock %}
 {% block features %}{% endblock %}
 
-
 {% block content %}
-<section class="py-5">
+<section class="py-4">
   <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold" style="font-family: 'Oswald', sans-serif;">Редактирование проекта</h2>
+      <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Назад к панели управления
+      </a>
+    </div>
+    
     <form method="POST" action="{{ url_for('main.edit_project', id=project.id) }}" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
 
       <div class="row g-4 align-items-start">
-        <!-- Основной текст + поля ввода -->
+        <!-- Основной контент -->
         <div class="col-lg-8">
-          <!-- Название дома -->
-          <div class="mb-4">
-            <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Название проекта</label>
-            {{ form.title(class="form-control form-control-lg") }}
+          <!-- Название проекта -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="section-title">Основная информация</h5>
+              <div class="mb-4">
+                <label class="form-label fw-bold">Название проекта</label>
+                {{ form.title(class="form-control form-control-lg") }}
+              </div>
+
+              <!-- Описание -->
+              <div class="mb-0">
+                <label class="form-label fw-bold">Описание проекта</label>
+                {{ form.description(class="form-control", rows="5", placeholder="Опишите особенности проекта...") }}
+              </div>
+            </div>
           </div>
+          
+          <!-- Изображения проекта -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="section-title">Изображения проекта</h5>
+              
+              <!-- Загрузка изображений -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Добавить изображения</label>
+                <div class="upload-area" id="uploadArea">
+                  <div class="upload-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                  </div>
+                  <p class="mb-2">Перетащите изображения сюда или нажмите для выбора</p>
+                  <!-- <p class="text-muted small">Поддерживаются форматы JPG, PNG, GIF. Максимальный размер: 5MB</p> -->
+                  
+                  <!-- Скрытое поле загрузки, которое будет использоваться в форме -->
+                  <div class="file-input-wrapper">
+                    {{ form.img_files(multiple=True, id="imgUpload", class="form-control") }}
+                    <button type="button" class="btn btn-outline-success mt-2" id="uploadTrigger">Выбрать файлы</button>
+                  </div>
+                </div>
+                
+                <!-- Список выбранных файлов -->
+                <div class="selected-files" id="selectedFiles">
+                  <h6 class="fw-bold mb-3">Выбранные файлы:</h6>
+                  <div class="file-list" id="fileList"></div>
+                  <button type="button" class="btn btn-outline-danger btn-sm mt-3" id="clearFiles">Очистить список</button>
+                </div>
+              </div>
+              
+              <!-- Галерея изображений -->
+              <div>
+                  <label class="form-label fw-bold">Текущие изображения</label>
+                  {% if images %}
+                  <div class="gallery-grid">
+                      {% for image in images %}
+                      <div class="gallery-item" data-id="{{ image.id }}">
+                          
+                          <img src="{{ url_for('static', filename=image.url) }}" alt="Изображение проекта">
 
-          <!-- Описание -->
-          <div class="mb-4">
-            <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Описание</label>
-            {{ form.description(class="form-control", rows="4") }}
+                          <!-- Имя файла -->
+                          <div class="image-name">{{ image.filename }}</div>
+
+                          <button type="button" class="delete-btn" data-id="{{ image.id }}">✕</button>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  {% else %}
+                  <div class="text-center py-4 text-muted">
+                      <i class="bi bi-images display-4 d-block mb-2"></i>
+                      <p>Изображения не добавлены</p>
+                  </div>
+                  {% endif %}
+              </div>
+
+            </div>
           </div>
-          <!-- Upload Image -->
-           <div class="mb-4">
-            <!-- <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Загрузка Изображений</label>
-            {{ form.img_files(class="form-control", rows="4", multiple=True) }} -->
-            
-            <label class="form-label fw-bold">Загрузка Изображений</label>
-{{ form.img_files(class="form-control", multiple=True, id="imgUpload") }}
-
-<script>
-const existingFiles = {{ existing_files|tojson }};
-const uploadInput = document.getElementById("imgUpload");
-
-uploadInput.addEventListener("change", function () {
-    const selectedFiles = Array.from(this.files);
-
-    // 1) Проверяем дубликаты среди уже существующих файлов
-    const duplicatesWithExisting = selectedFiles.filter(file =>
-        existingFiles.includes(file.name)
-    );
-
-    if (duplicatesWithExisting.length > 0) {
-        alert("Файлы уже существуют: \n" +
-              duplicatesWithExisting.map(f => f.name).join("\n"));
-        this.value = ""; // очищаем поле загрузки
-        return;
-    }
-
-    // 2) Проверяем дубликаты среди загруженных файлов
-    const names = selectedFiles.map(f => f.name);
-    const duplicatesInsideUpload = names.filter((name, index) =>
-        names.indexOf(name) !== index
-    );
-
-    if (duplicatesInsideUpload.length > 0) {
-        alert("Нельзя загружать два файла с одинаковыми именами:\n" +
-              duplicatesInsideUpload.join("\n"));
-        this.value = ""; // очищаем поле
-        return;
-    }
-});
-</script>
-
-          </div>
-         <!-- Mini-галерея -->
-<div class="mb-4">
-    <div class="card border-0 shadow p-3">
-        <div class="gallery-grid">
-          {% for image in images %}
-          <div class="gallery-item" data-id="{{ image.id }}">
-    <img src="{{ url_for('static', filename=image.url) }}" alt="image">
-    <button class="delete-btn" data-id="{{ image.id }}">✕</button>
-</div>
-
-          {% endfor %}
-
-<script>
-// Универсальный fetch с обработкой ошибок
-async function safeFetch(url, options = {}) {
-    try {
-        const response = await fetch(url, {
-            headers: { "X-Requested-With": "XMLHttpRequest" },
-            ...options
-        });
-
-        if (!response.ok) {
-            throw new Error("Server error: " + response.status);
-        }
-
-        return response;
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
-}
-
-document.addEventListener("click", async function(event) {
-    const btn = event.target.closest(".delete-btn");
-    if (!btn) return;
-
-    const id = btn.dataset.id;
-    const item = btn.closest(".gallery-item");
-
-    if (!confirm("Удалить изображение?")) return;
-
-    btn.disabled = true;
-
-    try {
-        // DELETE запрос
-        await safeFetch(`/delete_image/${id}`, { method: "DELETE" });
-
-        // Анимация исчезновения
-        item.classList.add("removing");
-
-        // Удаляем после анимации
-        setTimeout(() => item.remove(), 300);
-
-    } catch (err) {
-        alert("Ошибка удаления");
-        btn.disabled = false;
-    }
-});
-</script>
-
-
-        </div>
-    </div>
-</div>
-
         </div>
 
         <!-- Характеристики -->
         <div class="col-lg-4">
-          <div class="card border-0 shadow-sm p-4">
-            <h5 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">Характеристики</h5>
+          <div class="card border-0 shadow-sm characteristics-card">
+            <div class="card-body">
+              <h5 class="section-title">Характеристики</h5>
+              
+              <div class="mb-3">
+                <label class="form-label">Площадь дома (м²)</label>
+                {{ form.square(class="form-control", placeholder="Например: 120") }}
+              </div>
 
-            <div class="mb-3">
-              <label class="form-label">Площадь (м²)</label>
-              {{ form.square(class="form-control") }}
-            </div>
+              <div class="mb-3">
+                <label class="form-label">Площадь участка (м²)</label>
+                {{ form.size(class="form-control", placeholder="Например: 600") }}
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Базовая цена (тёплый контур)</label>
+                <div class="price-input-group">
+                  {{ form.price_base(class="form-control", placeholder="0") }}
+                </div>
+              </div>
 
-            <div class="mb-3">
-              <label class="form-label">Площадь участка (м²)</label>
-              {{ form.size(class="form-control") }}
-            </div>
+              <div class="mb-3">
+                <label class="form-label">Цена с коммуникациями</label>
+                <div class="price-input-group">
+                  {{ form.price_with_communications(class="form-control", placeholder="0") }}
+                </div>
+              </div>
 
-            <div class="mb-3">
-              <label class="form-label">Базовая цена (тёплый контур)</label>
-              {{ form.price_base(class="form-control") }}
-            </div>
+              <div class="mb-3">
+                <label class="form-label">Цена готового дома</label>
+                <div class="price-input-group">
+                  {{ form.price_ready(class="form-control", placeholder="0") }}
+                </div>
+              </div>
 
-            <div class="mb-3">
-              <label class="form-label">Цена с коммуникациями</label>
-              {{ form.price_with_communications(class="form-control") }}
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Цена готового дома</label>
-              {{ form.price_ready(class="form-control") }}
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Ипотека (в месяц)</label>
-              {{ form.mortgage_price_per_month(class="form-control") }}
+              <div class="mb-0">
+                <label class="form-label">Ипотека (в месяц)</label>
+                <div class="price-input-group">
+                  {{ form.mortgage_price_per_month(class="form-control", placeholder="0") }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-    </div>
+      </div>
       
-      
-       
-    
-       
-
-      <!-- Кнопка отправки -->
+      <!-- Кнопка сохранения -->
       <div class="row mt-4">
         <div class="col-12">
-          <div class="d-grid">
-            {{ form.submit(class="btn btn-success btn-lg") }}
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary me-md-2">Отмена</a>
+            {{ form.submit(class="btn btn-success btn-lg px-4") }}
           </div>
         </div>
       </div>
@@ -196,34 +164,25 @@ document.addEventListener("click", async function(event) {
   </div>
 </section>
 
+<!-- Список проектов -->
 <section id="projects" class="py-5 bg-light">
-  <div class="container text-center">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold" style="font-family: 'Oswald', sans-serif;">Все проекты</h2>
 
     <div class="row g-4">
-
       {% for project in projects %}
       <div class="col-md-6 col-lg-4">
         <a href="{{ url_for('main.edit_project', id=project.id) }}" class="text-decoration-none text-reset">
           <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
-
-            <!-- Слайдер с уникальным ID -->
-            <!-- <div id="carouselProject{{ project.id }}" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000"> -->
-            <div id="carouselPoject{{ project.id }}" class="carousel slide project-image-wrapper">
-              <div class="carousel-inner">
-                {% for image in project.images.all() %}
-                <div class="carousel-item active">
-                  <img src="{{ url_for('static', filename=image.image_url) }}" class="card-img-top" alt="Проект дома {{ project.title }}">
-                </div>
-                {% endfor %}
+            <!-- Изображение проекта -->
+            <div class="project-image-wrapper">
+              {% if project.images.first() %}
+              <img src="{{ url_for('static', filename=project.images.first().image_url) }}" class="card-img-top" alt="Проект дома {{ project.title }}">
+              {% else %}
+              <div class="h-100 d-flex align-items-center justify-content-center bg-secondary text-white">
+                <i class="bi bi-house display-4"></i>
               </div>
-
-              <!-- Стрелки -->
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselProject{{ project.id }}" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselProject{{ project.id }}" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-              </button>
+              {% endif %}
             </div>
 
             <div class="card-body text-start p-4">
@@ -235,30 +194,201 @@ document.addEventListener("click", async function(event) {
                 <tbody>
                   <tr>
                     <th scope="row">Тёплый контур:</th>
-                    <td class="text-end text-dark fw-normal">{{ project.price_base | money }} &#8381;</td>
+                    <td class="text-end text-dark fw-normal">{{ project.price_base | money }} ₽</td>
                   </tr>
                   <tr>
                     <th scope="row">С коммуникациями:</th>
-                    <td class="text-end text-dark fw-normal">{{ project.price_with_communications | money }} &#8381;</td>
+                    <td class="text-end text-dark fw-normal">{{ project.price_with_communications | money }} ₽</td>
                   </tr>
                   <tr>
                     <th scope="row">Заезжай и живи:</th>
-                    <td class="text-end text-dark fw-normal">{{ project.price_ready | money }} &#8381;</td>
+                    <td class="text-end text-dark fw-normal">{{ project.price_ready | money }} ₽</td>
                   </tr>
                   <tr class="border-top">
                     <th scope="row" class="pt-2">Ипотека от:</th>
-                    <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} &#8381;/мес</td>
+                    <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} ₽/мес</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
           </div>
         </a>
       </div>
       {% endfor %}
-
     </div>
   </div>
 </section>
+
+<script>
+// Обработка загрузки изображений
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadInput = document.getElementById('imgUpload');
+    const uploadTrigger = document.getElementById('uploadTrigger');
+    const selectedFilesContainer = document.getElementById('selectedFiles');
+    const fileList = document.getElementById('fileList');
+    const clearFilesBtn = document.getElementById('clearFiles');
+    
+    // Используем let вместо const, чтобы можно было обновлять список
+    let existingFiles = {{ existing_files|tojson }};
+    
+    // Функция для удаления файла из existingFiles
+    function removeFileFromExistingFiles(fileName) {
+        const index = existingFiles.indexOf(fileName);
+        if (index > -1) {
+            existingFiles.splice(index, 1);
+            console.log('Файл удален из existingFiles:', fileName);
+            console.log('Обновленный existingFiles:', existingFiles);
+        }
+    }
+    
+    // Открытие диалога выбора файлов при клике на область загрузки
+    uploadArea.addEventListener('click', function(e) {
+        if (e.target !== uploadTrigger && !uploadTrigger.contains(e.target)) {
+            uploadInput.click();
+        }
+    });
+    
+    uploadTrigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        uploadInput.click();
+    });
+    
+    // Обработка перетаскивания файлов
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    
+    uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+    });
+    
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        
+        if (e.dataTransfer.files.length) {
+            uploadInput.files = e.dataTransfer.files;
+            validateAndShowFiles();
+        }
+    });
+    
+    // Обработка выбора файлов через диалог
+    uploadInput.addEventListener('change', validateAndShowFiles);
+    
+    // Очистка списка файлов
+    clearFilesBtn.addEventListener('click', function() {
+        uploadInput.value = '';
+        selectedFilesContainer.style.display = 'none';
+        fileList.innerHTML = '';
+    });
+    
+    function validateAndShowFiles() {
+        const selectedFiles = Array.from(uploadInput.files);
+        
+        if (selectedFiles.length === 0) {
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+        
+        // Проверка дубликатов среди существующих файлов
+        const duplicatesWithExisting = selectedFiles.filter(file =>
+            existingFiles.includes(file.name)
+        );
+        
+        if (duplicatesWithExisting.length > 0) {
+            alert("Файлы уже существуют: \n" +
+                  duplicatesWithExisting.map(f => f.name).join("\n"));
+            uploadInput.value = "";
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+        
+        // Проверка дубликатов среди загружаемых файлов
+        const names = selectedFiles.map(f => f.name);
+        const duplicatesInsideUpload = names.filter((name, index) =>
+            names.indexOf(name) !== index
+        );
+        
+        if (duplicatesInsideUpload.length > 0) {
+            alert("Нельзя загружать два файла с одинаковыми именами:\n" +
+                  duplicatesInsideUpload.join("\n"));
+            uploadInput.value = "";
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+        
+        // Показываем список выбранных файлов
+        fileList.innerHTML = '';
+        selectedFiles.forEach((file, index) => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="flex-grow-1">
+                    <div class="fw-medium">${file.name}</div>
+                    <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+            `;
+            fileList.appendChild(fileItem);
+        });
+        
+        selectedFilesContainer.style.display = 'block';
+    }
+    
+    // Удаление изображений
+    async function safeFetch(url, options = {}) {
+        try {
+            const response = await fetch(url, {
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                ...options
+            });
+            
+            if (!response.ok) {
+                throw new Error("Server error: " + response.status);
+            }
+            
+            return response;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    }
+    
+    document.addEventListener("click", async function(event) {
+        const btn = event.target.closest(".delete-btn");
+        if (!btn) return;
+        
+        const id = btn.dataset.id;
+        const item = btn.closest(".gallery-item");
+        const img = item.querySelector('img');
+        const imgSrc = img.src;
+        
+        // Извлекаем имя файла из URL
+        const fileName = imgSrc.split('/').pop();
+        
+        if (!confirm("Удалить изображение?")) return;
+        
+        btn.disabled = true;
+        
+        try {
+            // DELETE запрос
+            await safeFetch(`/delete_image/${id}`, { method: "DELETE" });
+            
+            // Удаляем файл из списка existingFiles
+            removeFileFromExistingFiles(fileName);
+            
+            // Анимация исчезновения
+            item.classList.add("removing");
+            
+            // Удаляем после анимации
+            setTimeout(() => item.remove(), 300);
+            
+        } catch (err) {
+            alert("Ошибка удаления");
+            btn.disabled = false;
+        }
+    });
+});
+</script>
 {% endblock %}
