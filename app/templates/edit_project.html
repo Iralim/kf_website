@@ -3,7 +3,8 @@
 
 {% block styles %} 
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style_details.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_edit_project.css') }}">
+
 {% endblock %}
 
 {% block hero %}{% endblock %}
@@ -32,43 +33,111 @@
           </div>
           <!-- Upload Image -->
            <div class="mb-4">
-            <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Загрузка Изображений</label>
-            {{ form.img_files(class="form-control", rows="4", multiple=True) }}
+            <!-- <label class="form-label fw-bold" style="font-family: 'Oswald', sans-serif;">Загрузка Изображений</label>
+            {{ form.img_files(class="form-control", rows="4", multiple=True) }} -->
+            
+            <label class="form-label fw-bold">Загрузка Изображений</label>
+{{ form.img_files(class="form-control", multiple=True, id="imgUpload") }}
+
+<script>
+const existingFiles = {{ existing_files|tojson }};
+const uploadInput = document.getElementById("imgUpload");
+
+uploadInput.addEventListener("change", function () {
+    const selectedFiles = Array.from(this.files);
+
+    // 1) Проверяем дубликаты среди уже существующих файлов
+    const duplicatesWithExisting = selectedFiles.filter(file =>
+        existingFiles.includes(file.name)
+    );
+
+    if (duplicatesWithExisting.length > 0) {
+        alert("Файлы уже существуют: \n" +
+              duplicatesWithExisting.map(f => f.name).join("\n"));
+        this.value = ""; // очищаем поле загрузки
+        return;
+    }
+
+    // 2) Проверяем дубликаты среди загруженных файлов
+    const names = selectedFiles.map(f => f.name);
+    const duplicatesInsideUpload = names.filter((name, index) =>
+        names.indexOf(name) !== index
+    );
+
+    if (duplicatesInsideUpload.length > 0) {
+        alert("Нельзя загружать два файла с одинаковыми именами:\n" +
+              duplicatesInsideUpload.join("\n"));
+        this.value = ""; // очищаем поле
+        return;
+    }
+});
+</script>
+
           </div>
-          <!-- Mini-галерея -->
-            <div class="mb-4">
-            <div class="card border-0 shadow p-3">
-                <div class="gallery-grid">
-                {% for image in images %}
-                    <div class="gallery-item">
-                    <img src="{{ url_for('static', filename=image.url) }}" alt="image">
-                    </div>
-                {% endfor %}
-                </div>
-            </div>
-            </div>
-            <style>
-                .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 12px;
+         <!-- Mini-галерея -->
+<div class="mb-4">
+    <div class="card border-0 shadow p-3">
+        <div class="gallery-grid">
+          {% for image in images %}
+          <div class="gallery-item" data-id="{{ image.id }}">
+    <img src="{{ url_for('static', filename=image.url) }}" alt="image">
+    <button class="delete-btn" data-id="{{ image.id }}">✕</button>
+</div>
+
+          {% endfor %}
+
+<script>
+// Универсальный fetch с обработкой ошибок
+async function safeFetch(url, options = {}) {
+    try {
+        const response = await fetch(url, {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+            ...options
+        });
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+
+        return response;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }
 
-.gallery-item img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform .2s;
-}
+document.addEventListener("click", async function(event) {
+    const btn = event.target.closest(".delete-btn");
+    if (!btn) return;
 
-.gallery-item img:hover {
-    transform: scale(1.05);
-}
+    const id = btn.dataset.id;
+    const item = btn.closest(".gallery-item");
 
-            </style>
+    if (!confirm("Удалить изображение?")) return;
 
+    btn.disabled = true;
+
+    try {
+        // DELETE запрос
+        await safeFetch(`/delete_image/${id}`, { method: "DELETE" });
+
+        // Анимация исчезновения
+        item.classList.add("removing");
+
+        // Удаляем после анимации
+        setTimeout(() => item.remove(), 300);
+
+    } catch (err) {
+        alert("Ошибка удаления");
+        btn.disabled = false;
+    }
+});
+</script>
+
+
+        </div>
+    </div>
+</div>
 
         </div>
 

@@ -100,7 +100,8 @@ def edit_project(id):
         db.session.commit()
         form = ProjectForm()
         return redirect('/admin/')
-    return render_template('edit_project.html', project=project, form=form, images=images)
+    existing_files = [img.filename for img in images]
+    return render_template('edit_project.html', project=project, form=form, images=images, existing_files=existing_files)
 
 
 # === JS API ================================
@@ -112,6 +113,27 @@ def api_delete_project(project_id):
     db.session.commit()
 
     return {"status": "ok"}
+
+@main_bp.route("/delete_image/<int:image_id>", methods=["DELETE"])
+def delete_image(image_id):
+    image = ProjectImages.query.get(image_id)
+
+    if not image:
+        return "Not found", 404
+    try:
+        os.remove(os.path.join(image.full_path))
+    except FileNotFoundError as e:
+        print(e)
+        return f"{e}"
+
+    # Удаляем запись из БД
+    db.session.delete(image)
+    db.session.commit()
+
+    return "OK", 200
+
+
+
 
 
 @main_bp.route('/check_title')
