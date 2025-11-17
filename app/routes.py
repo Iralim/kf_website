@@ -4,8 +4,6 @@ import shutil
 
 from flask import Blueprint, render_template, redirect, current_app, request, jsonify, flash
 from sqlalchemy.exc import IntegrityError
-from transliterate import translit
-from transliterate.helpers import project_dir
 from werkzeug.utils import secure_filename
 from slugify import slugify
 from app import db
