@@ -19,20 +19,16 @@
       <!-- Основной текст -->
       <div class="col-lg-6">
         
-        <h1 class="fw-normal mb-3 d-flex flex-column"
+        <h1 class="fw-normal mb-3 d-flex align-items-center"
     style="font-family: 'Oswald', sans-serif; color: #4a4a4a; letter-spacing: 0.5px;">
 
   {{ project.title }}
-  <small class="fw-normal text-secondary mt-2">
+  <span class="text-secondary mx-2">•</span>
+  <small class="fw-normal text-secondary"> 
     <i class="bi bi-aspect-ratio"></i> {{ project.square }} м² 
-    &nbsp;•&nbsp;
-  
-
-    <i class="bi bi-arrows-angle-expand"></i> {{ project.size }}
   </small>
 </h1>
 
-        
         <p class="text-secondary fs-6 mb-4">
           {{ project.description }}
         </p>
@@ -48,12 +44,14 @@
             <table class="table table-borderless align-middle mb-0 beautiful-table">
               <tbody>
                 <tr>
-                  <th><i class="bi bi-aspect-ratio me-2 text-primary"></i>Площадь</th>
-                  <td>{{ project.square }} м²</td>
+                  <th><i class="bi me-2 bi-aspect-ratio"></i>Площадь</th>
+
+                  <td>{{ project.square }} m²</td>
                 </tr>
                 <tr>
-                  <th><i class="bi bi-geo-alt me-2 text-danger"></i>Район</th>
-                  <td>{{ project.size }}</td>
+                  <th><i class="bi me-2 bi-arrows-angle-expand"></i>Габариты</th>
+
+                  <td>{{ project.size }} m</td>
                 </tr>
                 <tr>
                   <th><i class="bi bi-cash-stack me-2 text-success"></i>Базовая цена</th>

@@ -15,7 +15,7 @@
 <section class="py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="fw-bold" style="font-family: 'Oswald', sans-serif;">Редактирование проекта</h2>
+      <h2 class="fw-bold" style="font-family: 'Oswald', sans-serif;">Редактирование проекта - {{ project.title }}</h2>
       <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left"></i> Назад к панели управления
       </a>
@@ -39,7 +39,7 @@
               <!-- Описание -->
               <div class="mb-0">
                 <label class="form-label fw-bold">Описание проекта</label>
-                {{ form.description(class="form-control", rows="5", placeholder="Опишите особенности проекта...") }}
+                {{ form.description(class="form-control", rows="5", placeholder="Особенности проекта...") }}
               </div>
             </div>
           </div>
@@ -115,8 +115,8 @@
               </div>
 
               <div class="mb-3">
-                <label class="form-label">Площадь участка (м²)</label>
-                {{ form.size(class="form-control", placeholder="Например: 600") }}
+                <label class="form-label">Габариты: длинна х ширина</label>
+                {{ form.size(class="form-control", placeholder="Например: 15х7") }}
               </div>
               
               <div class="mb-3">

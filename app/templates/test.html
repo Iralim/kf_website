@@ -1,144 +1,18 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Примеры заголовков — мягкий жирный стиль</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap (CDN) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-  <style>
-    :root{
-      --soft-text: #3b3b3b;         /* основной мягкий цвет текста */
-      --muted-text: #6b6b6b;        /* второстепенный */
-      --accent: rgba(59,130,246,0.08); /* мягный акцент для фона */
-      --card-bg: #ffffff;
-    }
-
-    body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#fbfcfd 0%, #ffffff 100%);
-      padding: 32px 12px;
-      color: var(--soft-text);
-    }
-
-    .example-card{
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 6px 18px rgba(22, 28, 37, 0.06);
-      border: 1px solid rgba(100,100,100,0.04);
-    }
-
-    /* Общий стиль заголовка: жирный, но светлый по тону */
-    .soft-title {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600;             /* плотный, но не агрессивный */
-      color: var(--soft-text);
-      margin: 0 0 10px;
-      line-height: 1.05;
-      letter-spacing: 0.4px;
-      text-rendering: optimizeLegibility;
-      /* очень лёгкая тень для глубины, почти незаметна */
-      text-shadow: 0 1px 0 rgba(255,255,255,0.6), 0 2px 8px rgba(20,20,20,0.03);
-    }
-
-    .soft-sub {
-      color: var(--muted-text);
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-    }
-
-    .badge-soft {
-      background: var(--accent);
-      color: #1f2937;
-      font-weight: 600;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.86rem;
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-    }
-
-    /* Варианты */
-    .variant-1 .soft-title { font-size: 1.95rem; }   /* крупный, но мягкий */
-    .variant-2 .soft-title { font-size: 1.6rem; color: #424242; opacity: 0.94; }
-    .variant-3 .soft-title {
-      font-size: 1.7rem;
-      background: linear-gradient(90deg, rgba(59,130,246,0.03), rgba(16,185,129,0.02));
-      padding: 10px;
-      border-radius: 10px;
-      display: inline-block;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 576px){
-      .soft-title { font-size: 1.45rem; }
-      .variant-1 .soft-title { font-size: 1.6rem; }
-    }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <div class="row g-4">
-
-    <!-- Пример 1 -->
-    <div class="col-md-6">
-      <div class="example-card variant-1">
-        <h1 class="soft-title">
-          {{ house.title }}
-        </h1>
-        <div class="soft-sub d-flex flex-wrap gap-2 align-items-center">
-          <span class="badge-soft"><i class="bi bi-aspect-ratio"></i>{{ house.square }} м²</span>
-          <span class="badge-soft"><i class="bi bi-tree"></i>участок {{ house.area }} сот.</span>
-        </div>
-
-        <p class="text-muted mt-3 mb-0">Крупный, уверенный заголовок. Подходит для главной карточки объекта.</p>
-      </div>
-    </div>
-
-    <!-- Пример 2 -->
-    <div class="col-md-6">
-      <div class="example-card variant-2">
-        <h1 class="soft-title">
-          {{ house.title }}
-        </h1>
-        <p class="soft-sub">
-          <i class="bi bi-aspect-ratio me-1"></i>{{ house.square }} м² &nbsp;•&nbsp;
-          <i class="bi bi-tree me-1"></i>участок {{ house.area }} сот.
-        </p>
-
-        <p class="text-muted mt-3 mb-0">Минималистичный вариант — текст легче, межбуквенный интервал чуть больше.</p>
-      </div>
-    </div>
-
-    <!-- Пример 3 -->
-    <div class="col-12">
-      <div class="example-card variant-3">
-        <h1 class="soft-title d-inline-block">
-          {{ house.title }}
-        </h1>
-
-        <div class="mt-2">
-          <span class="badge-soft me-2"><i class="bi bi-aspect-ratio"></i>{{ house.square }} м²</span>
-          <span class="badge-soft"><i class="bi bi-tree"></i>участок {{ house.area }} сот.</span>
-        </div>
-
-        <p class="text-muted mt-3 mb-0">Вариант с мягким подсвечиванием за заголовком — выглядит «премиально», но ненавязчиво.</p>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</body>
-</html>
+<!-- bi-dimensions (габариты: дом + стрелки ширины/длины) -->
+<svg class="bi bi-dimensions" width="1em" height="1em" viewBox="0 0 16 16" fill="none"
+     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Габариты">
+  <!-- крыша -->
+  <path d="M2 7 L8 2 L14 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- корпус дома -->
+  <rect x="3.2" y="7" width="9.6" height="5" rx="0.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- окно (чтобы было понятно что это дом) -->
+  <path d="M6.6 8.8h2.8M6.6 10.8h2.8M7.999 8.8v2" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- горизонтальная двунаправленная стрелка (ширина) -->
+  <path d="M1.5 13.2 L14.5 13.2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M3.5 11.8 L1.5 13.2 L3.5 14.6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12.5 11.8 L14.5 13.2 L12.5 14.6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- вертикальная двунаправленная стрелка (длина/высота) -->
+  <path d="M15 4.5 L15 10.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M13.6 6.5 L15 4.5 L16.4 6.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M13.6 8.5 L15 10.5 L16.4 8.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
