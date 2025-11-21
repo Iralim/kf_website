@@ -113,7 +113,7 @@ class ProjectImages(db.Model):
     __tablename__ = "project_images"
 
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(100), unique=True, nullable=False)
+    filename = db.Column(db.String(100), nullable=False)
 
     project_id = db.Column(
         db.Integer,

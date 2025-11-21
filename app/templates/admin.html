@@ -4,6 +4,7 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style_cards.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style_edit_project.css') }}"> -->
 {% endblock %}
 
 {% block header %}
@@ -64,82 +65,132 @@
 <!-- ============================
        Форма добавления проекта
 ============================= -->
-<section class="py-5">
+<section class="py-4">
   <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold" style="font-family: 'Oswald', sans-serif;">Добавление проекта</h2>
+      <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Назад к панели управления
+      </a>
+    </div>
+    
     <form method="POST" action="{{ url_for('main.add_project') }}" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
 
-      <div class="row g-4">
-
-        <!-- Основная часть -->
+      <div class="row g-4 align-items-start">
+        <!-- Основной контент -->
         <div class="col-lg-8">
+          <!-- Название проекта -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="section-title">Основная информация</h5>
+              <div class="mb-4">
+                <label class="form-label fw-bold">Название проекта</label>
+                {{ form.title(class="form-control form-control-lg") }}
+                <div id="title-check-msg" class="small mt-2"></div>
+              </div>
 
-          <!-- Название -->
-          <div class="mb-4">
-            <label class="form-label fw-bold">Название проекта</label>
-            {{ form.title(class="form-control form-control-lg") }}
-
-            <div id="title-check-msg" class="small mt-2"></div>
+              <!-- Описание -->
+              <div class="mb-0">
+                <label class="form-label fw-bold">Описание проекта</label>
+                {{ form.description(class="form-control", rows="5", placeholder="Особенности проекта...") }}
+              </div>
+            </div>
           </div>
+          
+          <!-- Изображения проекта -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="section-title">Изображения проекта</h5>
+              
+              <!-- Загрузка изображений -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Добавить изображения</label>
+                <div class="upload-area" id="uploadArea">
+                  <div class="upload-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                  </div>
+                  <p class="mb-2">Перетащите изображения сюда или нажмите для выбора</p>
+                  <!-- <p class="text-muted small">Поддерживаются форматы JPG, PNG, GIF. Максимальный размер: 5MB</p> -->
+                  
+                  <!-- Скрытое поле загрузки, которое будет использоваться в форме -->
+                  <div class="file-input-wrapper">
+                    {{ form.img_files(multiple=True, id="imgUpload", class="form-control") }}
+                    <button type="button" class="btn btn-outline-success mt-2" id="uploadTrigger">Выбрать файлы</button>
+                  </div>
+                </div>
+                
+                <!-- Список выбранных файлов -->
+                <div class="selected-files" id="selectedFiles">
+                  <h6 class="fw-bold mb-3">Выбранные файлы:</h6>
+                  <div class="file-list" id="fileList"></div>
+                  <button type="button" class="btn btn-outline-danger btn-sm mt-3" id="clearFiles">Очистить список</button>
+                </div>
+              </div>
+              
+              <!-- Галерея изображений -->
 
-          <!-- Описание -->
-          <div class="mb-4">
-            <label class="form-label fw-bold">Описание</label>
-            {{ form.description(class="form-control", rows="4") }}
+            </div>
           </div>
-
-          <!-- Изображения -->
-          <div class="mb-4">
-            <label class="form-label fw-bold">Загрузка изображений</label>
-            {{ form.img_files(class="form-control", multiple=True) }}
-          </div>
-
         </div>
 
         <!-- Характеристики -->
         <div class="col-lg-4">
-          <div class="card border-0 shadow-sm p-4">
+          <div class="card border-0 shadow-sm characteristics-card">
+            <div class="card-body">
+              <h5 class="section-title">Характеристики</h5>
+              
+              <div class="mb-3">
+                <label class="form-label">Площадь дома (м²)</label>
+                {{ form.square(class="form-control", placeholder="Например: 120") }}
+              </div>
 
-            <h5 class="fw-bold mb-3">Характеристики</h5>
+              <div class="mb-3">
+                <label class="form-label">Габариты: длинна х ширина</label>
+                {{ form.size(class="form-control", placeholder="Например: 15х7") }}
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Базовая цена (тёплый контур)</label>
+                <div class="price-input-group">
+                  {{ form.price_base(class="form-control", placeholder="0") }}
+                </div>
+              </div>
 
-            <div class="mb-3">
-              <label class="form-label">Площадь (м²)</label>
-              {{ form.square(class="form-control") }}
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Габариты (длина × ширина)</label>
-              {{ form.size(class="form-control") }}
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Базовая цена</label>
-              {{ form.price_base(class="form-control") }}
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Цена с коммуникациями</label>
-              {{ form.price_with_communications(class="form-control") }}
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Цена готового дома</label>
-              {{ form.price_ready(class="form-control") }}
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Ипотека (в месяц)</label>
-              {{ form.mortgage_price_per_month(class="form-control") }}
-            </div>
+              <div class="mb-3">
+                <label class="form-label">Цена с коммуникациями</label>
+                <div class="price-input-group">
+                  {{ form.price_with_communications(class="form-control", placeholder="0") }}
+                </div>
+              </div>
 
+              <div class="mb-3">
+                <label class="form-label">Цена готового дома</label>
+                <div class="price-input-group">
+                  {{ form.price_ready(class="form-control", placeholder="0") }}
+                </div>
+              </div>
+
+              <div class="mb-0">
+                <label class="form-label">Ипотека (в месяц)</label>
+                <div class="price-input-group">
+                  {{ form.mortgage_price_per_month(class="form-control", placeholder="0") }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Отправка -->
+      
+      <!-- Кнопка сохранения -->
       <div class="row mt-4">
-        <div class="col-6">
-          <div class="d-grid">
-            {{ form.submit(class="btn btn-success btn-lg") }}
+        <div class="col-12">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary me-md-2">Отмена</a>
+            {{ form.submit(class="btn btn-success btn-lg px-4") }}
           </div>
         </div>
       </div>
-
     </form>
   </div>
 </section>
@@ -265,5 +316,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadInput = document.getElementById('imgUpload');
+    const uploadTrigger = document.getElementById('uploadTrigger');
+    const selectedFilesContainer = document.getElementById('selectedFiles');
+    const fileList = document.getElementById('fileList');
+    const clearFilesBtn = document.getElementById('clearFiles');
+
+    // Открытие диалога выбора файлов при клике
+    uploadArea.addEventListener('click', function(e) {
+        if (e.target !== uploadTrigger && !uploadTrigger.contains(e.target)) {
+            uploadInput.click();
+        }
+    });
+
+    uploadTrigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        uploadInput.click();
+    });
+
+    // Перетаскивание файлов
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+
+        if (e.dataTransfer.files.length) {
+            uploadInput.files = e.dataTransfer.files;
+            validateAndShowFiles();
+        }
+    });
+
+    // Выбор файлов
+    uploadInput.addEventListener('change', validateAndShowFiles);
+
+    // Очистка списка выбранных файлов
+    clearFilesBtn.addEventListener('click', function() {
+        uploadInput.value = '';
+        selectedFilesContainer.style.display = 'none';
+        fileList.innerHTML = '';
+    });
+
+    function validateAndShowFiles() {
+        const selectedFiles = Array.from(uploadInput.files);
+
+        if (selectedFiles.length === 0) {
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+
+        // Проверка дубликатов внутри загружаемых файлов
+        const names = selectedFiles.map(f => f.name);
+        const duplicatesInsideUpload = names.filter((name, index) =>
+            names.indexOf(name) !== index
+        );
+
+        if (duplicatesInsideUpload.length > 0) {
+            alert("Нельзя загружать два файла с одинаковыми именами:\n" +
+                  duplicatesInsideUpload.join("\n"));
+            uploadInput.value = "";
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+
+        // Показываем список файлов
+        fileList.innerHTML = '';
+        selectedFiles.forEach((file) => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="flex-grow-1">
+                    <div class="fw-medium">${file.name}</div>
+                    <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+            `;
+            fileList.appendChild(fileItem);
+        });
+
+        selectedFilesContainer.style.display = 'block';
+    }
+});
+</script>
+
+
+
+
 
 {% endblock %}

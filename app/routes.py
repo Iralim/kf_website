@@ -33,10 +33,13 @@ def admin():
     return render_template('admin.html', projects=projects, form=form)
 
 
-# ADD PROJECT
 @main_bp.route('/admin/add_project', methods=['POST'])
 def add_project():
     form = ProjectForm()
+
+    if not form.validate_on_submit():
+        flash("Ошибка формы", "danger")
+        return redirect('/admin/')
 
     new_project = Project(
         title=form.title.data,
@@ -48,29 +51,27 @@ def add_project():
         price_ready=form.price_ready.data,
         mortgage_price_per_month=form.mortgage_price_per_month.data
     )
+
     db.session.add(new_project)
+    db.session.commit()
 
-    try:
-        db.session.commit()
+    # 🔥 100% работает со множественными файлами
+    files = request.files.getlist('img_files')
 
-        files = form.img_files.data
+    for file in files:
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(new_project.images_directory_path, filename)
+            file.save(filepath)
 
-        for file in files:
-            if file and file.filename:
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(new_project.images_directory_path, filename)
-                file.save(filepath)
-                image = ProjectImages(project_id=new_project.id, filename=filename)
+            image = ProjectImages(project_id=new_project.id, filename=filename)
+            db.session.add(image)
 
-                db.session.add(image)
+    db.session.commit()
 
-                db.session.commit()
-        flash("Проект успешно добавлен!", "success")
-        return redirect('/admin/')
-    except IntegrityError:
-        db.session.rollback()
-        flash("Проект с таким названием уже существует!", "danger")
-        return render_template('admin.html', form=form)
+    flash("Проект успешно добавлен!", "success")
+    return redirect('/admin/')
+
 
 
 # EDIT PROJECT
