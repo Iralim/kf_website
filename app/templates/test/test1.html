@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Крепкий Фундамент — Обновлённая версия</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #eef2f7, #ffffff);
+            font-family: "Inter", sans-serif;
+            color: #1f2937;
+        }
+
+        h3 {
+            font-weight: 700;
+            font-size: 1.45rem;
+            margin-bottom: 14px;
+            color: #1e3a8a;
+            font-family: "Oswald", sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .info-card {
+            border: none;
+            border-radius: 1.4rem;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            transition: 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 120px;
+            height: 120px;
+            background: #1e3a8a15;
+            border-radius: 50%;
+            transition: 0.3s ease;
+        }
+
+        .info-card:hover::before {
+            transform: scale(1.4);
+            background: #1e3a8a25;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 1.35;
+            font-size: 0.95rem;
+        }
+
+        .feature-list i {
+            color: #1e3a8a;
+            font-size: 1.25rem;
+            margin-right: 10px;
+        }
+
+        a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-family: "Oswald", sans-serif;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+<section class="py-5">
+    <div class="container">
+        <div class="section-title">
+            <h2>Почему выбирают «Крепкий Фундамент»</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Готов к переезду</h3>
+                    <p>Дом полностью подготовлен — остаётся только привезти вещи.</p>
+                    <ul class="feature-list">
+                        <li><i class="bi bi-palette"></i> Стены под поклейку</li>
+                        <li><i class="bi bi-door-open"></i> Межкомнатные двери</li>
+                        <li><i class="bi bi-thermometer-sun"></i> Тёплый пол</li>
+                        <li><i class="bi bi-droplet-half"></i> Укомплектованный санузел</li>
+                        <li><i class="bi bi-columns-gap"></i> Ламинат / плитка</li>
+                        <li><i class="bi bi-lightning-charge"></i> Полная электрика</li>
+                        <li><i class="bi bi-water"></i> Вода и отопление подключены</li>
+                        <li><i class="bi bi-recycle"></i> Канализация</li>
+                        <li><i class="bi bi-lamp"></i> Свет и декоративные ниши</li>
+                    </ul>
+                    <p class="fw-bold mt-2">Можно заезжать сразу в день выдачи ключей.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Ипотечная поддержка</h3>
+                    <p>Поможем оформить выгодную льготную ставку.</p>
+                    <p><i class="bi bi-bank2 me-2"></i>Сотрудничаем с ведущими банками</p>
+                    <p><i class="bi bi-check-circle me-2"></i>Берём на себя весь процесс оформления</p>
+                    <p class="fw-bold">Все услуги в формате одного окна.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Продуманные проекты</h3>
+                    <ul class="feature-list">
+                        <li><i class="bi bi-aspect-ratio"></i> Эффективные площади</li>
+                        <li><i class="bi bi-grid-3x3-gap"></i> Удобные планировки</li>
+                        <li><i class="bi bi-columns"></i> Панорамная дверь на террасу</li>
+                        <li><i class="bi bi-pencil"></i> Возможность индивидуального проекта</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Качество и надёжность</h3>
+                    <p><i class="bi bi-shield-check me-2"></i>Энергоэффективные и тёплые технологии</p>
+                    <p><i class="bi bi-building me-2"></i>Проверенные материалы и стандарты</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>О компании</h3>
+                    <p><strong>«Крепкий Фундамент»</strong> — команда, создающая современные дома под ключ.</p>
+                    <p><i class="bi bi-emoji-smile me-2"></i>Честно, просто и надёжно.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Факты</h3>
+                    <ul class="feature-list">
+                        <li><i class="bi bi-house-heart"></i> 100 построенных домов</li>
+                        <li><i class="bi bi-people"></i> 200+ счастливых семей</li>
+                        <li><i class="bi bi-check2-all"></i> 0 недостроенных объектов</li>
+                        <li><i class="bi bi-hammer"></i> 60 специалистов</li>
+                        <li><i class="bi bi-stopwatch"></i> Переезд за 4 месяца</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Контакты</h3>
+                    <p><i class="bi bi-geo-alt me-2"></i>Стерлитамак</p>
+                    <p><i class="bi bi-telephone me-2"></i><a href="tel:+79173755545">+7 917 375-55-45</a></p>
+                    <p><i class="bi bi-clock me-2"></i>Пн–Вс • 10:00–19:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

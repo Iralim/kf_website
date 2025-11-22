@@ -1,18 +1,176 @@
-<!-- bi-dimensions (габариты: дом + стрелки ширины/длины) -->
-<svg class="bi bi-dimensions" width="1em" height="1em" viewBox="0 0 16 16" fill="none"
-     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Габариты">
-  <!-- крыша -->
-  <path d="M2 7 L8 2 L14 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- корпус дома -->
-  <rect x="3.2" y="7" width="9.6" height="5" rx="0.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- окно (чтобы было понятно что это дом) -->
-  <path d="M6.6 8.8h2.8M6.6 10.8h2.8M7.999 8.8v2" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- горизонтальная двунаправленная стрелка (ширина) -->
-  <path d="M1.5 13.2 L14.5 13.2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M3.5 11.8 L1.5 13.2 L3.5 14.6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M12.5 11.8 L14.5 13.2 L12.5 14.6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- вертикальная двунаправленная стрелка (длина/высота) -->
-  <path d="M15 4.5 L15 10.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M13.6 6.5 L15 4.5 L16.4 6.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M13.6 8.5 L15 10.5 L16.4 8.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крепкий Фундамент</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6fa;
+            font-family: 'Inter', sans-serif;
+            color: #2d2d2d;
+        }
+
+        h3 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #1e3a8a;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .info-card {
+            border: none;
+            border-radius: 1rem;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: 0.25s ease;
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+        }
+
+        .feature-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            line-height: 1.35;
+        }
+
+        .feature-list i {
+            color: #1e3a8a;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        a {
+            color: #1e3a8a;
+            text-decoration: none;
+        }
+
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- CARD 1 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Всё для комфортного переезда</h3>
+                    <p>Дом полностью готов к жизни: отделка и инженерия включены.</p>
+
+                    <ul class="feature-list">
+                        <li><i class="bi bi-palette"></i> Стены под обои</li>
+                        <li><i class="bi bi-door-open"></i> Двери, натяжные потолки</li>
+                        <li><i class="bi bi-thermometer-sun"></i> Тёплые полы</li>
+                        <li><i class="bi bi-droplet-half"></i> Готовый санузел</li>
+                        <li><i class="bi bi-columns-gap"></i> Ламинат, плитка</li>
+                        <li><i class="bi bi-lightning-charge"></i> Электрика полностью</li>
+                        <li><i class="bi bi-water"></i> Вода, отопление</li>
+                        <li><i class="bi bi-recycle"></i> Канализация / яма</li>
+                        <li><i class="bi bi-lamp"></i> Подсветка и ниши</li>
+                    </ul>
+
+                    <p class="fw-bold mt-2">Можно заезжать в день получения ключей.</p>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Ипотека и сопровождение</h3>
+                    <p>Оформим льготную ипотеку на весь комплекс — одной выгодной ставкой.</p>
+
+                    <p><i class="bi bi-bank2 me-2"></i>Работаем с ведущими банками.</p>
+                    <p><i class="bi bi-check-circle me-2"></i>Ведём всё от участка до ввода в эксплуатацию.</p>
+
+                    <p class="fw-bold">Принцип “единого окна”.</p>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Проекты профессионалов</h3>
+                    <ul class="feature-list">
+                        <li><i class="bi bi-aspect-ratio"></i> Рациональные площади</li>
+                        <li><i class="bi bi-grid-3x3-gap"></i> Удобные планировки</li>
+                        <li><i class="bi bi-columns"></i> Панорамная дверь на террасу</li>
+                        <li><i class="bi bi-pencil"></i> Индивидуальные проекты</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Надёжность и качество</h3>
+                    <p><i class="bi bi-shield-check me-2"></i>Энергоэффективные технологии — тепло и экономно.</p>
+                    <p><i class="bi bi-building me-2"></i>Только проверенные материалы и стандарты.</p>
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>О компании</h3>
+                    <p><strong>«Крепкий Фундамент»</strong> — строим современные дома под ключ.</p>
+                    <p><i class="bi bi-emoji-smile me-2"></i>Просто, понятно, надёжно.</p>
+                </div>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Факты о работе</h3>
+
+                    <ul class="feature-list">
+                        <li><i class="bi bi-house-heart"></i> 100 построенных домов</li>
+                        <li><i class="bi bi-people"></i> Более 200 семей</li>
+                        <li><i class="bi bi-check2-all"></i> 0 недостроев</li>
+                        <li><i class="bi bi-hammer"></i> 60 специалистов</li>
+                        <li><i class="bi bi-stopwatch"></i> 4 месяца до переезда</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CARD 7 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="info-card">
+                    <h3>Контакты</h3>
+
+                    <p><i class="bi bi-geo-alt me-2"></i>Стерлитамак</p>
+                    <p><i class="bi bi-telephone me-2"></i><a href="tel:+79173755545">+7 917 375-55-45</a></p>
+                    <p><i class="bi bi-clock me-2"></i>Пн–Вс, 10:00–19:00</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
