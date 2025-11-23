@@ -22,7 +22,7 @@ def index():
 @main_bp.route('/details/<int:id>')
 def details(id):
     project = Project.query.get(id)
-    return render_template('details.html', project=project)
+    return render_template('project_details.html', project=project)
 
 
 # ADMIN

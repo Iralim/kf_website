@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block tittle %} Крепкий Фундамент {% endblock %}
+
+{% block styles %} 
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_cards.css') }}">
+{% endblock %}
+
+{% block projects %}
+<section id="projects" class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3 display-5" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px;">
+      Наши проекты
+    </h2>
+    <p class="text-secondary mb-5 mx-auto" style="max-width: 750px; font-size: 1.05rem; color: #6c757d;">
+      В стоимость каждого проекта входит полностью готовая чистовая отделка,
+      отделка санузла, тёплые полы, сантехника, все инженерные системы и коммуникации.
+    </p>
+
+    <div class="row g-4">
+
+      {% for project in projects %}
+      <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('main.details', id=project.id) }}" class="text-decoration-none text-reset">
+          <div class="card project-card border-0 shadow-sm h-100 overflow-hidden">
+
+            <!-- Слайдер с уникальным ID -->
+            <!-- <div id="carouselHouse{{ project.id }}" class="carousel slide project-image-wrapper" data-bs-ride="carousel" data-bs-interval="7000"> -->
+            <div id="carouselHouse{{ project.id }}" class="carousel slide project-image-wrapper">
+              <div class="carousel-inner">
+                {% for image in project.images.all() %}
+              
+                <div class="carousel-item active">
+                  <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="Проект дома {{ project.title }}">
+                </div>
+                {% endfor %}
+
+              </div>
+
+              <!-- Стрелки -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse{{ project.id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse{{ project.id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+
+            <div class="card-body text-start p-4">
+              <h5 class="card-title fw-semibold mb-3" style="font-family: 'Oswald', sans-serif; color: #2d2d2d;">
+                {{ project.title }}
+              </h5>
+
+              <table class="table table-borderless text-secondary small mb-0 compact-table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Тёплый контур:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_base | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">С коммуникациями:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_with_communications | money }} &#8381;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Заезжай и живи:</th>
+                    <td class="text-end text-dark fw-normal">{{ project.price_ready | money }} &#8381;</td>
+                  </tr>
+                  <tr class="border-top">
+                    <th scope="row" class="pt-2">Ипотека от:</th>
+                    <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} &#8381;/мес</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+      <!-- ============================================== -->
+
+     <section id="info-blocks" class="py-5 bg-light">
+  <div class="container">
+
+    <!-- Полная отделка и инженерия -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title text-primary mb-3">Всё, что нужно для комфортного переезда — уже включено</h3>
+        <h5 class="card-subtitle mb-3 text-secondary">Полная отделка и готовая инженерия</h5>
+        <p>Каждый дом сдаётся с полным набором готовых решений:</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">Стены, подготовленные под поклейку обоев</li>
+          <li class="list-group-item">Межкомнатные двери и натяжные потолки</li>
+          <li class="list-group-item">Тёплые полы в ключевых зонах</li>
+          <li class="list-group-item">Чистовая отделка и полностью оформленный санузел</li>
+          <li class="list-group-item">Ламинат, плитка, сантехника</li>
+          <li class="list-group-item">Электрика: щиток, розетки, выключатели</li>
+          <li class="list-group-item">Горячая и холодная вода, отопление</li>
+          <li class="list-group-item">Канализация / выгребная яма</li>
+          <li class="list-group-item">Архитектурная подсветка и удобные ниши</li>
+        </ul>
+        <p class="fw-bold">Вы получаете дом, в который можно заехать в день получения ключей.</p>
+      </div>
+    </div>
+
+    <!-- Ипотека и сопровождение -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">Ипотека и полное сопровождение</h5>
+        <p>Мы оформим льготную ипотеку на весь комплекс: дом, забор, баню, гараж и мебель — одной выгодной ставкой.</p>
+        <p>Работаем с ведущими банками и ведём процесс от покупки участка до постановки дома на учёт.</p>
+        <p class="fw-bold">Принцип “единого окна”: все вопросы — у нас, результат — у вас.</p>
+      </div>
+    </div>
+
+    <!-- Проекты -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">Проекты, созданные профессионалами</h5>
+        <p>Все дома разрабатываются опытными архитекторами и дизайнерами, поэтому выглядят современно и продуманно:</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">Без лишних квадратов — только полезные площади</li>
+          <li class="list-group-item">Удобные планировки</li>
+          <li class="list-group-item">Панорамная раздвижная дверь на террасу 2,3 м по стандарту</li>
+          <li class="list-group-item">Индивидуальный проект — если не нашли подходящий среди готовых</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Надёжность -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">Надёжность, энергоэффективность и качество</h5>
+        <p>Мы строим дома по энергоэффективным технологиям, что обеспечивает тепло и минимальные затраты на отопление.</p>
+        <p>Используем проверенные материалы и собственные стандарты строительства — ваш дом надолго сохранит внешний вид и комфорт.</p>
+      </div>
+    </div>
+
+    <!-- О компании -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">О компании</h5>
+        <p><strong>«Крепкий Фундамент»</strong> — строительная компания, специализирующаяся на домах под ключ. Мы делаем процесс простым и понятным, а результат — качественным и долговечным.</p>
+      </div>
+    </div>
+
+    <!-- Факты -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">Факты о нашей работе</h5>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>100</strong> построенных домов</li>
+          <li class="list-group-item">Более <strong>200</strong> семей уже живут в наших проектах</li>
+          <li class="list-group-item"><strong>0</strong> недостроев</li>
+          <li class="list-group-item"><strong>60</strong> специалистов в команде</li>
+          <li class="list-group-item"><strong>4 месяца</strong> — от договора до переезда</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Контакты -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary mb-3">Контакты</h5>
+        <p><strong>Стерлитамак</strong></p>
+        <p>Тел.: <a href="tel:+79173755545">+7 917 375-55-45</a></p>
+        <p>График: Пн–Вс, 10:00–19:00</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  /* Общий стиль информационных карточек */
+.card-body h3,
+.card-body h5 {
+  font-family: 'Oswald', sans-serif;
+}
+
+.card-body h3 {
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+.card-body h5 {
+  font-size: 1.2rem;
+}
+
+.card {
+  border-radius: 1rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background-color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Списки внутри карточек */
+.list-group-item {
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Жирные акценты */
+.fw-bold {
+  color: #2d2d2d;
+  font-weight: 600;
+}
+
+/* Ссылки в контактах */
+.card-body a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.card-body a:hover {
+  text-decoration: underline;
+}
+
+/* Фоновые оттенки для чередующихся блоков (по желанию) */
+#info-blocks .card:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Уплотнённые карточки */
+.card-body ul {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+/* Контакты */
+.card-body p {
+  margin-bottom: 0.5rem;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 767px) {
+  .card-body h3 {
+    font-size: 1.5rem;
+  }
+
+  .card-body h5 {
+    font-size: 1.1rem;
+  }
+
+  .list-group-item {
+    font-size: 0.9rem;
+  }
+}
+
+</style>
+
+      <!-- ==================================== -->
+
+    </div>
+  </div>
+</section>
+{% endblock%}
