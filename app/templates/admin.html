@@ -1,413 +1,577 @@
-{% extends 'base.html' %}
-{% block title %}Admin{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Панель управления | Крепкий Фундамент</title>
 
-{% block styles %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style_cards.css') }}">
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style_edit_project.css') }}"> -->
-{% endblock %}
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-{% block header %}
-<div class="fixed-top">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <!-- 🔹 Верхняя панель -->
-  <div class="topbar py-1 bg-secondary">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between">
-      <div class="text-white">
-        📞 <a href="tel:+79173755545" class="text-white text-decoration-none">+7 (917) 37-555-45</a>
-      </div>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
 
-      <div class="d-flex gap-2">
-        <a href="https://t.me/username" target="_blank" class="social-btn text-white" aria-label="Telegram">
-          <i class="fab fa-telegram"></i>
-        </a>
-        <a href="https://vk.com/username" target="_blank" class="social-btn text-white" aria-label="VK">
-          <i class="fab fa-vk"></i>
-        </a>
-      </div>
-    </div>
-  </div>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --secondary: #f97316;
+            --accent: #0ea5e9;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+        }
 
-  <!-- 🔹 Главное меню -->
-  <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom py-3" id="mainNav">
-    <div class="container">
+        body {
+            background: var(--light);
+            font-family: "Montserrat", sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+        }
 
-      <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">
-        <img src="{{ url_for('static', filename='images/logo_krepkii_fundament.png')}}" alt="Logo" width="300">
-      </a>
+        h1, h2, h3, h4, h5 {
+            font-family: "Oswald", sans-serif;
+            font-weight: 700;
+        }
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        /* NAVBAR */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
 
-      <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="#projects">Редактировать</a></li>
-        </ul>
+        .navbar-brand {
+            font-family: "Oswald", sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+        }
 
-        <div class="d-md-none text-center mt-3">
-          <a href="tel:+79173755545" class="btn btn-outline-primary">📞 +7 (917) 37-555-45</a>
-          <p class="text-secondary mb-0">Пн–Пт: с 9:00 до 18:00</p>
-        </div>
-      </div>
+        .navbar-brand span {
+            color: var(--secondary);
+        }
 
-    </div>
-  </nav>
+        /* Кнопки */
+        .btn-primary-custom {
+            background: var(--secondary);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-</div>
-{% endblock %}
+        .btn-primary-custom:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+        }
 
-{% block hero %}{% endblock %}
-{% block features %}{% endblock %}
+        .btn-outline-custom {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: 0.3s;
+            font-weight: 600;
+        }
 
-{% block projects %}
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: white;
+        }
 
-<!-- ============================
-       Форма добавления проекта
-============================= -->
-<section class="py-4">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="fw-bold" style="font-family: 'Oswald', sans-serif;">Добавление проекта</h2>
-      <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i> Назад к панели управления
-      </a>
-    </div>
-    
-    <form method="POST" action="{{ url_for('main.add_project') }}" enctype="multipart/form-data">
-      {{ form.hidden_tag() }}
+        /* Карточки */
+        .admin-card {
+            background: white;
+            border-radius: 1.3rem;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-top: 4px solid var(--secondary);
+        }
 
-      <div class="row g-4 align-items-start">
-        <!-- Основной контент -->
-        <div class="col-lg-8">
-          <!-- Название проекта -->
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-              <h5 class="section-title">Основная информация</h5>
-              <div class="mb-4">
-                <label class="form-label fw-bold">Название проекта</label>
-                {{ form.title(class="form-control form-control-lg") }}
-                <div id="title-check-msg" class="small mt-2"></div>
-              </div>
+        .project-card {
+            background: white;
+            border-radius: 1.3rem;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            overflow: hidden;
+        }
 
-              <!-- Описание -->
-              <div class="mb-0">
-                <label class="form-label fw-bold">Описание проекта</label>
-                {{ form.description(class="form-control", rows="5", placeholder="Особенности проекта...") }}
-              </div>
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Область загрузки */
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #f8fafc;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--accent);
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .file-input-wrapper {
+            display: none;
+        }
+
+        .selected-files {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .file-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: white;
+        }
+
+        /* Карусель */
+        .carousel-item img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 10px;
+        }
+
+        /* Таблица */
+        .table th {
+            font-weight: 600;
+            color: var(--gray);
+            border: none;
+        }
+
+        .table td {
+            border: none;
+            vertical-align: middle;
+        }
+
+        /* Кнопка удаления */
+        .delete-btn {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Цены */
+        .price-input-group {
+            position: relative;
+        }
+
+        .price-input-group::before {
+            content: "₽";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .price-input-group input {
+            padding-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link text-white" href="{{ url_for('main.index') }}">← Назад на сайт</a>
             </div>
-          </div>
-          
-          <!-- Изображения проекта -->
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-              <h5 class="section-title">Изображения проекта</h5>
-              
-              <!-- Загрузка изображений -->
-              <div class="mb-4">
-                <label class="form-label fw-bold">Добавить изображения</label>
-                <div class="upload-area" id="uploadArea">
-                  <div class="upload-icon">
-                    <i class="bi bi-cloud-arrow-up"></i>
-                  </div>
-                  <p class="mb-2">Перетащите изображения сюда или нажмите для выбора</p>
-                  <!-- <p class="text-muted small">Поддерживаются форматы JPG, PNG, GIF. Максимальный размер: 5MB</p> -->
-                  
-                  <!-- Скрытое поле загрузки, которое будет использоваться в форме -->
-                  <div class="file-input-wrapper">
-                    {{ form.img_files(multiple=True, id="imgUpload", class="form-control") }}
-                    <button type="button" class="btn btn-outline-success mt-2" id="uploadTrigger">Выбрать файлы</button>
-                  </div>
+        </div>
+    </nav>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold">Панель управления проектами</h1>
+                <a href="{{ url_for('main.admin') }}" class="btn btn-outline-custom">
+                    <i class="bi bi-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+            
+            <!-- ФОРМА ДОБАВЛЕНИЯ ПРОЕКТА -->
+            <form method="POST" action="{{ url_for('main.add_project') }}" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+
+                <div class="row g-4 align-items-start">
+                    <!-- Основной контент -->
+                    <div class="col-lg-8">
+                        <!-- Основная информация -->
+                        <div class="admin-card">
+                            <h3 class="section-title">Основная информация</h3>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Название проекта</label>
+                                {{ form.title(class="form-control form-control-lg", placeholder="Введите название проекта") }}
+                                <div id="title-check-msg" class="small mt-2"></div>
+                            </div>
+
+                            <div class="mb-0">
+                                <label class="form-label fw-bold">Описание проекта</label>
+                                {{ form.description(class="form-control", rows="5", placeholder="Опишите особенности проекта...") }}
+                            </div>
+                        </div>
+                        
+                        <!-- Изображения проекта -->
+                        <div class="admin-card">
+                            <h3 class="section-title">Изображения проекта</h3>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Добавить изображения</label>
+                                <div class="upload-area" id="uploadArea">
+                                    <div class="upload-icon">
+                                        <i class="bi bi-cloud-arrow-up"></i>
+                                    </div>
+                                    <p class="mb-2 fw-medium">Перетащите изображения сюда или нажмите для выбора</p>
+                                    <p class="text-muted small">Поддерживаются форматы JPG, PNG, GIF</p>
+                                    
+                                    <div class="file-input-wrapper">
+                                        {{ form.img_files(multiple=True, id="imgUpload", class="form-control") }}
+                                        <button type="button" class="btn btn-primary-custom mt-2" id="uploadTrigger">Выбрать файлы</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="selected-files" id="selectedFiles">
+                                    <h6 class="fw-bold mb-3">Выбранные файлы:</h6>
+                                    <div class="file-list" id="fileList"></div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm mt-3" id="clearFiles">Очистить список</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Характеристики -->
+                    <div class="col-lg-4">
+                        <div class="admin-card">
+                            <h3 class="section-title">Характеристики</h3>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Площадь дома (м²)</label>
+                                {{ form.square(class="form-control", placeholder="120") }}
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Габариты (длина×ширина)</label>
+                                {{ form.size(class="form-control", placeholder="15×7") }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Базовая цена</label>
+                                <div class="price-input-group">
+                                    {{ form.price_base(class="form-control", placeholder="0") }}
+                                </div>
+                                <small class="text-muted">Тёплый контур</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">С коммуникациями</label>
+                                <div class="price-input-group">
+                                    {{ form.price_with_communications(class="form-control", placeholder="0") }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Под ключ</label>
+                                <div class="price-input-group">
+                                    {{ form.price_ready(class="form-control", placeholder="0") }}
+                                </div>
+                            </div>
+
+                            <div class="mb-0">
+                                <label class="form-label fw-semibold">Ипотека в месяц</label>
+                                <div class="price-input-group">
+                                    {{ form.mortgage_price_per_month(class="form-control", placeholder="0") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Список выбранных файлов -->
-                <div class="selected-files" id="selectedFiles">
-                  <h6 class="fw-bold mb-3">Выбранные файлы:</h6>
-                  <div class="file-list" id="fileList"></div>
-                  <button type="button" class="btn btn-outline-danger btn-sm mt-3" id="clearFiles">Очистить список</button>
+                <!-- Кнопка сохранения -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <a href="{{ url_for('main.admin') }}" class="btn btn-outline-custom me-md-2">Отмена</a>
+                            {{ form.submit(class="btn btn-primary-custom btn-lg px-4") }}
+                        </div>
+                    </div>
                 </div>
-              </div>
-              
-              <!-- Галерея изображений -->
-
-            </div>
-          </div>
+            </form>
         </div>
+    </section>
 
-        <!-- Характеристики -->
-        <div class="col-lg-4">
-          <div class="card border-0 shadow-sm characteristics-card">
-            <div class="card-body">
-              <h5 class="section-title">Характеристики</h5>
-              
-              <div class="mb-3">
-                <label class="form-label">Площадь дома (м²)</label>
-                {{ form.square(class="form-control", placeholder="Например: 120") }}
-              </div>
+    <!-- СПИСОК ПРОЕКТОВ -->
+    <section id="projects" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Существующие проекты</h2>
 
-              <div class="mb-3">
-                <label class="form-label">Габариты: длинна х ширина</label>
-                {{ form.size(class="form-control", placeholder="Например: 15х7") }}
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label">Базовая цена (тёплый контур)</label>
-                <div class="price-input-group">
-                  {{ form.price_base(class="form-control", placeholder="0") }}
-                </div>
-              </div>
+            <div class="row g-4">
+                {% for project in projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card h-100">
+                        <!-- Карусель -->
+                        <div id="carousel{{ project.id }}" class="carousel slide">
+                            <div class="carousel-inner">
+                                {% for image in project.images.all() %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            {% if project.images.count() > 1 %}
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                            {% endif %}
+                        </div>
 
-              <div class="mb-3">
-                <label class="form-label">Цена с коммуникациями</label>
-                <div class="price-input-group">
-                  {{ form.price_with_communications(class="form-control", placeholder="0") }}
-                </div>
-              </div>
+                        <div class="card-body p-4">
+                            <h5 class="fw-semibold mb-3">{{ project.title }}</h5>
 
-              <div class="mb-3">
-                <label class="form-label">Цена готового дома</label>
-                <div class="price-input-group">
-                  {{ form.price_ready(class="form-control", placeholder="0") }}
-                </div>
-              </div>
+                            <table class="table table-borderless text-secondary small mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th>Площадь:</th>
+                                        <td class="text-end">{{ project.square }} м²</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Тёплый контур:</th>
+                                        <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <th>С коммуникациями:</th>
+                                        <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Готовый дом:</th>
+                                        <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <th class="pt-2">Ипотека:</th>
+                                        <td class="text-end fw-bold pt-2 text-success">{{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽/мес</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-              <div class="mb-0">
-                <label class="form-label">Ипотека (в месяц)</label>
-                <div class="price-input-group">
-                  {{ form.mortgage_price_per_month(class="form-control", placeholder="0") }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Кнопка сохранения -->
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <a href="{{ url_for('main.admin') }}" class="btn btn-outline-secondary me-md-2">Отмена</a>
-            {{ form.submit(class="btn btn-success btn-lg px-4") }}
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
-
-<!-- ============================
-          Список проектов
-============================= -->
-<section id="projects" class="py-5 bg-light">
-  <div class="container">
-
-    <div class="row g-4">
-
-      {% for project in projects %}
-      <div class="col-md-6 col-lg-4">
-
-        <a href="{{ url_for('main.edit_project', id=project.id) }}" class="text-decoration-none text-reset">
-          <div class="card project-card border-0 shadow-sm h-100">
-
-            <!-- Карусель -->
-            <div id="carousel{{ project.id }}" class="carousel slide">
-              <div class="carousel-inner">
-                {% for image in project.images.all() %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                  <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="{{ project.title }}">
+                            <div class="d-flex gap-2 mt-3">
+                                <a href="{{ url_for('main.edit_project', id=project.id) }}" class="btn btn-outline-custom btn-sm flex-fill">
+                                    <i class="bi bi-pencil"></i> Редактировать
+                                </a>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="{{ project.id }}">
+                                    <i class="bi bi-trash"></i> Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
-              </div>
-
-              <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-              </button>
             </div>
+        </div>
+    </section>
 
-            <div class="card-body p-4">
-              <h5 class="fw-semibold mb-3">{{ project.title }}</h5>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        /* Проверка уникальности названия */
+        const titleInput = document.querySelector("input[name='title']");
+        const msg = document.getElementById("title-check-msg");
+        let timer = null;
 
-              <table class="table table-borderless text-secondary small mb-0">
-                <tbody>
-                  <tr>
-                    <th>Тёплый контур:</th>
-                    <td class="text-end text-dark">{{ project.price_base | money }} ₽</td>
-                  </tr>
-                  <tr>
-                    <th>С коммуникациями:</th>
-                    <td class="text-end text-dark">{{ project.price_with_communications | money }} ₽</td>
-                  </tr>
-                  <tr>
-                    <th>Готовый дом:</th>
-                    <td class="text-end text-dark">{{ project.price_ready | money }} ₽</td>
-                  </tr>
-                  <tr class="border-top">
-                    <th class="pt-2">Ипотека:</th>
-                    <td class="text-end fw-semibold pt-2">{{ project.mortgage_price_per_month | money }} ₽/мес</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        if (titleInput) {
+            titleInput.addEventListener("input", () => {
+                clearTimeout(timer);
 
-          </div>
-        </a>
+                timer = setTimeout(async () => {
+                    const title = titleInput.value.trim();
+                    if (!title) {
+                        msg.textContent = "";
+                        return;
+                    }
 
-        <button class="btn btn-danger btn-sm delete-btn mt-2" data-id="{{ project.id }}">DELETE</button>
+                    const response = await fetch(`/check_title?title=${encodeURIComponent(title)}`);
+                    const data = await response.json();
 
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================
-               JS
-============================= -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* Проверка уникальности названия */
-  const titleInput = document.querySelector("input[name='title']");
-  const msg = document.getElementById("title-check-msg");
-  let timer = null;
-
-  if (titleInput) {
-    titleInput.addEventListener("input", () => {
-      clearTimeout(timer);
-
-      timer = setTimeout(async () => {
-        const title = titleInput.value.trim();
-        if (!title) {
-          msg.textContent = "";
-          return;
+                    msg.innerHTML = data.exists
+                        ? "<span class='text-danger'><i class='bi bi-exclamation-circle'></i> Проект с таким названием уже существует</span>"
+                        : "<span class='text-success'><i class='bi bi-check-circle'></i> Название свободно</span>";
+                }, 350);
+            });
         }
 
-        const response = await fetch(`/check_title?title=${encodeURIComponent(title)}`);
-        const data = await response.json();
+        /* Удаление проекта */
+        document.addEventListener("click", async (e) => {
+            const btn = e.target.closest(".delete-btn");
+            if (!btn) return;
 
-        msg.innerHTML = data.exists
-          ? "<span class='text-danger'>Проект с таким названием уже существует</span>"
-          : "<span class='text-success'>Название свободно</span>";
-      }, 350);
-    });
-  }
+            if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
 
-  /* Удаление проекта */
-  document.addEventListener("click", async (e) => {
-    const btn = e.target.closest(".delete-btn");
-    if (!btn) return;
+            const id = btn.dataset.id;
+            const response = await fetch(`/api/project/${id}`, { method: "DELETE" });
 
-    if (!confirm("Удалить проект?")) return;
-
-    const id = btn.dataset.id;
-    const response = await fetch(`/api/project/${id}`, { method: "DELETE" });
-
-    if (response.ok) {
-      btn.closest(".col-md-6.col-lg-4").remove();
-    } else {
-      alert("Ошибка удаления");
-    }
-  });
-
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const uploadArea = document.getElementById('uploadArea');
-    const uploadInput = document.getElementById('imgUpload');
-    const uploadTrigger = document.getElementById('uploadTrigger');
-    const selectedFilesContainer = document.getElementById('selectedFiles');
-    const fileList = document.getElementById('fileList');
-    const clearFilesBtn = document.getElementById('clearFiles');
-
-    // Открытие диалога выбора файлов при клике
-    uploadArea.addEventListener('click', function(e) {
-        if (e.target !== uploadTrigger && !uploadTrigger.contains(e.target)) {
-            uploadInput.click();
-        }
-    });
-
-    uploadTrigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        uploadInput.click();
-    });
-
-    // Перетаскивание файлов
-    uploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        uploadArea.classList.add('dragover');
-    });
-
-    uploadArea.addEventListener('dragleave', function() {
-        uploadArea.classList.remove('dragover');
-    });
-
-    uploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        uploadArea.classList.remove('dragover');
-
-        if (e.dataTransfer.files.length) {
-            uploadInput.files = e.dataTransfer.files;
-            validateAndShowFiles();
-        }
-    });
-
-    // Выбор файлов
-    uploadInput.addEventListener('change', validateAndShowFiles);
-
-    // Очистка списка выбранных файлов
-    clearFilesBtn.addEventListener('click', function() {
-        uploadInput.value = '';
-        selectedFilesContainer.style.display = 'none';
-        fileList.innerHTML = '';
-    });
-
-    function validateAndShowFiles() {
-        const selectedFiles = Array.from(uploadInput.files);
-
-        if (selectedFiles.length === 0) {
-            selectedFilesContainer.style.display = 'none';
-            return;
-        }
-
-        // Проверка дубликатов внутри загружаемых файлов
-        const names = selectedFiles.map(f => f.name);
-        const duplicatesInsideUpload = names.filter((name, index) =>
-            names.indexOf(name) !== index
-        );
-
-        if (duplicatesInsideUpload.length > 0) {
-            alert("Нельзя загружать два файла с одинаковыми именами:\n" +
-                  duplicatesInsideUpload.join("\n"));
-            uploadInput.value = "";
-            selectedFilesContainer.style.display = 'none';
-            return;
-        }
-
-        // Показываем список файлов
-        fileList.innerHTML = '';
-        selectedFiles.forEach((file) => {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.innerHTML = `
-                <div class="flex-grow-1">
-                    <div class="fw-medium">${file.name}</div>
-                    <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
-                </div>
-            `;
-            fileList.appendChild(fileItem);
+            if (response.ok) {
+                btn.closest(".col-md-6.col-lg-4").remove();
+            } else {
+                alert("Ошибка удаления проекта");
+            }
         });
 
-        selectedFilesContainer.style.display = 'block';
-    }
-});
-</script>
+        /* Загрузка файлов */
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadInput = document.getElementById('imgUpload');
+        const uploadTrigger = document.getElementById('uploadTrigger');
+        const selectedFilesContainer = document.getElementById('selectedFiles');
+        const fileList = document.getElementById('fileList');
+        const clearFilesBtn = document.getElementById('clearFiles');
 
+        // Открытие диалога выбора файлов при клике
+        uploadArea.addEventListener('click', function(e) {
+            if (e.target !== uploadTrigger && !uploadTrigger.contains(e.target)) {
+                uploadInput.click();
+            }
+        });
 
-{% endblock %}
+        uploadTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            uploadInput.click();
+        });
+
+        // Перетаскивание файлов
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+
+            if (e.dataTransfer.files.length) {
+                uploadInput.files = e.dataTransfer.files;
+                validateAndShowFiles();
+            }
+        });
+
+        // Выбор файлов
+        uploadInput.addEventListener('change', validateAndShowFiles);
+
+        // Очистка списка выбранных файлов
+        clearFilesBtn.addEventListener('click', function() {
+            uploadInput.value = '';
+            selectedFilesContainer.style.display = 'none';
+            fileList.innerHTML = '';
+        });
+
+        function validateAndShowFiles() {
+            const selectedFiles = Array.from(uploadInput.files);
+
+            if (selectedFiles.length === 0) {
+                selectedFilesContainer.style.display = 'none';
+                return;
+            }
+
+            // Проверка дубликатов внутри загружаемых файлов
+            const names = selectedFiles.map(f => f.name);
+            const duplicatesInsideUpload = names.filter((name, index) =>
+                names.indexOf(name) !== index
+            );
+
+            if (duplicatesInsideUpload.length > 0) {
+                alert("Нельзя загружать два файла с одинаковыми именами:\n" +
+                      duplicatesInsideUpload.join("\n"));
+                uploadInput.value = "";
+                selectedFilesContainer.style.display = 'none';
+                return;
+            }
+
+            // Показываем список файлов
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="flex-grow-1">
+                        <div class="fw-medium"><i class="bi bi-file-image text-primary me-2"></i>${file.name}</div>
+                        <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                    </div>
+                `;
+                fileList.appendChild(fileItem);
+            });
+
+            selectedFilesContainer.style.display = 'block';
+        }
+    });
+    </script>
+</body>
+</html>
