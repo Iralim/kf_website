@@ -76,8 +76,11 @@
         }
 
         /* HERO PROJECT */
-        .project-hero {
-            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85));
+            .project-hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), 
+                        url('{{ url_for("static", filename=project.images.first().url) if project.images.first() else "" }}');
+            background-size: cover;
+            background-position: center;
             padding: 140px 0 80px;
             color: white;
             position: relative;
@@ -409,55 +412,84 @@
     </nav>
 
     <!-- PROJECT HERO -->
-    <section class="project-hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8" data-aos="fade-right">
-                    <h1 class="project-title">{{ project.title }}</h1>
-                    <p class="project-subtitle">Площадь: {{ project.square }} м² | Размер: {{ project.size }} | Современный тёплый дом под ключ</p>
-                    
-                    {% if project.description %}
-                    <div class="mt-4">
-                        <p class="lead">{{ project.description }}</p>
+<section class="project-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-8" data-aos="fade-right">
+
+                <!-- Title -->
+                <h1 class="project-title">{{ project.title }}</h1>
+
+                <!-- Quick specs -->
+                <div class="d-flex flex-wrap gap-3 mb-3 text-white-75">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-aspect-ratio fs-5 me-2 text-warning"></i>
+                        <span><strong>{{ project.square }} м²</strong> — площадь</span>
                     </div>
-                    {% endif %}
-                    
-                    <div class="row mt-4">
-                        <div class="col-auto">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-house-check-fill text-warning me-2 fs-4"></i>
-                                <span>Тёплый контур</span>
-                            </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-bounding-box-circles fs-5 me-2 text-warning"></i>
+                        <span><strong>{{ project.size }}</strong> — размер дома</span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                {% if project.description %}
+                <p class="lead opacity-90 mb-4">{{ project.description }}</p>
+                {% endif %}
+
+                <!-- Key advantages -->
+                <div class="row g-4 mt-2">
+                    <div class="col-auto">
+                        <div class="d-flex align-items-center advantage-item">
+                            <i class="bi bi-house-check-fill text-warning fs-4 me-2"></i>
+                            <span>Тёплый контур</span>
                         </div>
-                        <div class="col-auto">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-tools text-warning me-2 fs-4"></i>
-                                <span>Готовые коммуникации</span>
-                            </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex align-items-center advantage-item">
+                            <i class="bi bi-tools text-warning fs-4 me-2"></i>
+                            <span>Коммуникации под ключ</span>
                         </div>
-                        <div class="col-auto">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-key text-warning me-2 fs-4"></i>
-                                <span>Заезжай и живи</span>
-                            </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex align-items-center advantage-item">
+                            <i class="bi bi-key text-warning fs-4 me-2"></i>
+                            <span>Готов к заселению</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 text-center text-lg-end" data-aos="fade-left">
-                    <div class="mortgage-section">
-                        <div class="mb-4">
-                            <div class="text-white-50">Ипотека от</div>
-                            <div class="mortgage-amount">{{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽/мес</div>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary-custom">Забронировать дом</button>
-                            <button class="btn btn-outline-custom border-white text-white">Отправить заявку на ипотеку</button>
+
+            </div>
+
+            <!-- RIGHT MORTGAGE BOX -->
+            <div class="col-lg-4 text-center text-lg-end" data-aos="fade-left">
+                <div class="mortgage-section">
+
+                    <div class="mb-4">
+                        <div class="text-white-50">Ипотека от</div>
+                        <div class="mortgage-amount">
+                            {{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽/мес
                         </div>
                     </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary-custom">
+                            Забронировать дом
+                        </button>
+                        <button class="btn btn-outline-custom border-white text-white">
+                            Оформить ипотечную заявку
+                        </button>
+                    </div>
+
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- ЦЕНЫ -->
     <section class="py-5">
