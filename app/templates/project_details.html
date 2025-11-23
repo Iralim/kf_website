@@ -492,61 +492,301 @@
 
 
     <!-- ЦЕНЫ -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="section-title text-center" data-aos="fade-up">Стоимость строительства</h2>
-            
-            <div class="price-cards">
-                <!-- Базовая комплектация -->
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="price-stage">Базовая комплектация</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</div>
-                    <p>Тёплый контур дома с фундаментом, стенами, кровлей и окнами</p>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check text-success me-2"></i>Фундамент</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Стены и перекрытия</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Кровля</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Окна и двери</li>
-                        <li><i class="bi bi-x text-secondary me-2"></i>Коммуникации</li>
-                        <li><i class="bi bi-x text-secondary me-2"></i>Чистовая отделка</li>
-                    </ul>
-                    <button class="btn btn-outline-custom w-100">Выбрать вариант</button>
-                </div>
+<!-- ЦЕНЫ -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-2" data-aos="fade-up">Стоимость вашего будущего дома</h2>
+        <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="100">Выберите комфортный для вас вариант строительства. <strong>90% клиентов</strong> выбирают комплектацию "Под ключ" — это выгодно и удобно.</p>
 
-                <!-- С коммуникациями -->
-                <div class="price-card featured" data-aos="fade-up" data-aos-delay="200">
-                    <div class="price-stage">С коммуникациями</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</div>
-                    <p>Полностью готовые коммуникации: электрика, вода, отопление</p>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check text-success me-2"></i>Всё из базового варианта</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Электрика и щиток</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Водоснабжение</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Отопление и вентиляция</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Канализация</li>
-                        <li><i class="bi bi-x text-secondary me-2"></i>Чистовая отделка</li>
-                    </ul>
-                    <button class="btn btn-primary-custom w-100">Выбрать вариант</button>
-                </div>
-
-                <!-- Под ключ -->
-                <div class="price-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="price-stage">Под ключ</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</div>
-                    <p>Полностью готовый дом с отделкой. Заезжайте и живите!</p>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check text-success me-2"></i>Всё из предыдущих вариантов</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Чистовая отделка</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Натяжные потолки</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Тёплые полы</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Сантехника</li>
-                        <li><i class="bi bi-check text-success me-2"></i>Электрика с розетками</li>
-                    </ul>
-                    <button class="btn btn-outline-custom w-100">Выбрать вариант</button>
+        <!-- Навигация по табам -->
+        <div class="row justify-content-center mb-5" data-aos="fade-up">
+            <div class="col-auto">
+                <div class="nav nav-pills pricing-tabs" id="pricingTabs" role="tablist">
+                    <button class="nav-link active" id="base-tab" data-bs-toggle="pill" data-bs-target="#base" type="button" role="tab">
+                        Базовая
+                    </button>
+                    <button class="nav-link" id="comm-tab" data-bs-toggle="pill" data-bs-target="#comm" type="button" role="tab">
+                        С коммуникациями
+                    </button>
+                    <button class="nav-link featured-tab" id="ready-tab" data-bs-toggle="pill" data-bs-target="#ready" type="button" role="tab">
+                        <i class="bi bi-star-fill me-1"></i>Под ключ
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Контент табов -->
+        <div class="tab-content" id="pricingTabsContent">
+
+            <!-- БАЗОВАЯ КОМПЛЕКТАЦИЯ -->
+            <div class="tab-pane fade show active" id="base" role="tabpanel" aria-labelledby="base-tab">
+                <div class="row align-items-center">
+                    <div class="col-lg-7" data-aos="fade-right">
+                        <div class="d-flex align-items-baseline mb-3">
+                            <h3 class="h2 fw-bold text-primary mb-0">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</h3>
+                            <span class="text-muted ms-2">за проект</span>
+                        </div>
+                        <p class="lead">Фундамент, коробка дома и кровля. Идеально, если вы хотите растянуть стройку на несколько этапов или часть работ сделать самостоятельно.</p>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3">Что входит в стоимость:</h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Устройство фундамента</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Возведение стен и перекрытий</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Монтаж кровли</li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Установка окон и входной двери</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Материалы и работы</li>
+                                        <li class="mb-2"><i class="bi bi-clock text-warning me-2"></i><strong>Срок: 2-3 месяца</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button class="btn btn-primary-custom me-md-2">
+                                <i class="bi bi-calculator me-2"></i>Рассчитать ипотеку
+                            </button>
+                            <button class="btn btn-outline-custom">
+                                Получить смету
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-4 mt-lg-0" data-aos="fade-left">
+                        <div class="bg-white p-4 rounded-3 border">
+                            <h5 class="mb-3">Сколько стоит достроить до "ключа"?</h5>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <span>Коммуникации:</span>
+                                <strong>{{ "{:,}".format(project.price_with_communications - project.price_base).replace(',', ' ') }} ₽</strong>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <span>Отделка "Под ключ":</span>
+                                <strong>{{ "{:,}".format(project.price_ready - project.price_with_communications).replace(',', ' ') }} ₽</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-2 fs-5">
+                                <span>Итого:</span>
+                                <strong class="text-accent">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</strong>
+                            </div>
+                            <p class="small text-muted mt-2">Рассчитано от базовой цены. При заказе "с нуля" — выгоднее!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- С КОММУНИКАЦИЯМИ -->
+            <div class="tab-pane fade" id="comm" role="tabpanel" aria-labelledby="comm-tab">
+                <div class="row align-items-center">
+                    <div class="col-lg-7" data-aos="fade-right">
+                        <div class="d-flex align-items-baseline mb-3">
+                            <h3 class="h2 fw-bold text-primary mb-0">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</h3>
+                            <span class="text-muted ms-2">за проект</span>
+                        </div>
+                        <p class="lead">Дом с готовыми инженерными системами. Осталось только сделать внутреннюю отделку под ваш вкус.</p>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3">Дополнительно к базовой комплектации:</h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-plus-circle text-accent me-2"></i>Разводка электрики по дому</li>
+                                        <li class="mb-2"><i class="bi bi-plus-circle text-accent me-2"></i>Система отопления и тёплый пол</li>
+                                        <li class="mb-2"><i class="bi bi-plus-circle text-accent me-2"></i>Водоснабжение и канализация</li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-plus-circle text-accent me-2"></i>Электрокотельная</li>
+                                        <li class="mb-2"><i class="bi bi-plus-circle text-accent me-2"></i>Вентиляция</li>
+                                        <li class="mb-2"><i class="bi bi-clock text-warning me-2"></i><strong>Срок: 3-4 месяца</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <i class="bi bi-lightbulb me-2 fs-5"></i>
+                            <div>
+                                <strong>Совет:</strong> Закажите чистовую отделку сразу и получите скидку 5% на материалы.
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button class="btn btn-primary-custom me-md-2">
+                                <i class="bi bi-award me-2"></i>Получить скидку на отделку
+                            </button>
+                            <button class="btn btn-outline-custom">
+                                <i class="bi bi-calculator me-2"></i>Рассчитать ипотеку
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-4 mt-lg-0" data-aos="fade-left">
+                        <div class="bg-gradient-primary text-white p-4 rounded-3">
+                            <h5 class="mb-3">Ипотека от {{ "{:,}".format( (project.price_with_communications * 0.8) / 240 | round | int ).replace(',', ' ') }} ₽/мес</h5>
+                            <p>Рассчитано для данного тарифа на 20 лет по ставке 7%</p>
+                            <button class="btn btn-light w-100 fw-bold">
+                                Оформить заявку онлайн
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПОД КЛЮЧ -->
+            <div class="tab-pane fade" id="ready" role="tabpanel" aria-labelledby="ready-tab">
+                <div class="row align-items-center">
+                    <div class="col-lg-7" data-aos="fade-right">
+                        <div class="d-flex align-items-baseline mb-3">
+                            <h3 class="h2 fw-bold text-accent mb-0">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</h3>
+                            <span class="text-muted ms-2">за проект</span>
+                        </div>
+                        <div class="badge bg-warning text-dark fs-6 mb-3">Самое популярное решение</div>
+                        <p class="lead">Полностью готовый дом с отделкой. Вам не нужно ни о чём беспокоиться — просто заезжайте и начинайте жить.</p>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3">Всё включено:</h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i><strong>Вся базовая часть</strong></li>
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i><strong>Все коммуникации</strong></li>
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i>Чистовая отделка стен и потолков</li>
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i>Напольные покрытия</li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i>Установка сантехники</li>
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i>Монтаж осветительных приборов</li>
+                                        <li class="mb-2"><i class="bi bi-check-all text-accent me-2"></i>Электропроводка с розетками</li>
+                                        <li class="mb-2"><i class="bi bi-clock text-warning me-2"></i><strong>Срок: 4-5 месяцев</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button class="btn btn-primary-custom btn-lg me-md-2">
+                                <i class="bi bi-house-check me-2"></i>Забронировать дом "Под ключ"
+                            </button>
+                            <button class="btn btn-outline-custom btn-lg">
+                                <i class="bi bi-telephone me-2"></i>Обсудить с прорабом
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-4 mt-lg-0" data-aos="fade-left">
+                        <div class="bg-white p-4 rounded-3 border border-3 border-accent">
+                            <h5 class="mb-3 text-accent"><i class="bi bi-gift me-2"></i>Акция "Под ключ"</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Система "Умный дом" в подарок</li>
+                                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Ландшафтный дизайн участка</li>
+                                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Гарантия на все работы 5 лет</li>
+                            </ul>
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <small class="text-muted">Акция действует до конца месяца. Осталось 3 свободных места в графике строительства.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Сравнительная таблица (дополнительно, для наглядности) -->
+        <div class="mt-5 pt-5 border-top" data-aos="fade-up">
+            <h4 class="text-center mb-4">Сравнение комплектаций</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Что входит</th>
+                            <th>Базовая</th>
+                            <th>С коммуникациями</th>
+                            <th class="table-warning">Под ключ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Фундамент и коробка</td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Инженерные коммуникации</td>
+                            <td><i class="bi bi-x-lg text-danger"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Чистовая отделка</td>
+                            <td><i class="bi bi-x-lg text-danger"></i></td>
+                            <td><i class="bi bi-x-lg text-danger"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Готовность к заселению</td>
+                            <td><i class="bi bi-x-lg text-danger"></i></td>
+                            <td><i class="bi bi-x-lg text-danger"></i></td>
+                            <td><i class="bi bi-check-lg text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+<style>
+    /* Стили для улучшенного блока цен */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+}
+
+.pricing-tabs .nav-link {
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: var(--gray);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.pricing-tabs .nav-link.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.pricing-tabs .nav-link.featured-tab {
+    border: 2px solid var(--secondary);
+}
+
+.pricing-tabs .nav-link.featured-tab.active {
+    background: var(--secondary);
+    color: white;
+}
+
+.table-warning {
+    background-color: rgba(249, 115, 22, 0.1) !important;
+}
+
+/* Адаптивность для таблицы */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .pricing-tabs .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+</style>
 
     <!-- ГАЛЕРЕЯ -->
     <section class="py-5 bg-light">
