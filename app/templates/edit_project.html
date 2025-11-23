@@ -293,12 +293,12 @@
     <!-- ОСНОВНОЙ КОНТЕНТ -->
     <section class="py-4">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="fw-bold">Редактирование проекта - {{ project.title }}</h1>
-                <a href="{{ url_for('main.admin') }}" class="btn btn-outline-custom">
-                    <i class="bi bi-arrow-left"></i> Назад к панели управления
-                </a>
-            </div>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+              <h1 class="fw-bold">Редактирование проекта - {{ project.title }}</h1>
+              <a href="#projects" class="btn btn-outline-custom">
+                  <i class="bi bi-list-ul"></i> Все проекты
+              </a>
+          </div>
             
             <!-- ФОРМА РЕДАКТИРОВАНИЯ ПРОЕКТА -->
             <form method="POST" action="{{ url_for('main.edit_project', id=project.id) }}" enctype="multipart/form-data">

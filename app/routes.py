@@ -78,6 +78,7 @@ def add_project():
 @main_bp.route('/admin/edit_project/<int:id>', methods=['GET', 'POST'])
 def edit_project(id):
     project = Project.query.get_or_404(id)
+    projects = Project.query.all()
     images = project.images.all()
     form = ProjectForm(obj=project)
 
@@ -102,7 +103,7 @@ def edit_project(id):
         form = ProjectForm()
         return redirect('/admin/')
     existing_files = [img.filename for img in images]
-    return render_template('edit_project.html', project=project, form=form, images=images, existing_files=existing_files)
+    return render_template('edit_project.html', projects=projects, project=project, form=form, images=images, existing_files=existing_files)
 
 
 # === JS API ================================

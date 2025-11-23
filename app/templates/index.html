@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Крепкий Фундамент | Премиум-строительство домов под ключ</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
-    <style>
-        /* (Все предыдущие стили остаются без изменений) */
-        :root {
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Крепкий Фундамент | Премиум-строительство домов под ключ</title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+        <!-- AOS Animation Library -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <style>
+            /* CSS Variables */
+            :root {
             --primary: #0f172a;
             --primary-light: #1e293b;
             --secondary: #f97316;
@@ -29,75 +24,68 @@
             --light: #f8fafc;
             --dark: #0f172a;
             --gray: #64748b;
-        }
-
-        body {
+            }
+            /* Base Styles */
+            body {
             background: var(--light);
             font-family: "Montserrat", sans-serif;
             color: var(--dark);
             line-height: 1.7;
             overflow-x: hidden;
             scroll-behavior: smooth;
-        }
-
-        h1, h2, h3, h4, h5 {
+            }
+            h1, h2, h3, h4, h5 {
             font-family: "Oswald", sans-serif;
             font-weight: 700;
-        }
-
-        /* NAVBAR */
-        .navbar {
+            }
+            /* NAVBAR */
+            .navbar {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
             transition: all 0.4s ease;
-        }
-
-        .navbar-brand {
+            }
+            .navbar-brand {
             font-family: "Oswald", sans-serif;
             font-weight: 700;
             font-size: 1.8rem;
             color: white;
-        }
-
-        .navbar-brand span {
+            }
+            .navbar-brand span {
             color: var(--secondary);
-        }
-
-        .nav-link {
+            }
+            .nav-link {
             color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
             margin: 0 8px;
             transition: 0.3s;
-        }
-
-        .nav-link:hover {
+            }
+            .nav-link:hover {
             color: var(--secondary);
-        }
-
-        .navbar-toggler {
+            }
+            .navbar-toggler {
             border: none;
             color: white;
-        }
-
-        .navbar-toggler:focus {
+            }
+            .navbar-toggler:focus {
             box-shadow: none;
-        }
-
-        /* HERO */
-        .hero-section {
-            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)),
-                url("https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1920&q=80");
+            }
+            /* HERO SECTION */
+            .hero-section {
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.9)),
+            url("https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1920&q=80");
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
-            padding: 180px 0 140px;
+            padding: 180px 0 120px;
             color: white;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-section::after {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            }
+            .hero-section::after {
             content: "";
             position: absolute;
             bottom: 0;
@@ -106,36 +94,128 @@
             height: 100px;
             background: linear-gradient(to top, var(--light), transparent);
             z-index: 1;
-        }
-
-        .hero-title {
-            font-size: 4.5rem;
-            letter-spacing: 1px;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            opacity: 0.95;
+            }
+            .hero-content {
             max-width: 650px;
+            }
+            .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(249, 115, 22, 0.2);
+            color: #fed7aa;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 2rem;
-        }
-
-        .btn-primary-custom {
-            background: var(--secondary);
-            border: none;
-            padding: 14px 34px;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            backdrop-filter: blur(10px);
+            }
+            .hero-badge i {
+            margin-right: 8px;
+            font-size: 1rem;
+            }
+            .hero-title {
+            font-size: 3.8rem;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            }
+            .hero-highlight {
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .hero-highlight.shadow {
+            text-shadow: 
+            2px 2px 0 rgba(249, 115, 22, 0.3),
+            4px 4px 0 rgba(0, 0, 0, 0.1);
+            }
+            .technology-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(14, 165, 233, 0.2);
+            color: #bae6fd;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(14, 165, 233, 0.4);
+            backdrop-filter: blur(10px);
+            }
+            .technology-badge i {
+            margin-right: 10px;
+            color: var(--accent);
+            font-size: 1.1rem;
+            }
+            .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            }
+            .text-accent {
+            color: var(--secondary);
+            font-weight: 600;
+            }
+            .hero-locations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 2.5rem;
+            }
+            .location-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            }
+            .location-item:hover {
+            background: rgba(249, 115, 22, 0.3);
+            transform: translateY(-2px);
+            }
+            .location-item i {
+            color: var(--secondary);
+            margin-right: 8px;
+            font-size: 0.8rem;
+            }
+            .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 3rem;
+            }
+            .btn-primary-custom,
+            .btn-outline-custom {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
             border-radius: 50px;
             font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.45);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            }
+            .btn-primary-custom {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
             position: relative;
             overflow: hidden;
             z-index: 1;
-        }
-
-        .btn-primary-custom::before {
+            }
+            .btn-primary-custom::before {
             content: "";
             position: absolute;
             top: 0;
@@ -146,33 +226,47 @@
             transition: all 0.5s;
             border-radius: 50px;
             z-index: -1;
-        }
-
-        .btn-primary-custom:hover::before {
+            }
+            .btn-primary-custom:hover::before {
             width: 100%;
-        }
-
-        .btn-primary-custom:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.6);
-        }
-
-        .btn-outline-custom {
-            border: 2px solid white;
+            }
+            .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.6);
             color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            transition: 0.3s;
-            font-weight: 600;
-        }
-
-        .btn-outline-custom:hover {
+            }
+            .btn-outline-custom {
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            background: transparent;
+            }
+            .btn-outline-custom:hover {
             background: white;
             color: var(--primary);
-        }
-
-        /* FEATURES - ОБНОВЛЕННЫЙ СТИЛЬ ДЛЯ КАРТОЧЕК С ИКОНКАМИ СПИСКА */
-        .info-card {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            }
+            .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            }
+            .feature-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            }
+            .feature-item i {
+            color: var(--secondary);
+            margin-right: 10px;
+            font-size: 1.1rem;
+            }
+            .feature-item span {
+            font-weight: 500;
+            }
+            /* FEATURES SECTION */
+            .info-card {
             background: white;
             border-radius: 1.3rem;
             padding: 35px;
@@ -181,14 +275,12 @@
             position: relative;
             overflow: hidden;
             height: 100%;
-        }
-
-        .info-card:hover {
+            }
+            .info-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .info-card::before {
+            }
+            .info-card::before {
             content: "";
             position: absolute;
             top: -2px;
@@ -196,9 +288,8 @@
             width: 100%;
             height: 5px;
             background: linear-gradient(90deg, var(--secondary), var(--accent));
-        }
-
-        .card-icon {
+            }
+            .card-icon {
             font-size: 2.8rem;
             color: var(--accent);
             padding: 18px;
@@ -206,43 +297,36 @@
             background: rgba(14, 165, 233, 0.1);
             margin-bottom: 1.2rem;
             transition: 0.3s;
-        }
-
-        .info-card:hover .card-icon {
+            }
+            .info-card:hover .card-icon {
             transform: scale(1.1);
             background: rgba(14, 165, 233, 0.2);
-        }
-
-        /* Стили для списка с иконками */
-        .feature-list {
+            }
+            .feature-list {
             list-style: none;
             padding: 0;
             margin: 0;
-        }
-
-        .feature-list li {
+            }
+            .feature-list li {
             display: flex;
             align-items: flex-start;
             margin-bottom: 0.8rem;
             padding: 0.5rem 0;
-        }
-
-        .feature-list i {
+            }
+            .feature-list i {
             color: var(--secondary);
             margin-right: 12px;
             font-size: 1.2rem;
             margin-top: 0.2rem;
             flex-shrink: 0;
-        }
-
-        .section-title {
+            }
+            .section-title {
             text-align: center;
             margin-bottom: 3.5rem;
             color: var(--primary);
             font-size: 2.6rem;
-        }
-
-        .section-title::after {
+            }
+            .section-title::after {
             content: "";
             display: block;
             width: 90px;
@@ -250,18 +334,195 @@
             margin: 12px auto 0;
             background: var(--secondary);
             border-radius: 2px;
-        }
-
-        /* STATS */
-        .stats-section {
+            }
+            /* GALLERY SECTION */
+            .gallery-section {
+            padding: 100px 0;
+            background: #f1f5f9;
+            }
+            .project-card {
+            background: white;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            }
+            .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            }
+            .project-carousel {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            }
+            .project-carousel .carousel {
+            height: 100%;
+            }
+            .project-carousel .carousel-inner,
+            .project-carousel .carousel-item {
+            height: 100%;
+            }
+            .project-carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            }
+            .project-carousel .carousel-indicators {
+            margin-bottom: 5px;
+            }
+            .project-carousel .carousel-indicators button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 3px;
+            }
+            .project-carousel .carousel-control-prev,
+            .project-carousel .carousel-control-next {
+            width: auto;
+            height: auto;
+            background: none;
+            border-radius: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            }
+            .project-carousel .carousel-control-prev-icon,
+            .project-carousel .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-size: 20px 20px;
+            background-position: center;
+            transition: background-color 0.3s ease;
+            }
+            .project-carousel .carousel-control-prev-icon:hover,
+            .project-carousel .carousel-control-next-icon:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            }
+            .project-card:hover .carousel-control-prev,
+            .project-card:hover .carousel-control-next {
+            opacity: 1;
+            }
+            .project-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            }
+            .project-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            }
+            .project-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            }
+            .project-square {
+            display: flex;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            }
+            .project-square i {
+            margin-right: 5px;
+            color: var(--accent);
+            }
+            .price-section {
+            margin-bottom: 1rem;
+            }
+            .price-tier {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            }
+            .price-tier:last-child {
+            border-bottom: none;
+            }
+            .price-tier.highlight {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            margin: 0 -1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fdba74;
+            }
+            .price-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 500;
+            }
+            .price-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            }
+            .price-tier.highlight .price-value {
+            color: #ea580c;
+            font-size: 1.1rem;
+            }
+            .mortgage-section {
+            background: rgba(14, 165, 233, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+            }
+            .mortgage-section i {
+            color: var(--accent);
+            margin-right: 8px;
+            font-size: 1rem;
+            }
+            .btn-project-details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            }
+            .btn-project-details:hover {
+            background: #ea580c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            }
+            .btn-project-details i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+            }
+            .btn-project-details:hover i {
+            transform: translateX(3px);
+            }
+            /* STATS SECTION */
+            .stats-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             padding: 100px 0;
             position: relative;
             overflow: hidden;
-        }
-
-        .stats-section::before {
+            }
+            .stats-section::before {
             content: "";
             position: absolute;
             top: 0;
@@ -271,79 +532,25 @@
             background: url("https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=1920&q=80");
             background-size: cover;
             opacity: 0.1;
-        }
-
-        .stat-number {
+            }
+            .stat-number {
             font-size: 3.3rem;
             font-family: "Oswald";
             font-weight: 700;
             margin-bottom: 0.5rem;
-        }
-
-        .stat-item {
+            }
+            .stat-item {
             position: relative;
             z-index: 2;
-        }
-
-        /* GALLERY */
-        .gallery-section {
-            padding: 100px 0;
-            background: #f1f5f9;
-        }
-
-        .gallery-item {
-            border-radius: 1rem;
-            overflow: hidden;
-            position: relative;
-            height: 300px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: 0.4s;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            transform: translateY(10px);
-            opacity: 0;
-            transition: 0.4s;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* CONTACT */
-        .contact-card {
+            }
+            /* CONTACT SECTION */
+            .contact-card {
             background: white;
             padding: 40px;
             border-radius: 1.3rem;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-icon {
+            }
+            .contact-icon {
             width: 55px;
             height: 55px;
             border-radius: 50%;
@@ -355,38 +562,32 @@
             justify-content: center;
             margin-right: 15px;
             transition: 0.3s;
-        }
-
-        .contact-item:hover .contact-icon {
+            }
+            .contact-item:hover .contact-icon {
             background: rgba(14, 165, 233, 0.2);
             transform: scale(1.05);
-        }
-
-        /* FOOTER */
-        footer {
+            }
+            /* FOOTER */
+            footer {
             background: var(--dark);
             padding: 60px 0 30px;
             color: #cbd5e1;
-        }
-
-        footer h5, footer h4 {
+            }
+            footer h5, footer h4 {
             color: white;
-        }
-
-        .footer-links a {
+            }
+            .footer-links a {
             display: block;
             color: #94a3b8;
             text-decoration: none;
             margin-bottom: 8px;
             transition: 0.3s;
-        }
-
-        .footer-links a:hover {
+            }
+            .footer-links a:hover {
             color: var(--secondary);
             padding-left: 5px;
-        }
-
-        .social-links a {
+            }
+            .social-links a {
             width: 42px;
             height: 42px;
             display: inline-flex;
@@ -397,15 +598,13 @@
             margin-right: 10px;
             font-size: 1.2rem;
             transition: 0.3s;
-        }
-
-        .social-links a:hover {
+            }
+            .social-links a:hover {
             background: var(--secondary);
             transform: translateY(-4px);
-        }
-
-        /* BACK TO TOP */
-        .back-to-top {
+            }
+            /* BACK TO TOP */
+            .back-to-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -424,344 +623,518 @@
             opacity: 0;
             visibility: hidden;
             z-index: 1000;
-        }
-
-        .back-to-top.active {
+            }
+            .back-to-top.active {
             opacity: 1;
             visibility: visible;
-        }
-
-        .back-to-top:hover {
+            }
+            .back-to-top:hover {
             transform: translateY(-5px);
             background: #ea580c;
-        }
-
-        /* MOBILE */
-        @media (max-width: 768px) {
+            }
+            /* MOBILE RESPONSIVE */
+            @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.7rem;
+            font-size: 2.5rem;
             }
             .hero-subtitle {
-                font-size: 1.2rem;
+            font-size: 1.2rem;
             }
             .navbar {
-                padding: 10px 0;
+            padding: 10px 0;
             }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            .hero-section {
+            padding: 140px 0 80px;
+            text-align: center;
+            }
+            .hero-locations {
+            justify-content: center;
+            gap: 10px;
+            }
+            .location-item {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            }
+            .hero-actions {
+            justify-content: center;
+            }
+            .hero-features {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            }
+            .feature-item {
+            justify-content: center;
+            font-size: 0.8rem;
+            }
+            .project-carousel {
+            height: 200px;
+            }
+            .project-info {
+            padding: 1.25rem;
+            }
+            .project-title {
+            font-size: 1.2rem;
+            }
+            .price-tier {
+            padding: 0.4rem 0;
+            }
+            .price-tier.highlight {
+            margin: 0 -1.25rem;
+            padding: 0.6rem 1.25rem;
+            }
+            .carousel-control-prev,
+            .carousel-control-next {
+            opacity: 1 !important;
+            }
+            .project-carousel .carousel-control-prev-icon,
+            .project-carousel .carousel-control-next-icon {
+            width: 35px;
+            height: 35px;
+            background-size: 18px 18px;
+            }
+            }
+            @media (max-width: 576px) {
+            .hero-title {
+            font-size: 2rem;
+            }
+            .hero-features {
+            grid-template-columns: 1fr;
+            }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-list"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">Преимущества</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery">Проекты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- HERO -->
-    <section id="home" class="hero-section">
-        <div class="container text-center text-lg-start">
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="hero-title">КРЕПКИЙ ФУНДАМЕНТ</h1>
-                <p class="hero-subtitle">Строим современные, тёплые и надёжные дома под ключ. Премиум-качество без переплаты.</p>
-
-                <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
-                    <a href="#contact" class="btn btn-primary-custom">Получить консультацию</a>
-                    <a href="#features" class="btn btn-outline-custom">Наши преимущества</a>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Преимущества</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gallery">Проекты</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- FEATURES - ПОЛНОСТЬЮ ПЕРЕРАБОТАННАЯ СЕКЦИЯ -->
-    <section id="features" class="py-5">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Почему выбирают нас</h2>
-
-            <div class="row g-4">
-                <!-- Карточка 1: Готовый дом -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-house-check-fill"></i></div>
-                        <h3>Дом — полностью готов к жизни</h3>
-                        <p>Всё, что нужно для комфортного переезда — уже включено. Полная отделка и готовая инженерия.</p>
-                        <ul class="feature-list mt-3">
-                            <li><i class="bi bi-check-circle-fill"></i> Стены под поклейку обоев</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Межкомнатные двери и натяжные потолки</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Тёплые полы в ключевых зонах</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Чистовая отделка и санузел</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Ламинат, плитка, сантехника</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Электрика: щиток, розетки, выключатели</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Вода, отопление, канализация</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Архитектурная подсветка и ниши</li>
-                        </ul>
-                        <p class="mt-3 fw-semibold">Вы получаете дом, в который можно заехать в день получения ключей.</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 2: Ипотека -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-bank2"></i></div>
-                        <h3>Ипотека и полное сопровождение</h3>
-                        <p>Мы оформим льготную ипотеку на весь комплекс: дом, забор, баню, гараж и даже мебель — одной выгодной ставкой.</p>
-                        <p>Работаем с ведущими банками и полностью ведём процесс: от покупки участка до ввода дома в эксплуатацию и постановки на учёт.</p>
-                        <p class="fw-semibold mt-3">Принцип “единого окна”: все вопросы — у нас, результат — у вас.</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 3: Проекты -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-pencil-square"></i></div>
-                        <h3>Проекты, созданные профессионалами</h3>
-                        <p>Все дома разрабатываются опытными архитекторами и дизайнерами, поэтому выглядят современно и продуманно:</p>
-                        <ul class="feature-list mt-3">
-                            <li><i class="bi bi-check-circle-fill"></i> Без лишних квадратов, только полезные площади</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Удобные планировки</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Панорамная раздвижная дверь на террасу 2,3 м по стандарту</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Индивидуальный проект — если не нашли подходящий среди готовых</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Карточка 4: Надёжность -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-shield-check"></i></div>
-                        <h3>Надёжность и энергоэффективность</h3>
-                        <p>Мы строим дома по энергоэффективным технологиям, что обеспечивает тепло и минимальные затраты на отопление.</p>
-                        <p>Используем проверенные материалы и собственные стандарты строительства — ваш дом надолго сохранит внешний вид и комфорт.</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 5: О компании -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-building"></i></div>
-                        <h3>О компании</h3>
-                        <p>«Крепкий Фундамент» — строительная компания, специализирующаяся на домах под ключ.</p>
-                        <p>Мы делаем процесс максимально простым и понятным, а результат — качественным и долговечным.</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 6: Сроки -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="bi bi-lightning-charge"></i></div>
-                        <h3>Быстрые сроки</h3>
-                        <p>Всего <strong>4 месяца</strong> — от договора до переезда в готовый дом.</p>
-                        <p>Мы ценим ваше время и соблюдаем все оговоренные сроки строительства.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Наши проекты</h2>
-            <div class="row">
-
-                {% for project in projects %}
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <a href="{{ url_for('main.details', id=project.id) }}">
-
-                       <div class="gallery-item">
-                        <!-- <img src="https://images.unsplash.com/photo-1600585154340-6e467bcdc9d5?auto=format&fit=crop&w=600&q=80" alt="Современный дом"> -->
-                        <img src="{{ url_for('static', filename=project.images.first().url) }}" alt="Современный дом">
-                        <div class="gallery-overlay">
-                            <h4>{{ project.title }}</h4>
-                            <p>Площадь: {{ project.square }} м²</p>
-                        </div>
-                    </div> 
-                    </a>
-                    
-                </div>
-                {% endfor %}
-
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS - ОБНОВЛЕННАЯ СЕКЦИЯ -->
-    <section id="stats" class="stats-section text-center">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-item">
-                        <div class="stat-number">100+</div>
-                        <div>построенных домов</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-item">
-                        <div class="stat-number">200+</div>
-                        <div>семей переехали</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stat-item">
-                        <div class="stat-number">0</div>
-                        <div>недостроев</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="stat-item">
-                        <div class="stat-number">4 мес</div>
-                        <div>средний срок строительства</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Свяжитесь с нами</h2>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="contact-card">
-                        <div class="row">
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <h3>Контакты</h3>
-
-                                <div class="d-flex align-items-start mt-4 contact-item">
-                                    <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
-                                    <div><h5>Адрес</h5><p>г. Стерлитамак, ул. Строителей, 15</p></div>
+        </nav>
+        <!-- HERO -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="hero-content">
+                            <!-- Бейдж -->
+                            <div class="hero-badge" data-aos="fade-up" data-aos-delay="200">
+                                <i class="bi bi-award-fill"></i>
+                                Строим с 2010 года
+                            </div>
+                            <!-- Заголовок -->
+                            <h1 class="hero-title">
+                                Строим современные<br>
+                                <span class="hero-highlight shadow">энергоэффективные</span><br>
+                                дома под ключ
+                            </h1>
+                            <!-- Технология -->
+                            <div class="technology-badge" data-aos="fade-up" data-aos-delay="300">
+                                <i class="bi bi-lightning-charge"></i>
+                                Технология: СИП-панели
+                            </div>
+                            <!-- Подзаголовок -->
+                            <p class="hero-subtitle">
+                                Премиум-качество <span class="text-accent">без переплаты</span>. 
+                                Полная отделка, готовые коммуникации и гарантия 10 лет.
+                            </p>
+                            <!-- Геолокации -->
+                            <div class="hero-locations" data-aos="fade-up" data-aos-delay="400">
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Стерлитамак</span>
                                 </div>
-
-                                <div class="d-flex align-items-start mt-3 contact-item">
-                                    <div class="contact-icon"><i class="bi bi-telephone"></i></div>
-                                    <div><h5>Телефон</h5><p><a href="tel:+79173755545" class="text-decoration-none">+7 917 375-55-45</a></p></div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Салават</span>
                                 </div>
-
-                                <div class="d-flex align-items-start mt-3 contact-item">
-                                    <div class="contact-icon"><i class="bi bi-clock"></i></div>
-                                    <div><h5>Режим работы</h5><p>Пн–Вс, 10:00–19:00</p></div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ишимбай</span>
                                 </div>
-
-                                <div class="social-links mt-4">
-                                    <a href="#"><i class="bi bi-whatsapp"></i></a>
-                                    <a href="#"><i class="bi bi-telegram"></i></a>
-                                    <a href="#"><i class="bi bi-instagram"></i></a>
-                                    <a href="#"><i class="bi bi-vk"></i></a>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Кумертау</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Северо-Восток</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Булгакова</span>
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <h3>Оставить заявку</h3>
-                                <form class="mt-4">
-                                    <input type="text" class="form-control mb-3" placeholder="Ваше имя" required />
-                                    <input type="tel" class="form-control mb-3" placeholder="Телефон" required />
-                                    <textarea class="form-control mb-3" rows="3" placeholder="Сообщение"></textarea>
-                                    <button class="btn btn-primary-custom w-100">Отправить заявку</button>
-                                </form>
+                            <!-- Кнопки -->
+                            <div class="hero-actions" data-aos="fade-up" data-aos-delay="600">
+                                <a href="#contact" class="btn btn-primary-custom">
+                                <i class="bi bi-house-check me-2"></i>
+                                Получить консультацию
+                                </a>
+                                <a href="#gallery" class="btn btn-outline-custom">
+                                <i class="bi bi-images me-2"></i>
+                                Смотреть проекты
+                                </a>
+                            </div>
+                            <!-- Преимущества -->
+                            <div class="hero-features" data-aos="fade-up" data-aos-delay="800">
+                                <div class="feature-item">
+                                    <i class="bi bi-clock-fill"></i>
+                                    <span>4 месяца</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <span>Гарантия 10 лет</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-safe-fill"></i>
+                                    <span>Ипотека через эскроу</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-building-check"></i>
+                                    <span>Строительный надзор</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-lg-4 mb-4">
-                    <h4>Крепкий Фундамент</h4>
-                    <p>Современные тёплые дома под ключ. Работаем с 2010 года.</p>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Услуги</h5>
-                    <div class="footer-links">
-                        <a href="#">Строительство</a>
-                        <a href="#">Проектирование</a>
-                        <a href="#">Отделка</a>
-                        <a href="#">Ипотека</a>
+        </section>
+        <!-- FEATURES - ПОЛНОСТЬЮ ПЕРЕРАБОТАННАЯ СЕКЦИЯ -->
+        <section id="features" class="py-5">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Почему выбирают нас</h2>
+                <div class="row g-4">
+                    <!-- Карточка 1: Готовый дом -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-house-check-fill"></i></div>
+                            <h3>Дом — полностью готов к жизни</h3>
+                            <p>Всё, что нужно для комфортного переезда — уже включено. Полная отделка и готовая инженерия.</p>
+                            <ul class="feature-list mt-3">
+                                <li><i class="bi bi-check-circle-fill"></i> Стены под поклейку обоев</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Межкомнатные двери и натяжные потолки</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Тёплые полы в ключевых зонах</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Чистовая отделка и санузел</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Ламинат, плитка, сантехника</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Электрика: щиток, розетки, выключатели</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Вода, отопление, канализация</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Архитектурная подсветка и ниши</li>
+                            </ul>
+                            <p class="mt-3 fw-semibold">Вы получаете дом, в который можно заехать в день получения ключей.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Компания</h5>
-                    <div class="footer-links">
-                        <a href="#">О нас</a>
-                        <a href="#">Отзывы</a>
-                        <a href="#">Проекты</a>
-                        <a href="#">Контакты</a>
+                    <!-- Карточка 2: Ипотека -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-bank2"></i></div>
+                            <h3>Ипотека и полное сопровождение</h3>
+                            <p>Мы оформим льготную ипотеку на весь комплекс: дом, забор, баню, гараж и даже мебель — одной выгодной ставкой.</p>
+                            <p>Работаем с ведущими банками и полностью ведём процесс: от покупки участка до ввода дома в эксплуатацию и постановки на учёт.</p>
+                            <p class="fw-semibold mt-3">Принцип “единого окна”: все вопросы — у нас, результат — у вас.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <h5>Подписаться на новости</h5>
-                    <div class="input-group mt-3">
-                        <input type="email" class="form-control" placeholder="Ваш email" />
-                        <button class="btn btn-primary-custom">OK</button>
+                    <!-- Карточка 3: Проекты -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-pencil-square"></i></div>
+                            <h3>Проекты, созданные профессионалами</h3>
+                            <p>Все дома разрабатываются опытными архитекторами и дизайнерами, поэтому выглядят современно и продуманно:</p>
+                            <ul class="feature-list mt-3">
+                                <li><i class="bi bi-check-circle-fill"></i> Без лишних квадратов, только полезные площади</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Удобные планировки</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Панорамная раздвижная дверь на террасу 2,3 м по стандарту</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Индивидуальный проект — если не нашли подходящий среди готовых</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Карточка 4: Надёжность -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-shield-check"></i></div>
+                            <h3>Надёжность и энергоэффективность</h3>
+                            <p>Мы строим дома по энергоэффективным технологиям, что обеспечивает тепло и минимальные затраты на отопление.</p>
+                            <p>Используем проверенные материалы и собственные стандарты строительства — ваш дом надолго сохранит внешний вид и комфорт.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 5: О компании -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-building"></i></div>
+                            <h3>О компании</h3>
+                            <p>«Крепкий Фундамент» — строительная компания, специализирующаяся на домах под ключ.</p>
+                            <p>Мы делаем процесс максимально простым и понятным, а результат — качественным и долговечным.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 6: Сроки -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-lightning-charge"></i></div>
+                            <h3>Быстрые сроки</h3>
+                            <p>Всего <strong>4 месяца</strong> — от договора до переезда в готовый дом.</p>
+                            <p>Мы ценим ваше время и соблюдаем все оговоренные сроки строительства.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <p class="text-center mt-3" style="color:#94a3b8">© 2023 "Крепкий Фундамент". Все права защищены.</p>
-        </div>
-    </footer>
-
-    <!-- BACK TO TOP -->
-    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-
-        // Back to top button
-        const backToTopButton = document.querySelector('.back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
-            } else {
-                backToTopButton.classList.remove('active');
-            }
-        });
-
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        </section>
+        <!-- GALLERY -->
+        <!-- GALLERY -->
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Наши проекты</h2>
+                <div class="row">
+                    {% for project in projects %}
+                    <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ 100 + loop.index0 * 100 }}">
+                        <div class="project-card">
+                            <!-- Карусель изображений -->
+                            <div class="project-carousel">
+                                <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        {% for image in project.images.all() %}
+                                        <button type="button" data-bs-target="#carousel{{ project.id }}" 
+                                            data-bs-slide-to="{{ loop.index0 }}" 
+                                            class="{% if loop.first %}active{% endif %}" 
+                                            aria-label="Slide {{ loop.index }}"></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {% for image in project.images.all() %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <img src="{{ url_for('static', filename=image.url) }}" 
+                                                class="d-block w-100" 
+                                                alt="{{ project.title }}">
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Информация о проекте -->
+                            <div class="project-info">
+                                <h4 class="project-title">{{ project.title }}</h4>
+                                <div class="project-meta">
+                                    <div class="project-square">
+                                        <i class="bi bi-arrows-fullscreen"></i>
+                                        {{ project.square }} м²
+                                    </div>
+                                </div>
+                                <div class="price-section">
+                                    <div class="price-tier">
+                                        <span class="price-label">Базовая отделка</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% if project.price_with_communications %}
+                                    <div class="price-tier">
+                                        <span class="price-label">С коммуникациями</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if project.price_ready %}
+                                    <div class="price-tier highlight">
+                                        <span class="price-label">Под ключ</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% if project.mortgage_price_per_month %}
+                                <div class="mortgage-section">
+                                    <i class="bi bi-house-check"></i>
+                                    Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
+                                </div>
+                                {% endif %}
+                                <a href="{{ url_for('main.details', id=project.id) }}" class="btn-project-details">
+                                Подробнее о проекте
+                                <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- STATS - ОБНОВЛЕННАЯ СЕКЦИЯ -->
+        <section id="stats" class="stats-section text-center">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div>построенных домов</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-item">
+                            <div class="stat-number">200+</div>
+                            <div>семей переехали</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-item">
+                            <div class="stat-number">0</div>
+                            <div>недостроев</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stat-item">
+                            <div class="stat-number">4 мес</div>
+                            <div>средний срок строительства</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CONTACT -->
+        <section id="contact" class="py-5">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Свяжитесь с нами</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                        <div class="contact-card">
+                            <div class="row">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <h3>Контакты</h3>
+                                    <div class="d-flex align-items-start mt-4 contact-item">
+                                        <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
+                                        <div>
+                                            <h5>Адрес</h5>
+                                            <p>г. Стерлитамак, ул. Строителей, 15</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-start mt-3 contact-item">
+                                        <div class="contact-icon"><i class="bi bi-telephone"></i></div>
+                                        <div>
+                                            <h5>Телефон</h5>
+                                            <p><a href="tel:+79173755545" class="text-decoration-none">+7 917 375-55-45</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-start mt-3 contact-item">
+                                        <div class="contact-icon"><i class="bi bi-clock"></i></div>
+                                        <div>
+                                            <h5>Режим работы</h5>
+                                            <p>Пн–Вс, 10:00–19:00</p>
+                                        </div>
+                                    </div>
+                                    <div class="social-links mt-4">
+                                        <a href="#"><i class="bi bi-whatsapp"></i></a>
+                                        <a href="#"><i class="bi bi-telegram"></i></a>
+                                        <a href="#"><i class="bi bi-instagram"></i></a>
+                                        <a href="#"><i class="bi bi-vk"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3>Оставить заявку</h3>
+                                    <form class="mt-4">
+                                        <input type="text" class="form-control mb-3" placeholder="Ваше имя" required />
+                                        <input type="tel" class="form-control mb-3" placeholder="Телефон" required />
+                                        <textarea class="form-control mb-3" rows="3" placeholder="Сообщение"></textarea>
+                                        <button class="btn btn-primary-custom w-100">Отправить заявку</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-lg-4 mb-4">
+                        <h4>Крепкий Фундамент</h4>
+                        <p>Современные тёплые дома под ключ. Работаем с 2010 года.</p>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h5>Услуги</h5>
+                        <div class="footer-links">
+                            <a href="#">Строительство</a>
+                            <a href="#">Проектирование</a>
+                            <a href="#">Отделка</a>
+                            <a href="#">Ипотека</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h5>Компания</h5>
+                        <div class="footer-links">
+                            <a href="#">О нас</a>
+                            <a href="#">Отзывы</a>
+                            <a href="#">Проекты</a>
+                            <a href="#">Контакты</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <h5>Подписаться на новости</h5>
+                        <div class="input-group mt-3">
+                            <input type="email" class="form-control" placeholder="Ваш email" />
+                            <button class="btn btn-primary-custom">OK</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-3" style="color:#94a3b8">© 2023 "Крепкий Фундамент". Все права защищены.</p>
+            </div>
+        </footer>
+        <!-- BACK TO TOP -->
+        <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
             });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                document.querySelector('.navbar').style.padding = '8px 0';
-                document.querySelector('.navbar').style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                document.querySelector('.navbar').style.padding = '15px 0';
-                document.querySelector('.navbar').style.boxShadow = 'none';
-            }
-        });
-    </script>
-</body>
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('active');
+                } else {
+                    backToTopButton.classList.remove('active');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.querySelector('.navbar').style.padding = '8px 0';
+                    document.querySelector('.navbar').style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    document.querySelector('.navbar').style.padding = '15px 0';
+                    document.querySelector('.navbar').style.boxShadow = 'none';
+                }
+            });
+        </script>
+    </body>
 </html>
