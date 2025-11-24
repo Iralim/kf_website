@@ -628,6 +628,180 @@
                 grid-template-columns: 1fr;
             }
         }
+    /* PROJECTS SECTION */
+            .projects-section {
+            padding: 100px 0;
+            background: #f1f5f9;
+            }
+            .project-card {
+            background: white;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            }
+            .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            }
+            .project-carousel {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            }
+            .project-carousel .carousel {
+            height: 100%;
+            }
+            .project-carousel .carousel-inner,
+            .project-carousel .carousel-item {
+            height: 100%;
+            }
+            .project-carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            }
+            .project-carousel .carousel-indicators {
+            margin-bottom: 5px;
+            }
+            .project-carousel .carousel-indicators button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 3px;
+            }
+            .project-carousel .carousel-control-prev,
+            .project-carousel .carousel-control-next {
+            width: auto;
+            height: auto;
+            background: none;
+            border-radius: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            }
+            .project-carousel .carousel-control-prev-icon,
+            .project-carousel .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-size: 20px 20px;
+            background-position: center;
+            transition: background-color 0.3s ease;
+            }
+            .project-carousel .carousel-control-prev-icon:hover,
+            .project-carousel .carousel-control-next-icon:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            }
+            .project-card:hover .carousel-control-prev,
+            .project-card:hover .carousel-control-next {
+            opacity: 1;
+            }
+            .project-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            }
+  
+            .project-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            }
+            .project-square {
+            display: flex;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            }
+            .project-square i {
+            margin-right: 5px;
+            color: var(--accent);
+            }
+            .price-section {
+            margin-bottom: 1rem;
+            }
+            .price-tier {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            }
+            .price-tier:last-child {
+            border-bottom: none;
+            }
+            .price-tier.highlight {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            margin: 0 -1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fdba74;
+            }
+            .price-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 500;
+            }
+            .price-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            }
+            .price-tier.highlight .price-value {
+            color: #ea580c;
+            font-size: 1.1rem;
+            }
+            .mortgage-section {
+            background: rgba(14, 165, 233, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+            }
+            .mortgage-section i {
+            color: var(--accent);
+            margin-right: 8px;
+            font-size: 1rem;
+            }
+            .btn-project-details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            }
+            .btn-project-details:hover {
+            background: #ea580c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            }
+            .btn-project-details i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+            }
+            .btn-project-details:hover i {
+            transform: translateX(3px);
+            }
+        
     </style>
 </head>
 
@@ -960,6 +1134,89 @@
             </div>
         </div>
     </section>
+
+        <!-- PROJECTS -->
+        <section id="gallery" class="projects-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Все проекты</h2>
+                <div class="row">
+                    {% for project in projects %}
+                    <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ 100 + loop.index0 * 100 }}">
+                        <div class="project-card">
+                            <!-- Карусель изображений -->
+                            <div class="project-carousel">
+                                <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
+                                    <div class="carousel-indicators">
+                                        {% for image in project.images.all() %}
+                                        <button type="button" data-bs-target="#carousel{{ project.id }}" 
+                                            data-bs-slide-to="{{ loop.index0 }}" 
+                                            class="{% if loop.first %}active{% endif %}" 
+                                            aria-label="Slide {{ loop.index }}"></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {% for image in project.images.all() %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <img src="{{ url_for('static', filename=image.url) }}" 
+                                                class="d-block w-100" 
+                                                alt="{{ project.title }}">
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Информация о проекте -->
+                            <div class="project-info">
+                                <h4 class="project-title">{{ project.title }}</h4>
+                                <div class="project-meta">
+                                    <div class="project-square">
+                                        <i class="bi bi-arrows-fullscreen"></i>
+                                        {{ project.square }} м²
+                                    </div>
+                                </div>
+                                <div class="price-section">
+                                    <div class="price-tier">
+                                        <span class="price-label">Базовая отделка</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% if project.price_with_communications %}
+                                    <div class="price-tier">
+                                        <span class="price-label">С коммуникациями</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if project.price_ready %}
+                                    <div class="price-tier highlight">
+                                        <span class="price-label">Под ключ</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% if project.mortgage_price_per_month %}
+                                <div class="mortgage-section">
+                                    <i class="bi bi-house-check"></i>
+                                    Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
+                                </div>
+                                {% endif %}
+                                <a href="{{ url_for('main.details', id=project.id) }}" class="btn-project-details">
+                                Подробнее о проекте
+                                <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
     <!-- FOOTER -->
     <footer>

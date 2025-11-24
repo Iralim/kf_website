@@ -22,7 +22,8 @@ def index():
 @main_bp.route('/details/<int:id>')
 def details(id):
     project = Project.query.get(id)
-    return render_template('project_details.html', project=project)
+    projects = Project.query.all()
+    return render_template('project_details.html', project=project, projects=projects)
 
 #TEST
 @main_bp.route('/details/test')
