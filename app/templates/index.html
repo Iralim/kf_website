@@ -50,6 +50,16 @@
             font-weight: 700;
             font-size: 1.8rem;
             color: white;
+            transition: all 0.3s ease; /* добавляем плавный переход */
+            }
+            /* Добавьте эти строки - они уберут смену цвета при наведении */
+            .navbar-brand:hover,
+            .navbar-brand:focus {
+            color: white !important;
+            }
+            .navbar-brand:hover {
+            color: white !important;
+            transform: scale(1.05); /* небольшое увеличение */
             }
             .navbar-brand span {
             color: var(--secondary);
@@ -425,7 +435,6 @@
             letter-spacing: 1px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             }
-  
             .project-meta {
             display: flex;
             align-items: center;
@@ -710,7 +719,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-list"></i>
                 </button>
@@ -749,9 +758,7 @@
                             </div>
                             <!-- Подзаголовок -->
                             <p class="hero-subtitle">
-                                Премиум-качество <span class="text-accent">без переплаты</span>. 
-                                Полная отделка, готовые коммуникации и гарантия 10 лет.
-                            </p>
+                                Премиум-качество <span class="text-accent">без переплаты</span></p>
                             <!-- Геолокации -->
                             <div class="hero-locations" data-aos="fade-up" data-aos-delay="400">
                                 <div class="location-item">
@@ -790,6 +797,7 @@
                                 Смотреть проекты
                                 </a>
                             </div>
+                            
                             <!-- Преимущества -->
                             <div class="hero-features" data-aos="fade-up" data-aos-delay="800">
                                 <div class="feature-item">
