@@ -24,6 +24,11 @@ def details(id):
     project = Project.query.get(id)
     return render_template('project_details.html', project=project)
 
+#TEST
+@main_bp.route('/details/test')
+def details_test():
+    project = Project.query.get(1)
+    return render_template('test/prises-test.html', project=project)
 
 # ADMIN
 @main_bp.route('/admin/')

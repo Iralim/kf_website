@@ -337,8 +337,8 @@
             flex-shrink: 0;
         }
 
-      
         /* УЛУЧШЕННЫЙ БЛОК ЦЕН */
+ /* УЛУЧШЕННЫЙ БЛОК ЦЕН */
 .price-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -527,9 +527,7 @@
     transform: rotate(45deg);
     box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
 }
-
-
-        /* Ипотека */
+     /* Ипотека */
         .mortgage-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -626,6 +624,12 @@
             }
             .advantages-grid {
                 grid-template-columns: 1fr;
+            }
+            .price-cards {
+                grid-template-columns: 1fr;
+            }
+            .price-amount {
+                font-size: 2.4rem;
             }
         }
     </style>
@@ -768,117 +772,10 @@
         </div>
     </section>
 
-        <!-- ГАЛЕРЕЯ -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Галерея проекта</h2>
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="gallery-main" data-aos="fade-up">
-                        <img id="mainImage" src="{{ url_for('static', filename=project.images.first().url) }}" alt="{{ project.title }}">
-                    </div>
-                    <div class="gallery-thumbnails">
-                        {% for image in project.images %}
-                        <div class="gallery-thumb {% if loop.first %}active{% endif %}" 
-                             onclick="changeImage('{{ url_for('static', filename=image.url) }}', this)">
-                            <img src="{{ url_for('static', filename=image.url) }}" alt="{{ project.title }} - фото {{ loop.index }}">
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-
-
-<!-- КОМПЛЕКТАЦИЯ ДОМА - 4 КАРТОЧКИ -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="section-title text-center" data-aos="fade-up">Комплектация дома</h2>
-        <div class="row g-4">
-
-            <!-- 1. Фундамент и перекрытия -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="specs-card">
-                    <div class="specs-icon text-warning"><i class="bi bi-hammer"></i></div>
-                    <h3>Фундамент и перекрытия</h3>
-                    <p class="text-muted">Надёжная основа вашего дома — безопасность на годы.</p>
-                    <ul class="specs-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Свайно-ленточный «Тимерлайн»</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Свая: диаметр 350 мм, длина 2000 мм</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Бетон М200</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Ростверк — брус 400×600 мм</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Плита (монолитное перекрытие)</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Гидроотсечка</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Монолитная плита 14 см, армирование стеклоарматурой</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Межэтажное перекрытие, при необходимости лаги с утеплителем</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 2. Стены, фасад и кровля -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="specs-card">
-                    <div class="specs-icon text-success"><i class="bi bi-building"></i></div>
-                    <h3>Стены, фасад и кровля</h3>
-                    <p class="text-muted">Эстетика, теплоизоляция и защита от непогоды.</p>
-                    <ul class="specs-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Фасадные панели ППС-6 (толщина на выбор)</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Цокольные панели Пенофлекс 5 см</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Металлические доборные элементы</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Вентиляционные решётки</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Стропильная система</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Мембрана для защиты от ветра и влаги</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Кровля: профнастил / металлочерепица / клик-фальц</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 3. Окна, двери и отделка -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="specs-card">
-                    <div class="specs-icon text-info"><i class="bi bi-brush"></i></div>
-                    <h3>Окна, двери и отделка</h3>
-                    <p class="text-muted">Комфорт и уют в каждом помещении.</p>
-                    <ul class="specs-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Несущие перегородки — 20 см</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Ненесущие перегородки</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Двухкамерный стеклопакет, профиль 58-й белый, фурнитура</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Входная дверь с терморазрывом</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Ровные стены «под обои»</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Натяжные потолки</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Тёплые полы</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 4. Инженерные системы -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                <div class="specs-card">
-                    <div class="specs-icon text-danger"><i class="bi bi-tools"></i></div>
-                    <h3>Инженерные системы</h3>
-                    <p class="text-muted">Полностью готовые коммуникации и современный комфорт.</p>
-                    <ul class="specs-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Водоснабжение, горячая и холодная вода</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Бурение скважины и устройство колодца</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Заведение воды в дом, закладка коммуникаций на глубине промерзания</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Глубинный насос, гидроаккумулятор с фильтром, водонагреватель 100 л</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Канализация: выгребная яма</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Электрика: готовая, щиток, кабель ВВГ-Пнг ГОСТ, гофротруба</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Отопление и вентиляция, зоны с тёплыми полами</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Сантехника</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-
- <section class="price-section">
+    <!-- УЛУЧШЕННЫЙ БЛОК ЦЕН -->
+     <!-- УЛУЧШЕННЫЙ БЛОК ЦЕН -->
+<section class="price-section">
     <div class="container">
         <h2 class="section-title" data-aos="fade-up">Стоимость строительства</h2>
 
@@ -942,118 +839,16 @@
         </div>
 </section>
 
-
-
-    <!-- CTA SECTION -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center" data-aos="fade-up">
-                    <h2 class="section-title">Готовы стать владельцем этого дома?</h2>
-                    <p class="fs-5 mb-4">Всего 4 месяца — и вы получаете ключи от готового дома с полной отделкой</p>
-                    <div class="d-flex flex-wrap gap-3 justify-content-center">
-                        <button class="btn btn-primary-custom btn-lg">Забронировать дом</button>
-                        <button class="btn btn-outline-custom btn-lg">Рассчитать ипотеку</button>
-                        <a href="{{ url_for('main.index') }}#contact" class="btn btn-outline-custom btn-lg">Получить консультацию</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-lg-4 mb-4">
-                    <h4>Крепкий Фундамент</h4>
-                    <p>Современные тёплые дома под ключ. Работаем с 2010 года.</p>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Услуги</h5>
-                    <div class="footer-links">
-                        <a href="#">Строительство</a>
-                        <a href="#">Проектирование</a>
-                        <a href="#">Отделка</a>
-                        <a href="#">Ипотека</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Компания</h5>
-                    <div class="footer-links">
-                        <a href="#">О нас</a>
-                        <a href="#">Отзывы</a>
-                        <a href="#">Проекты</a>
-                        <a href="#">Контакты</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <h5>Подписаться на новости</h5>
-                    <div class="input-group mt-3">
-                        <input type="email" class="form-control" placeholder="Ваш email" />
-                        <button class="btn btn-primary-custom">OK</button>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center mt-3" style="color:#94a3b8">© 2023 "Крепкий Фундамент". Все права защищены.</p>
-        </div>
-    </footer>
-
-    <!-- BACK TO TOP -->
-    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
             duration: 800,
             once: true,
             offset: 100
-        });
-
-        // Gallery functionality
-        function changeImage(src, element) {
-            document.getElementById('mainImage').src = src;
-            
-            // Remove active class from all thumbnails
-            document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-                thumb.classList.remove('active');
-            });
-            
-            // Add active class to clicked thumbnail
-            element.classList.add('active');
-        }
-
-        // Back to top button
-        const backToTopButton = document.querySelector('.back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
-            } else {
-                backToTopButton.classList.remove('active');
-            }
-        });
-
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                document.querySelector('.navbar').style.padding = '8px 0';
-                document.querySelector('.navbar').style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                document.querySelector('.navbar').style.padding = '15px 0';
-                document.querySelector('.navbar').style.boxShadow = 'none';
-            }
         });
     </script>
 </body>
