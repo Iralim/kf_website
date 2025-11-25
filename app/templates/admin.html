@@ -175,7 +175,7 @@
             vertical-align: middle;
             }
             /* Кнопка удаления */
-            .delete-btn {
+            .delete-project-btn {
             width: 100%;
             border-radius: 8px;
             }
@@ -367,7 +367,7 @@
                                     <a href="{{ url_for('main.edit_project', id=project.id) }}" class="btn btn-outline-custom btn-sm flex-fill">
                                     <i class="bi bi-pencil"></i> Редактировать
                                     </a>
-                                    <button class="btn btn-danger btn-sm delete-btn" data-id="{{ project.id }}">
+                                    <button class="btn btn-danger btn-sm delete-project-btn" data-id="{{ project.id }}">
                                     <i class="bi bi-trash"></i> Удалить
                                     </button>
                                 </div>
@@ -410,7 +410,7 @@
             
                 /* Удаление проекта */
                 document.addEventListener("click", async (e) => {
-                    const btn = e.target.closest(".delete-btn");
+                    const btn = e.target.closest(".delete-project-btn");
                     if (!btn) return;
             
                     if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
