@@ -237,6 +237,13 @@
             .compact-table td {
             padding: 0.3rem;
             }
+
+            /* Кнопка удаления проекта*/
+            .delete-project-btn {
+            width: 100%;
+            border-radius: 8px;
+            }
+
         </style>
     </head>
     <body>
@@ -378,58 +385,74 @@
         <!-- СПИСОК ПРОЕКТОВ -->
         <section id="projects" class="py-5 bg-light">
             <div class="container">
-                <h2 class="section-title text-center mb-5">Все проекты</h2>
+                <h2 class="section-title text-center mb-5">Существующие проекты</h2>
                 <div class="row g-4">
                     {% for project in projects %}
                     <div class="col-md-6 col-lg-4">
-                        <a href="{{ url_for('main.edit_project', id=project.id) }}" class="text-decoration-none text-reset">
-                            <div class="project-card h-100">
-                                <!-- Изображение проекта -->
-                                <div class="project-image-wrapper">
-                                    {% if project.images.first() %}
-                                    <img src="{{ url_for('static', filename=project.images.first().url) }}" class="card-img-top" alt="Проект дома {{ project.title }}" style="height: 200px; object-fit: cover;">
-                                    {% else %}
-                                    <div class="h-100 d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 200px;">
-                                        <i class="bi bi-house display-4"></i>
+                        <div class="project-card h-100">
+                            <!-- Карусель -->
+                            <div id="carousel{{ project.id }}" class="carousel slide">
+                                <div class="carousel-inner">
+                                    {% for image in project.images.all() %}
+                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                        <img src="{{ url_for('static', filename=image.url) }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
                                     </div>
-                                    {% endif %}
+                                    {% endfor %}
                                 </div>
-                                <div class="card-body p-4">
-                                    <h5 class="fw-semibold mb-3">{{ project.title }}</h5>
-                                    <table class="table table-borderless text-secondary small mb-0 compact-table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Площадь:</th>
-                                                <td class="text-end">{{ project.square }} м²</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Тёплый контур:</th>
-                                                <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</td>
-                                            </tr>
-                                            <tr>
-                                                <th>С коммуникациями:</th>
-                                                <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Готовый дом:</th>
-                                                <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</td>
-                                            </tr>
-                                            <tr class="border-top">
-                                                <th class="pt-2">Ипотека:</th>
-                                                <td class="text-end fw-bold pt-2 text-success">{{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽/мес</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                {% if project.images.count() > 1 %}
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                                </button>
+                                {% endif %}
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="fw-semibold mb-3">{{ project.title }}</h5>
+                                <table class="table table-borderless text-secondary small mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th>Площадь:</th>
+                                            <td class="text-end">{{ project.square }} м²</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Тёплый контур:</th>
+                                            <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <th>С коммуникациями:</th>
+                                            <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Готовый дом:</th>
+                                            <td class="text-end text-dark fw-semibold">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</td>
+                                        </tr>
+                                        <tr class="border-top">
+                                            <th class="pt-2">Ипотека:</th>
+                                            <td class="text-end fw-bold pt-2 text-success">{{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽/мес</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex gap-2 mt-3">
+                                    <a href="{{ url_for('main.edit_project', id=project.id) }}" class="btn btn-outline-custom btn-sm flex-fill">
+                                    <i class="bi bi-pencil"></i> Редактировать
+                                    </a>
+                                    <button class="btn btn-danger btn-sm delete-project-btn" data-id="{{ project.id }}">
+                                    <i class="bi bi-trash"></i> Удалить
+                                    </button>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </section>
+
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const uploadArea = document.getElementById('uploadArea');
@@ -438,6 +461,32 @@
                 const selectedFilesContainer = document.getElementById('selectedFiles');
                 const fileList = document.getElementById('fileList');
                 const clearFilesBtn = document.getElementById('clearFiles');
+
+                // DELETE PROJECT FUNCTION ===================
+                async function deleteProject(e) {
+                    const btn = e.target.closest(".delete-project-btn");
+                    if (!btn) return;
+
+                    if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
+
+                    const id = btn.dataset.id;
+
+                    const response = await fetch(`/api/project/${id}`, {
+                        method: "DELETE"
+                    });
+
+                    if (response.ok) {
+                        btn.closest(".col-md-6.col-lg-4").remove();
+                    } else {
+                        alert("Ошибка удаления проекта");
+                    }
+                }
+
+
+                // ===========================================
+
+
+
                 
                 // Используем let вместо const, чтобы можно было обновлять список
                 let existingFiles = {{ existing_files|tojson }};
