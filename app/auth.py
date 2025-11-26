@@ -21,7 +21,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password) and user.is_admin:
             login_user(user, remember=False)
-            return redirect(url_for('/admin/'))
+            return redirect(url_for('admin.admin'))
         flash('Неверный логиин или пароль', 'danger')
 
     return render_template('login.html')

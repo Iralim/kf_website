@@ -266,7 +266,7 @@
                     </a>
                 </div>
                 <!-- ФОРМА РЕДАКТИРОВАНИЯ ПРОЕКТА -->
-                <form method="POST" action="{{ url_for('main.edit_project', id=project.id) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url_for('admin.edit_project', id=project.id) }}" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="row g-4 align-items-start">
                         <!-- Основной контент -->
@@ -374,7 +374,7 @@
                     <div class="row mt-4">
                         <div class="col-12">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                                <a href="{{ url_for('main.admin') }}" class="btn btn-outline-custom me-md-2">Отмена</a>
+                                <a href="{{ url_for('admin.admin') }}" class="btn btn-outline-custom me-md-2">Отмена</a>
                                 {{ form.submit(class="btn btn-primary-custom btn-lg px-4") }}
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                                     </tbody>
                                 </table>
                                 <div class="d-flex gap-2 mt-3">
-                                    <a href="{{ url_for('main.edit_project', id=project.id) }}" class="btn btn-outline-custom btn-sm flex-fill">
+                                    <a href="{{ url_for('admin.edit_project', id=project.id) }}" class="btn btn-outline-custom btn-sm flex-fill">
                                     <i class="bi bi-pencil"></i> Редактировать
                                     </a>
                                     <button class="btn btn-danger btn-sm delete-project-btn" data-id="{{ project.id }}">

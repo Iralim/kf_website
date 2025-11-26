@@ -10,7 +10,7 @@ import shutil
 from flask import current_app
 
 
-class User(UserMixin):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -26,7 +26,7 @@ class User(UserMixin):
     def __repr__(self):
         return f"<User {self.username}>"
 
-    
+
 class Project(db.Model):
     __tablename__ = "projects"
 
