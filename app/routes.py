@@ -3,6 +3,9 @@ from pathlib import Path
 import shutil
 
 from flask import Blueprint, render_template, redirect, current_app, request, jsonify, flash
+from flask_login import login_required, current_user
+from flask_wtf.csrf import CSRFError
+from flask import jsonify
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 from slugify import slugify
@@ -114,13 +117,17 @@ def edit_project(id):
 
 # === JS API ================================
 @main_bp.route('/api/project/<int:project_id>', methods=['DELETE'])
+@login_required
 def api_delete_project(project_id):
+    if not getattr(current_user, "is_admin", False):
+        return jsonify({"error": "access_denied"}), 403
+
     project = Project.query.get_or_404(project_id)
 
     db.session.delete(project)
     db.session.commit()
 
-    return {"status": "ok"}
+    return jsonify({"status": "ok"}, 200)
 
 @main_bp.route("/delete_image/<int:image_id>", methods=["DELETE"])
 def delete_image(image_id):

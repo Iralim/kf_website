@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+
+        <ul>
+            {% for cat, msg in messages %}
+            <li class="{{ cat }}">{{ msg }}</li>
+            {% endfor %}
+        </ul>
+
+        {% endif %}
+    {% endwith %}
+    <form action="post" action="{{ url_for('auth.login') }}">
+        {{ csrf_token() }}
+        <label for="Username"><input name="username"></label><br>
+        <label for="password"><input type="password" type="password"></label><br>
+        <button type="submit">Login</button>
+    </form>
+
+</body>
+</html>

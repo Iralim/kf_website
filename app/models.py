@@ -1,4 +1,8 @@
+from os.path import defpath
+
 from . import db
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import event
 from slugify import slugify
 import os
@@ -6,6 +10,23 @@ import shutil
 from flask import current_app
 
 
+class User(UserMixin):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"<User {self.username}>"
+
+    
 class Project(db.Model):
     __tablename__ = "projects"
 
@@ -122,6 +143,7 @@ class ProjectImages(db.Model):
     )
 
     project = db.relationship("Project", back_populates="images")
+
     @property
     def url(self):
         return os.path.join('uploads', self.project.slug, self.filename)

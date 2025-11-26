@@ -7,6 +7,6 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR}/projects.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Базовая папка для загрузки изображений (filesystem)
-    # Мы будем сохранять относительные пути в БД вида "house_images/<id>/file.jpg"
-    # UPLOAD_FOLDER = os.path.join(BASE_DIR, "app", "static", "house_images")
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
