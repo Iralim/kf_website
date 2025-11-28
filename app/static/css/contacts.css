@@ -1,0 +1,26 @@
+    /* ===== CONTACT SECTION ===== */
+    .contact-card {
+        background: white;
+        padding: 40px;
+        border-radius: 1.3rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(14, 165, 233, 0.12);
+        color: var(--accent);
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        transition: 0.3s;
+    }
+
+    .contact-item:hover .contact-icon {
+        background: rgba(14, 165, 233, 0.2);
+        transform: scale(1.05);
+    }

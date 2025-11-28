@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon_io/site.webmanifest') }}">
+    <!-- Style     -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- PAGE LEVEL STYLES -->
+    {% block styles %}
+    {% endblock %}
+    
+    {% block mobile_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
+    {% endblock %}
+</head>
+<body>
+    {% block navbar %} 
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Преимущества</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    <!-- HERO -->
+    {% block hero %}
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="hero-content">
+                            <!-- Бейдж -->
+                            <div class="hero-badge" data-aos="fade-up" data-aos-delay="200">
+                                <i class="bi bi-award-fill"></i>
+                                Строим с 2010 года
+                            </div>
+                            <!-- Заголовок -->
+                            <h1 class="hero-title">
+                                Строим современные<br>
+                                <span class="hero-highlight shadow">энергоэффективные</span><br>
+                                дома под ключ
+                            </h1>
+                            <!-- Технология -->
+                            <div class="technology-badge" data-aos="fade-up" data-aos-delay="300">
+                                <i class="bi bi-lightning-charge"></i>
+                                Технология: СИП-панели
+                            </div>
+                            <!-- Подзаголовок -->
+                            <p class="hero-subtitle">
+                                Премиум-качество <span class="text-accent">без переплаты</span></p>
+                            <!-- Геолокации -->
+                            <div class="hero-locations" data-aos="fade-up" data-aos-delay="300">
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Стерлитамак</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Салават</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ишимбай</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Кумертау</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Северо-Восток</span>
+                                </div>
+                                <div class="location-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Булгакова</span>
+                                </div>
+                            </div>
+                            <!-- Кнопки -->
+                            <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
+                                <a href="#contact" class="btn btn-primary-custom">
+                                <i class="bi bi-house-check me-2"></i>
+                                Получить консультацию
+                                </a>
+                                <a href="#projects" class="btn btn-outline-custom">
+                                <i class="bi bi-images me-2"></i>
+                                Смотреть проекты
+                                </a>
+                            </div>
+                            
+                            <!-- Преимущества -->
+                            <div class="hero-features" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-item">
+                                    <i class="bi bi-clock-fill"></i>
+                                    <span>3 месяца</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <span>Гарантия 10 лет</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-safe-fill"></i>
+                                    <span>Ипотека через эскроу</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-building-check"></i>
+                                    <span>Строительный надзор</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+    <!-- FEATURES -->
+    {% block features %}
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Почему выбирают нас</h2>
+                <div class="row g-4">
+                    <!-- Карточка 1: Готовый дом -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-house-check-fill"></i></div>
+                            <h3>Дом — полностью готов к жизни</h3>
+                            <p>Всё, что нужно для комфортного переезда — уже включено. Полная отделка и готовая инженерия.</p>
+                            <ul class="feature-list mt-3">
+                                <li><i class="bi bi-check-circle-fill"></i> Стены под поклейку обоев</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Межкомнатные двери и натяжные потолки</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Тёплые полы в ключевых зонах</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Чистовая отделка и санузел</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Ламинат, плитка, сантехника</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Электрика: щиток, розетки, выключатели</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Вода, отопление, канализация</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Архитектурная подсветка и ниши</li>
+                            </ul>
+                            <p class="mt-3 fw-semibold">Вы получаете дом, в который можно заехать в день получения ключей.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 2: Ипотека -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-bank2"></i></div>
+                            <h3>Ипотека и полное сопровождение</h3>
+                            <p>Мы оформим льготную ипотеку на весь комплекс: дом, забор, баню, гараж и даже мебель — одной выгодной ставкой.</p>
+                            <p>Работаем с ведущими банками и полностью ведём процесс: от покупки участка до ввода дома в эксплуатацию и постановки на учёт.</p>
+                            <p class="fw-semibold mt-3">Принцип “единого окна”: все вопросы — у нас, результат — у вас.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 3: Проекты -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-pencil-square"></i></div>
+                            <h3>Проекты, созданные профессионалами</h3>
+                            <p>Все дома разрабатываются опытными архитекторами и дизайнерами, поэтому выглядят современно и продуманно:</p>
+                            <ul class="feature-list mt-3">
+                                <li><i class="bi bi-check-circle-fill"></i> Без лишних квадратов, только полезные площади</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Удобные планировки</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Панорамная раздвижная дверь на террасу 2,3 м по стандарту</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Индивидуальный проект — если не нашли подходящий среди готовых</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Карточка 4: Надёжность -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-shield-check"></i></div>
+                            <h3>Надёжность и энергоэффективность</h3>
+                            <p>Мы строим дома по энергоэффективным технологиям, что обеспечивает тепло и минимальные затраты на отопление.</p>
+                            <p>Используем проверенные материалы и собственные стандарты строительства — ваш дом надолго сохранит внешний вид и комфорт.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 5: О компании -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-building"></i></div>
+                            <h3>О компании</h3>
+                            <p>«Крепкий Фундамент» — строительная компания, специализирующаяся на домах под ключ.</p>
+                            <p>Мы делаем процесс максимально простым и понятным, а результат — качественным и долговечным.</p>
+                        </div>
+                    </div>
+                    <!-- Карточка 6: Сроки -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="bi bi-lightning-charge"></i></div>
+                            <h3>Быстрые сроки</h3>
+                            <p>Всего <strong>3 месяца</strong> — от договора до переезда в готовый дом.</p>
+                            <p>Мы ценим ваше время и соблюдаем все оговоренные сроки строительства.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+    <!-- PROJECTS -->
+     {% block projects %}
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Наши проекты</h2>
+                <div class="row">
+                    {% for project in projects %}
+                    <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ 100 + loop.index0 * 100 }}">
+                        <div class="project-card">
+                            <!-- Карусель изображений -->
+                            <div class="project-carousel">
+                                <div id="carousel{{ project.id }}" class="carousel slide">
+                                    <div class="carousel-indicators">
+                                        {% for image in project.images.all() %}
+                                        <button type="button" data-bs-target="#carousel{{ project.id }}" 
+                                            data-bs-slide-to="{{ loop.index0 }}" 
+                                            class="{% if loop.first %}active{% endif %}" 
+                                            aria-label="Slide {{ loop.index }}"></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {% for image in project.images.all() %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <img src="{{ url_for('static', filename=image.url) }}" 
+                                                class="d-block w-100" 
+                                                alt="{{ project.title }}">
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Информация о проекте -->
+                            <div class="project-info">
+                                <h4 class="project-title">{{ project.title }}</h4>
+                                <div class="project-meta">
+                                    <div class="project-square">
+                                        <i class="bi bi-arrows-fullscreen"></i>
+                                        {{ project.square }} м²
+                                    </div>
+                                </div>
+                                <div class="card-price-section">
+                                    <div class="price-tier">
+                                        <span class="price-label">Базовая отделка</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% if project.price_with_communications %}
+                                    <div class="price-tier">
+                                        <span class="price-label">С коммуникациями</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if project.price_ready %}
+                                    <div class="price-tier highlight">
+                                        <span class="price-label">Под ключ</span>
+                                        <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% if project.mortgage_price_per_month %}
+                                <div class="mortgage-section">
+                                    <i class="bi bi-house-check"></i>
+                                    Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
+                                </div>
+                                {% endif %}
+                                <a href="{{ url_for('main.details', id=project.id) }}" class="btn-project-details">
+                                Подробнее о проекте
+                                <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+     {% endblock %}
+
+    <!-- STATS -->
+      {% block stats %}
+        <section id="stats" class="stats-section text-center">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div>построенных домов</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-item">
+                            <div class="stat-number">200+</div>
+                            <div>семей переехали</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-item">
+                            <div class="stat-number">0</div>
+                            <div>недостроев</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stat-item">
+                            <div class="stat-number">3 мес</div>
+                            <div>средний срок строительства</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+      {% endblock %}
+
+    <!-- CONTACTS -->
+    {% block conntacts %}
+        <section id="contact" class="py-5">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Свяжитесь с нами</h2>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                            <div class="contact-card">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 mb-md-0">
+                                        <h3>Контакты</h3>
+                                        <div class="d-flex align-items-start mt-4 contact-item">
+                                            <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
+                                            <div>
+                                                <h5>Адрес</h5>
+                                                <p>г. Стерлитамак, ул. Строителей, 15</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start mt-3 contact-item">
+                                            <div class="contact-icon"><i class="bi bi-telephone"></i></div>
+                                            <div>
+                                                <h5>Телефон</h5>
+                                                <p><a href="tel:+79173755545" class="text-decoration-none">+7 917 375-55-45</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start mt-3 contact-item">
+                                            <div class="contact-icon"><i class="bi bi-clock"></i></div>
+                                            <div>
+                                                <h5>Режим работы</h5>
+                                                <p>Пн–Вс, 10:00–19:00</p>
+                                            </div>
+                                        </div>
+                                        <div class="social-links mt-4">
+                                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                                            <a href="#"><i class="bi bi-telegram"></i></a>
+                                            <!-- <a href="#"><i class="bi bi-instagram"></i></a> -->
+                                            <a href="#"><i class="bi bi-vk"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Оставить заявку</h3>
+                                        <form class="mt-4">
+                                            <input type="text" class="form-control mb-3" placeholder="Ваше имя" required />
+                                            <input type="tel" class="form-control mb-3" placeholder="Телефон" required />
+                                            <textarea class="form-control mb-3" rows="3" placeholder="Сообщение"></textarea>
+                                            <button class="btn btn-primary-custom w-100">Отправить заявку</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    {% endblock %}
+
+    <!-- FOOTER -->
+     {% block footer %}
+        <footer class="bg-dark text-light py-4">
+            <div class="container">
+                <div class="text-center">
+                    <p class="mb-2">Премиум-строительство домов под ключ</p>
+                    <p class="mb-3" style="color:#94a3b8; font-size:0.9rem">© 2010 "Крепкий Фундамент"</p>
+                </div>
+            </div>
+        </footer>
+     {% endblock %}
+
+    <!-- ===== JS ======================== -->
+    <!-- BACK TO TOP -->
+    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- CORE JS -->
+    <script src="{{ url_for('static', filename='js/core.js') }}"></script>
+
+    <!-- PAGE LEVEL JS -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

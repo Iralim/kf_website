@@ -1,0 +1,26 @@
+ /* ===== CSS VARIABLES ===== */
+    :root {
+        --primary: #0f172a;
+        --primary-light: #1e293b;
+        --secondary: #f97316;
+        --accent: #0ea5e9;
+        --light: #f8fafc;
+        --dark: #0f172a;
+        --gray: #64748b;
+    }
+
+    /* ===== BASE STYLES ===== */
+    body {
+        background: var(--light);
+        font-family: "Montserrat", sans-serif;
+        color: var(--dark);
+        line-height: 1.7;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+    }
+    
