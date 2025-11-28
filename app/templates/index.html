@@ -351,7 +351,7 @@
             background: var(--secondary);
             border-radius: 2px;
             }
-            /* PROJECTS SECTION */
+            /* PROJECTS SECTION (index) */
             .projects-section {
             padding: 100px 0;
             background: #f1f5f9;
@@ -457,7 +457,7 @@
             margin-right: 5px;
             color: var(--accent);
             }
-            .price-section {
+            .card-price-section {
             margin-bottom: 1rem;
             }
             .price-tier {
@@ -953,7 +953,7 @@
                                         {{ project.square }} м²
                                     </div>
                                 </div>
-                                <div class="price-section">
+                                <div class="card-price-section">
                                     <div class="price-tier">
                                         <span class="price-label">Базовая отделка</span>
                                         <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
