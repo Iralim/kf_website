@@ -6,11 +6,31 @@
 {% block page_style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/project_details/main_project_details.css') }}">
 {% endblock %}
+    <!-- NAVBAR -->
+    {% block navbar %} 
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#specs">Комплектация</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
 
 {% block sections %}
 <!-- PROJECT HERO -->
 
-        <section class="project-hero">
+        <section class="project-hero" id="home">
             <!-- INLINE STYLE BG PICTURE -->
             <style> 
                 .project-hero {
@@ -152,7 +172,7 @@
             </div>
         </section>
         <!-- КОМПЛЕКТАЦИЯ ДОМА - 4 КАРТОЧКИ -->
-        <section class="py-5 bg-light">
+        <section id = "specs" class="py-5 bg-light">
             <div class="container">
                 <h2 class="section-title text-center" data-aos="fade-up">Комплектация дома</h2>
                 <div class="row g-4">
@@ -304,82 +324,7 @@
         <section id="projects" class="projects-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Все проекты</h2>
-                <div class="row">
-                    {% for project in projects %}
-                    <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ 100 + loop.index0 * 100 }}">
-                        <div class="project-card">
-                            <!-- Карусель изображений -->
-                            <div class="project-carousel">
-                                <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
-                                    <div class="carousel-indicators">
-                                        {% for image in project.images.all() %}
-                                        <button type="button" data-bs-target="#carousel{{ project.id }}" 
-                                            data-bs-slide-to="{{ loop.index0 }}" 
-                                            class="{% if loop.first %}active{% endif %}" 
-                                            aria-label="Slide {{ loop.index }}"></button>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="carousel-inner">
-                                        {% for image in project.images.all() %}
-                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                            <img src="{{ url_for('static', filename=image.url) }}" 
-                                                class="d-block w-100" 
-                                                alt="{{ project.title }}">
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Информация о проекте -->
-                            <div class="project-info">
-                                <h4 class="hero-project-title-details">{{ project.title }}</h4>
-                                <div class="project-meta">
-                                    <div class="project-square">
-                                        <i class="bi bi-arrows-fullscreen"></i>
-                                        {{ project.square }} м²
-                                    </div>
-                                </div>
-                                <div class="card-price-section">
-                                    <div class="price-tier">
-                                        <span class="price-label">Базовая отделка</span>
-                                        <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
-                                    </div>
-                                    {% if project.price_with_communications %}
-                                    <div class="price-tier">
-                                        <span class="price-label">С коммуникациями</span>
-                                        <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if project.price_ready %}
-                                    <div class="price-tier highlight">
-                                        <span class="price-label">Под ключ</span>
-                                        <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                {% if project.mortgage_price_per_month %}
-                                <div class="mortgage-section">
-                                    <i class="bi bi-house-check"></i>
-                                    Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
-                                </div>
-                                {% endif %}
-                                <a href="{{ url_for('main.details', id=project.id) }}" class="btn-project-details">
-                                Подробнее о проекте
-                                <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+                {% include 'projects_row.html' %}
             </div>
         </section>
         
