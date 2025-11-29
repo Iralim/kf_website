@@ -1,0 +1,45 @@
+/* ===== SECTION STYLES ===== */
+/* Common section title styling */
+/* .section-title {
+  margin-bottom: 2.5rem;
+  color: var(--primary);
+  font-size: 2.2rem;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: var(--secondary);
+  border-radius: 2px;
+} */
+
+/* Description card styling */
+/* .description-card {
+  background: white;
+  border-radius: 1.3rem;
+  padding: 40px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+} */
+
+.section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--primary);
+            font-size: 2.6rem;
+            }
+            .section-title::after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 4px;
+            margin: 12px auto 0;
+            background: var(--secondary);
+            border-radius: 2px;
+            }

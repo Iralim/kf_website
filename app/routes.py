@@ -25,8 +25,11 @@ def index():
 @main_bp.route('/details/<int:id>')
 def details(id):
     project = Project.query.get(id)
+    first_image_url = os.path.join(current_app.static_folder, project.images.first().url)
+    print(f"HERE !!! = = {first_image_url}")
+
     projects = Project.query.all()
-    return render_template('project_details.html', project=project, projects=projects)
+    return render_template('project_details.html', project=project, first_image_url=first_image_url, projects=projects)
 
 #TEST
 @main_bp.route('/details/test')
