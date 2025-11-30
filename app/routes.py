@@ -32,10 +32,10 @@ def details(id):
     return render_template('project_details.html', project=project, first_image_url=first_image_url, projects=projects)
 
 #TEST
-@main_bp.route('/details/test')
-def details_test():
-    project = Project.query.get(1)
-    return render_template('test/prises-test.html', project=project)
+@main_bp.route('/test')
+def test():
+
+    return render_template('test.html')
 
 # ==== ADMIN =========
 # @main_bp.route('/admin/')
