@@ -7,6 +7,11 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR}/projects.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # SESSION_COOKIE_HTTPONLY = True
+    # SESSION_COOKIE_SECURE = True
+    # SESSION_COOKIE_SAMESITE = 'Lax'
+
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False  # ← ИЗМЕНИТЕ НА False для разработки
     SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_DOMAIN = None   # ← ДОБАВЬТЕ ЭТУ СТРОКУ
