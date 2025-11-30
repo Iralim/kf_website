@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Редактирование проекта | Крепкий Фундамент</title>
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -13,239 +12,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
-        <style>
-            :root {
-            --primary: #0f172a;
-            --primary-light: #1e293b;
-            --secondary: #f97316;
-            --accent: #0ea5e9;
-            --light: #f8fafc;
-            --dark: #0f172a;
-            --gray: #64748b;
-            }
-            body {
-            background: var(--light);
-            font-family: "Montserrat", sans-serif;
-            color: var(--dark);
-            line-height: 1.7;
-            }
-            h1, h2, h3, h4, h5 {
-            font-family: "Oswald", sans-serif;
-            font-weight: 700;
-            }
-            /* NAVBAR */
-            .navbar {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            }
-            .navbar-brand {
-            font-family: "Oswald", sans-serif;
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: white;
-            }
-            .navbar-brand span {
-            color: var(--secondary);
-            }
-            /* Кнопки */
-            .btn-primary-custom {
-            background: var(--secondary);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: 0.3s;
-            }
-            .btn-primary-custom:hover {
-            background: #ea580c;
-            transform: translateY(-2px);
-            }
-            .btn-outline-custom {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 10px 25px;
-            border-radius: 50px;
-            transition: 0.3s;
-            font-weight: 600;
-            }
-            .btn-outline-custom:hover {
-            background: var(--primary);
-            color: white;
-            }
-            /* Карточки */
-            .admin-card {
-            background: white;
-            border-radius: 1.3rem;
-            padding: 30px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            border-top: 4px solid var(--secondary);
-            }
-            .project-card {
-            background: white;
-            border-radius: 1.3rem;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
-            transition: 0.3s;
-            overflow: hidden;
-            }
-            .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            }
-            .section-title {
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            font-size: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-            }
-            .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 2px;
-            }
-            /* Область загрузки */
-            .upload-area {
-            border: 2px dashed #cbd5e1;
-            border-radius: 1rem;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            background: #f8fafc;
-            }
-            .upload-area:hover,
-            .upload-area.dragover {
-            border-color: var(--accent);
-            background: rgba(14, 165, 233, 0.05);
-            }
-            .upload-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            }
-            .file-input-wrapper {
-            display: none;
-            }
-            .selected-files {
-            display: none;
-            margin-top: 20px;
-            }
-            .file-list {
-            max-height: 200px;
-            overflow-y: auto;
-            }
-            .file-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: white;
-            }
-            /* Галерея изображений */
-            .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-            }
-            .gallery-item {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: 0.3s;
-            }
-            .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            }
-            .gallery-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            display: block;
-            }
-            .gallery-item.removing {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
-            }
-            .image-name {
-            padding: 8px;
-            background: white;
-            font-size: 0.8rem;
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-            word-break: break-all;
-            }
-            .delete-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 30px;
-            height: 30px;
-            background: rgba(220, 53, 69, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.9rem;
-            }
-            .delete-btn:hover {
-            background: #dc3545;
-            transform: scale(1.1);
-            }
-            /* Цены */
-            .price-input-group {
-            position: relative;
-            }
-            .price-input-group::before {
-            content: "₽";
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            font-weight: 600;
-            }
-            .price-input-group input {
-            padding-right: 40px;
-            }
-            /* Таблица */
-            .table th {
-            font-weight: 600;
-            color: var(--gray);
-            border: none;
-            }
-            .table td {
-            border: none;
-            vertical-align: middle;
-            }
-            .compact-table th,
-            .compact-table td {
-            padding: 0.3rem;
-            }
-
-            /* Кнопка удаления проекта*/
-            .delete-project-btn {
-            width: 100%;
-            border-radius: 8px;
-            }
-
-        </style>
     </head>
     <body>
         <!-- NAVBAR -->
@@ -454,7 +220,183 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="{{ url_for('static', filename='js/edit_project.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ==========================
+    // DOM ELEMENTS
+    // ==========================
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadInput = document.getElementById('imgUpload');
+    const uploadTrigger = document.getElementById('uploadTrigger');
+    const selectedFilesContainer = document.getElementById('selectedFiles');
+    const fileList = document.getElementById('fileList');
+    const clearFilesBtn = document.getElementById('clearFiles');
+
+    // ==========================
+    // EXISTING FILES
+    // ==========================
+    let existingFiles = {{ existing_files|tojson }};
+
+    function removeFileFromExistingFiles(fileName) {
+        const index = existingFiles.indexOf(fileName);
+        if (index > -1) {
+            existingFiles.splice(index, 1);
+            console.log('Файл удален из existingFiles:', fileName);
+            console.log('Обновленный existingFiles:', existingFiles);
+        }
+    }
+
+    // ==========================
+    // DELETE PROJECT FUNCTION
+    // ==========================
+    async function deleteProject(e) {
+        const btn = e.target.closest(".delete-project-btn");
+        if (!btn) return;
+
+        if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
+
+        const id = btn.dataset.id;
+
+        try {
+            const response = await fetch(`/api/project/${id}`, { method: "DELETE" });
+            if (response.ok) {
+                btn.closest(".col-md-6.col-lg-4").remove();
+            } else {
+                alert("Ошибка удаления проекта");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Ошибка при удалении проекта");
+        }
+    }
+
+    // ==========================
+    // FILE UPLOAD FUNCTIONS
+    // ==========================
+    function validateAndShowFiles() {
+        const selectedFiles = Array.from(uploadInput.files);
+
+        if (!selectedFiles.length) {
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+
+        // Проверка дубликатов с existingFiles
+        const duplicatesWithExisting = selectedFiles.filter(file => existingFiles.includes(file.name));
+        if (duplicatesWithExisting.length > 0) {
+            alert("Файлы уже существуют:\n" + duplicatesWithExisting.map(f => f.name).join("\n"));
+            uploadInput.value = '';
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+
+        // Проверка дубликатов внутри новых файлов
+        const names = selectedFiles.map(f => f.name);
+        const duplicatesInsideUpload = names.filter((name, index) => names.indexOf(name) !== index);
+        if (duplicatesInsideUpload.length > 0) {
+            alert("Нельзя загружать два файла с одинаковыми именами:\n" + duplicatesInsideUpload.join("\n"));
+            uploadInput.value = '';
+            selectedFilesContainer.style.display = 'none';
+            return;
+        }
+
+        // Отображение файлов
+        fileList.innerHTML = '';
+        selectedFiles.forEach(file => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="flex-grow-1">
+                    <div class="fw-medium"><i class="bi bi-file-image text-primary me-2"></i>${file.name}</div>
+                    <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+            `;
+            fileList.appendChild(fileItem);
+        });
+        selectedFilesContainer.style.display = 'block';
+    }
+
+    async function safeFetch(url, options = {}) {
+        try {
+            const response = await fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" }, ...options });
+            if (!response.ok) throw new Error("Server error: " + response.status);
+            return response;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    }
+
+    // ==========================
+    // EVENT LISTENERS
+    // ==========================
+    // 1. Удаление проекта
+    document.addEventListener("click", deleteProject);
+
+    // 2. Загрузка файлов по клику на область
+    uploadArea.addEventListener('click', e => {
+        if (e.target !== uploadTrigger && !uploadTrigger.contains(e.target)) uploadInput.click();
+    });
+    uploadTrigger.addEventListener('click', e => {
+        e.stopPropagation();
+        uploadInput.click();
+    });
+
+    // 3. Перетаскивание файлов
+    uploadArea.addEventListener('dragover', e => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            uploadInput.files = e.dataTransfer.files;
+            validateAndShowFiles();
+        }
+    });
+
+    // 4. Выбор файлов через диалог
+    uploadInput.addEventListener('change', validateAndShowFiles);
+
+    // 5. Очистка списка файлов
+    clearFilesBtn.addEventListener('click', () => {
+        uploadInput.value = '';
+        selectedFilesContainer.style.display = 'none';
+        fileList.innerHTML = '';
+    });
+
+    // 6. Удаление изображений из галереи
+    document.addEventListener("click", async event => {
+        const btn = event.target.closest(".delete-btn");
+        if (!btn) return;
+
+        const id = btn.dataset.id;
+        const item = btn.closest(".gallery-item");
+        const img = item.querySelector('img');
+        const fileName = img.src.split('/').pop();
+
+        if (!confirm("Удалить изображение?")) return;
+
+        btn.disabled = true;
+
+        try {
+            await safeFetch(`/delete_image/${id}`, { method: "DELETE" });
+            removeFileFromExistingFiles(fileName);
+            item.classList.add("removing");
+            setTimeout(() => item.remove(), 300);
+        } catch (err) {
+            alert("Ошибка удаления");
+            btn.disabled = false;
+        }
+    });
+
+});
+</script>
 
     </body>
 </html>
