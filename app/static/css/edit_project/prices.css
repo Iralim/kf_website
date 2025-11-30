@@ -1,0 +1,16 @@
+/* Цены */
+.price-input-group {
+position: relative;
+}
+.price-input-group::before {
+content: "₽";
+position: absolute;
+right: 12px;
+top: 50%;
+transform: translateY(-50%);
+color: var(--gray);
+font-weight: 600;
+}
+.price-input-group input {
+padding-right: 40px;
+}

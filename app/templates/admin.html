@@ -1,55 +1,39 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{% block title %}Добавить проект{% endblock %}</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='favicon_io/site.webmanifest') }}">
-    <!-- Style     -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/main_base.css') }}">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>{% block title %}Добавить проект{% endblock %}</title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+        <!-- AOS Animation Library -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ url_for('static', filename='favicon_io/site.webmanifest') }}">
+        <!-- Style     -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base/main_base.css') }}">
 
-    <!-- PAGE LEVEL STYLES -->
-{% block page_style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/add_project/main_add_project.css') }}">
+        <!-- PAGE LEVEL STYLES -->
+        {% block page_style %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/add_project/main_add_project.css') }}">
+        {% endblock %}
+    </head>
 {% endblock %}
 
-    
+{% block navbar %} 
+    {% include 'admin_navbar.html' %}
 {% endblock %}
-
-
-    {% block navbar %} 
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <i class="bi bi-list"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.admin') }}">Добавить проект</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Редактироать</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Выход</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    {% endblock %}
 
 
 <!-- SECTIONS -->
@@ -68,20 +52,20 @@
                     <!-- Основной контент -->
                     <div class="col-lg-8">
                         <!-- Основная информация -->
-                        <div class="add_project-card">
-                            <h3 class="section-title">Основная информация</h3>
+                        <div class="admin-form-card">
+                            <h3 class="section-title">Добавить проект</h3>
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Название проекта</label>
-                                {{ form.title(class="form-control form-control-lg", placeholder="Введите название проекта") }}
+                                {{ form.title(class="form-control form-control-lg", placeholder="") }}
                                 <div id="title-check-msg" class="small mt-2"></div>
                             </div>
                             <div class="mb-0">
                                 <label class="form-label fw-bold">Описание проекта</label>
-                                {{ form.description(class="form-control", rows="5", placeholder="Опишите особенности проекта...") }}
+                                {{ form.description(class="form-control", rows="5", placeholder="") }}
                             </div>
                         </div>
                         <!-- Изображения проекта -->
-                        <div class="add_project-card">
+                        <div class="admin-form-card">
                             <h3 class="section-title">Изображения проекта</h3>
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Добавить изображения</label>
@@ -106,7 +90,7 @@
                     </div>
                     <!-- Характеристики -->
                     <div class="col-lg-4">
-                        <div class="add_project-card">
+                        <div class="admin-form-card">
                             <h3 class="section-title">Характеристики</h3>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Площадь дома (м²)</label>
@@ -160,7 +144,7 @@
 <!-- СПИСОК ПРОЕКТОВ -->
 <section id="projects" class="py-5 bg-light">
     <div class="container">
-        <h2 class="section-title text-center mb-5">Существующие проекты</h2>
+        <h2 class="section-title text-center mb-5">Добавленные проекты</h2>
         {% include 'p2.html' %}
     </div>
 </section>
