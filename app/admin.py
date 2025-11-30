@@ -1,6 +1,6 @@
 import os
 
-from flask import jsonify, abort, Blueprint, render_template, redirect
+from flask import jsonify, abort, Blueprint, render_template, redirect, flash, request
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
@@ -24,12 +24,47 @@ def admin():
     return "Admin dashboard"
 
 # === ADD PROJECT ===
-@admin_bp.route('/admin/add_project')
+@admin_bp.route('/admin/add_project', methods=['POST'])
 @login_required
-def add_project(id):
+def add_project():
     if not current_user.is_admin:
         abort(403)
-    return "OK", 201
+
+    form = ProjectForm()
+    if not form.validate_on_submit():
+        flash("Ошибка формы", "danger")
+        return redirect('/admin/')
+
+    new_project = Project(
+        title=form.title.data,
+        description=form.description.data,
+        square=form.square.data,
+        size=form.size.data,
+        price_base=form.price_base.data,
+        price_with_communications=form.price_with_communications.data,
+        price_ready=form.price_ready.data,
+        mortgage_price_per_month=form.mortgage_price_per_month.data
+    )
+
+    db.session.add(new_project)
+    db.session.commit()
+
+    files = request.files.getlist('img_files')
+
+    for file in files:
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(new_project.images_directory_path, filename)
+            file.save(filepath)
+
+            image = ProjectImages(project_id=new_project.id, filename=filename)
+            db.session.add(image)
+
+    db.session.commit()
+
+    flash("Проект успешно добавлен!", "success")
+    return redirect('/admin/')
+
 
 # === EDIT PROJECT ===
 @admin_bp.route('/admin/edit_project/<int:id>', methods=['GET', 'POST'])

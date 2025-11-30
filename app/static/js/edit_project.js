@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================
     // EXISTING FILES
     // ==========================
-    let existingFiles = {{ existing_files|tojson }};
+    let existingFiles = window.existingFiles || [];
+
+    console.log("Полученные existingFiles:", existingFiles);
 
     function removeFileFromExistingFiles(fileName) {
         const index = existingFiles.indexOf(fileName);
