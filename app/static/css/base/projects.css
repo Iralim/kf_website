@@ -208,3 +208,7 @@
     .btn-project-details:hover i {
         transform: translateX(3px);
     }
+    
+    .delete-project-btn{
+        border-radius: 20px;
+    }
