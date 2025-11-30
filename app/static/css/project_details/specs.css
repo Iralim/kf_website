@@ -1,5 +1,8 @@
 /* ===== SPECIFICATION CARDS ===== */
 /* Card for displaying specifications */
+.specs-section {
+  padding-top: 100px;
+}
 .specs-card {
   background: white;
   border-radius: 1.3rem;
