@@ -1,0 +1,26 @@
+/* Кнопки */
+.btn-primary-custom {
+background: var(--secondary);
+border: none;
+padding: 12px 30px;
+border-radius: 50px;
+font-weight: 600;
+transition: 0.3s;
+}
+.btn-primary-custom:hover {
+background: #ea580c;
+transform: translateY(-2px);
+}
+.btn-outline-custom {
+border: 2px solid var(--primary);
+color: var(--primary);
+padding: 10px 25px;
+border-radius: 50px;
+transition: 0.3s;
+font-weight: 600;
+}
+.btn-outline-custom:hover {
+background: var(--primary);
+color: white;
+}
+
