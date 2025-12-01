@@ -1,4 +1,4 @@
-/* Карточки */
+/* CARDS */
 .add-project-section{
     padding-top: 120px;
 }
@@ -28,21 +28,3 @@ margin: 12px auto 0;
 background: var(--secondary);
 border-radius: 2px;
 } 
-
-/* FROM COMMON */
-/* .section-title {
-text-align: center;
-margin-bottom: 3.5rem;
-color: var(--primary);
-font-size: 2.6rem;
-}
-
-.section-title::after {
-content: "";
-display: block;
-width: 90px;
-height: 4px;
-margin: 12px auto 0;
-background: var(--secondary);
-border-radius: 2px;
-} */

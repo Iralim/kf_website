@@ -29,7 +29,6 @@
 
 {% block sections %}
 <!-- PROJECT HERO -->
-
         <section class="project-hero" id="home">
             <!-- INLINE STYLE BG PICTURE -->
             <style> 
@@ -55,7 +54,7 @@
                         {% if project.description %}
                         <p class="lead opacity-90 mb-4">{{ project.description }}</p>
                         {% endif %}
-                        <!-- Спецификации -->
+                        <!-- SPECS HERO -->
                         <div class="specs-grid">
                             <div class="spec-item" data-aos="fade-up" data-aos-delay="100">
                                 <div class="spec-icon">
@@ -71,22 +70,8 @@
                                 <div class="spec-value">{{ project.size }}</div>
                                 <div class="spec-label">Размер дома</div>
                             </div>
-                            <!-- <div class="spec-item" data-aos="fade-up" data-aos-delay="300">
-                                <div class="spec-icon">
-                                    <i class="bi bi-house-door"></i>
-                                </div>
-                                <div class="spec-value">{{ project.rooms }}</div>
-                                <div class="spec-label">Комнат</div>
-                                </div>
-                                <div class="spec-item" data-aos="fade-up" data-aos-delay="400">
-                                <div class="spec-icon">
-                                    <i class="bi bi-clock-history"></i>
-                                </div>
-                                <div class="spec-value">{{ project.build_time }}</div>
-                                <div class="spec-label">Срок строительства</div>
-                                </div> -->
                         </div>
-                        <!-- Преимущества -->
+                        <!-- ADVANTAGES HERO -->
                         <div class="advantages-grid" data-aos="fade-up" data-aos-delay="500">
                             <div class="advantage-item">
                                 <div class="advantage-icon">
@@ -113,15 +98,6 @@
                                 <span>Гарантия 10 лет</span>
                             </div>
                         </div>
-                        <!-- Кнопка действия -->
-                        <!-- <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
-                            <button class="btn btn-primary-custom me-3">
-                                <i class="bi bi-calendar-check me-2"></i>Забронировать просмотр
-                            </button>
-                            <button class="btn btn-outline-custom border-white text-white">
-                                <i class="bi bi-download me-2"></i>Скачать проект PDF
-                            </button>
-                            </div> -->
                     </div>
                     <!-- RIGHT MORTGAGE BOX -->
                     <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
@@ -150,7 +126,7 @@
                 </div>
             </div>
         </section>
-        <!-- ГАЛЕРЕЯ -->
+        <!-- GALLERY -->
         <section class="py-5 bg-light">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Галерея проекта</h2>
@@ -171,7 +147,7 @@
                 </div>
             </div>
         </section>
-        <!-- КОМПЛЕКТАЦИЯ ДОМА - 4 КАРТОЧКИ -->
+        <!-- SPECS 4 CARDS -->
         <section id = "specs" class="bg-light specs-section">
             <div class="container">
                 <h2 class="section-title text-center" data-aos="fade-up">Комплектация дома</h2>
@@ -253,7 +229,7 @@
             <div class="container">
             <h2 class="section-title" data-aos="fade-up">Стоимость строительства</h2>
             <div class="price-cards">
-                <!-- Базовая комплектация -->
+                <!-- PRICES -->
                 <div class="price-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="price-stage">Базовая комплектация</div>
                     <div class="price-amount">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</div>
@@ -269,7 +245,6 @@
                         <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
                     </ul>
                 </div>
-                <!-- С коммуникациями -->
                 <div class="price-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="price-stage">С коммуникациями</div>
                     <div class="price-amount">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</div>
@@ -285,7 +260,6 @@
                         <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
                     </ul>
                 </div>
-                <!-- Под ключ -->
                 <div class="price-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="popular-badge">Популярный</div>
                     <div class="price-stage">Под ключ</div>

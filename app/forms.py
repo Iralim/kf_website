@@ -8,7 +8,7 @@ class ProjectForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     description = TextAreaField('Описание', validators=[DataRequired()])
     square = IntegerField('Площадь (м²)', validators=[DataRequired(), NumberRange(min=0)])
-    size = StringField('Площадь участка', validators=[DataRequired()])  # теперь текст
+    size = StringField('Габариты', validators=[DataRequired()])
     price_base = IntegerField('Теплый контур', validators=[DataRequired(), NumberRange(min=0)])
     price_with_communications = IntegerField('Готовые коммуникации', validators=[Optional(), NumberRange(min=0)])
     price_ready = IntegerField('Заезжай и живи', validators=[Optional(), NumberRange(min=0)])

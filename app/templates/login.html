@@ -149,7 +149,7 @@
             </div>
             
             <div class="login-body">
-                <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         <div class="mb-4">
                             {% for cat, msg in messages %}
@@ -159,7 +159,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                {% endwith %} -->
+                {% endwith %}
 
                 <form method="post" action="{{ url_for('auth.login') }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

@@ -12,11 +12,11 @@ csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')  # config.py должен быть в корне проекта
+    app.config.from_object('config.Config')
 
     @app.template_filter('money')
     def money_format(value):
-        """Форматирует число с пробелами между тысячами"""
+
         if value is None:
             return ""
         try:

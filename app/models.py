@@ -86,13 +86,11 @@ def project_before_insert(mapper, connection, target):
 def project_before_update(mapper, connection, target):
     state = db.inspect(target)
 
-    # проверяем, изменился ли title
     if not state.attrs.title.history.has_changes():
         return
 
     old_directory = target.images_directory_path
 
-    # генерируем новый slug
     new_slug = slugify(target.title)
     target.slug = new_slug
 
@@ -102,7 +100,6 @@ def project_before_update(mapper, connection, target):
         new_slug
     )
 
-    # пытаемся переименовать папку
     try:
         if os.path.exists(old_directory):
             os.rename(old_directory, new_directory)
@@ -110,7 +107,6 @@ def project_before_update(mapper, connection, target):
     except OSError as e:
         print(f"[ERROR] Fail rename {old_directory} → {new_directory}: {e}")
 
-    # обновляем путь в базе
     target.images_directory_path = new_directory
 
 
