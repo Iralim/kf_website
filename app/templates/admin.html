@@ -43,17 +43,6 @@
            
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="fw-bold">Панель управления проектами <i class="bi bi-house-gear-fill me-2"></i></h1>
-                               {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        <div class="mb-4">
-                            {% for cat, msg in messages %}
-                                <div class="alert alert-{{ 'error' if cat == 'danger' else cat }} mb-2">
-                                    {{ msg }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
             </div>
 
             <!-- ФОРМА ДОБАВЛЕНИЯ ПРОЕКТА -->
@@ -156,6 +145,17 @@
 <section id="projects" class="py-5 bg-light">
     <div class="container">
         <h2 class="section-title text-center mb-5">Добавленные проекты</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for cat, msg in messages %}
+                    <div class="alert alert-{{ 'error' if cat == 'danger' else cat }} mb-2 col-md-6 col-lg-4 mb-4 text-center">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         {% include 'p2.html' %}
     </div>
 </section>

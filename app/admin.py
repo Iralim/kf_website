@@ -62,7 +62,7 @@ def add_project():
 
     db.session.commit()
 
-    flash("Проект успешно добавлен!", "success")
+    flash(f"Проект: {new_project.title} успешно добавлен!", "success")
     return redirect('/admin#projects')
 
 
