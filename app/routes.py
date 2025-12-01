@@ -13,6 +13,9 @@ from app import db
 from app.models import Project, ProjectImages
 from app.forms import ProjectForm
 
+from flask_mail import Message
+from app import mail
+
 main_bp = Blueprint('main', __name__)
 
 
@@ -30,6 +33,31 @@ def details(id):
     projects = Project.query.all()
     return render_template('project_details.html', project=project, first_image_url=first_image_url, projects=projects)
 
+
+@main_bp.route("/send", methods=["POST"])
+def send():
+    try:
+        name = request.form.get("name")
+        phone = request.form.get("phone")
+        message_text = request.form.get("message")
+
+        msg = Message(
+            "Новая заявка с сайта",
+            recipients=["your_email@gmail.com"]   # заменить на свою почту
+        )
+
+        msg.body = f"""
+Имя: {name}
+Телефон: {phone}
+Сообщение:
+{message_text}
+        """
+        mail.send(msg)
+
+        return {"status": "ok"}
+
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
 
 #TEST
 @main_bp.route('/test')
