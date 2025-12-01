@@ -63,7 +63,7 @@ def add_project():
     db.session.commit()
 
     flash("Проект успешно добавлен!", "success")
-    return redirect('/admin/')
+    return redirect('/admin#projects')
 
 
 # === EDIT PROJECT ===
@@ -96,7 +96,7 @@ def edit_project(id):
 
         db.session.commit()
         # form = ProjectForm()
-        return redirect('/admin/')
+        return redirect('/admin/#projects')
     existing_files = [img.filename for img in images]
     return render_template('edit_project.html', projects=projects, project=project, form=form, images=images, existing_files=existing_files)
 

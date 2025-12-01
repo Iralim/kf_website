@@ -43,6 +43,17 @@
            
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="fw-bold">Панель управления проектами <i class="bi bi-house-gear-fill me-2"></i></h1>
+                               {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="mb-4">
+                            {% for cat, msg in messages %}
+                                <div class="alert alert-{{ 'error' if cat == 'danger' else cat }} mb-2">
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
             </div>
 
             <!-- ФОРМА ДОБАВЛЕНИЯ ПРОЕКТА -->
