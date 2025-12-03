@@ -12,12 +12,12 @@ class Config:
     SESSION_COOKIE_SAMESITE = 'Lax'
 
 
-    MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 587
+    MAIL_SERVER = 'mail.iralim.com'
+    MAIL_PORT = 993
     MAIL_USE_TLS = True
-    MAIL_USERNAME = 'your_email@gmail.com'
-    MAIL_PASSWORD = 'your_password'
-    MAIL_DEFAULT_SENDER = 'your_email@gmail.com'
+    MAIL_USERNAME = 'kk@moimail.ru'
+    MAIL_PASSWORD = 'qJ4qE3sS8bqF3pE8'
+    MAIL_DEFAULT_SENDER = 'mail.iralim.com'
 
 
   

@@ -43,7 +43,7 @@ def send():
 
         msg = Message(
             "Новая заявка с сайта",
-            recipients=["your_email@gmail.com"]   # заменить на свою почту
+            recipients=["kf@iralim.com"]
         )
 
         msg.body = f"""
@@ -52,12 +52,13 @@ def send():
 Сообщение:
 {message_text}
         """
+
         mail.send(msg)
 
-        return {"status": "ok"}
+        return jsonify(status="ok")
 
     except Exception as e:
-        return {"status": "error", "error": str(e)}
+        return jsonify(status="error", error=str(e))
 
 #TEST
 @main_bp.route('/test')

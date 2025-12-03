@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Login</title>
+    <title>Вход в админ-панель</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Google Fonts -->
+    <!-- Шрифты Google -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== CSS VARIABLES ===== */
+        /* ===== ПЕРЕМЕННЫЕ CSS ===== */
         :root {
             --primary: #0f172a;
             --primary-light: #1e293b;
@@ -21,16 +21,18 @@
             --light: #f8fafc;
             --dark: #0f172a;
             --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
-        /* ===== BASE STYLES ===== */
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         body {
             background: var(--light);
             font-family: "Montserrat", sans-serif;
             color: var(--dark);
             line-height: 1.7;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         h1, h2, h3, h4, h5 {
@@ -38,7 +40,7 @@
             font-weight: 700;
         }
 
-        /* ===== LOGIN STYLES ===== */
+        /* ===== СТИЛИ ФОРМЫ ВХОДА ===== */
         .login-container {
             min-height: 100vh;
             display: flex;
@@ -62,12 +64,24 @@
             color: white;
             padding: 2rem;
             text-align: center;
+            position: relative;
         }
 
         .login-header h1 {
             margin: 0;
             font-size: 2rem;
             color: white;
+            letter-spacing: 1px;
+        }
+
+        .login-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: var(--secondary);
         }
 
         .login-body {
@@ -91,100 +105,212 @@
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 8px;
+            display: block;
         }
 
         .btn-login {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #ea580c 100%);
             border: none;
             color: white;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 1rem;
             width: 100%;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-login:hover {
-            background: #ea580c;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px -10px var(--secondary);
         }
 
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* Стили для уведомлений */
         .alert {
             border-radius: 12px;
             border: none;
             padding: 1rem;
+            font-size: 0.95rem;
         }
 
         .alert-success {
             background: #d1fae5;
             color: #065f46;
+            border-left: 4px solid var(--success);
         }
 
         .alert-error {
             background: #fee2e2;
             color: #991b1b;
+            border-left: 4px solid var(--danger);
         }
 
         .alert-warning {
             background: #fef3c7;
             color: #92400e;
+            border-left: 4px solid var(--warning);
         }
 
+        /* Футер формы */
         .login-footer {
             text-align: center;
             padding: 1rem 2rem;
             border-top: 1px solid #e2e8f0;
             color: var(--gray);
             font-size: 0.9rem;
+            background: #f8fafc;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 576px) {
+            .login-card {
+                max-width: 100%;
+            }
+            
+            .login-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .login-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card {
+            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-card">
-            <div class="login-header">
-                <h1>ADMIN PANEL</h1>
-            </div>
+            <!-- Заголовок формы -->
+            <header class="login-header">
+                <h1>АДМИНИСТРАТИВНАЯ ПАНЕЛЬ</h1>
+                <p class="mb-0 mt-2" style="font-size: 0.9rem; opacity: 0.9;">Требуется авторизация</p>
+            </header>
             
-            <div class="login-body">
+            <!-- Тело формы -->
+            <main class="login-body">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         <div class="mb-4">
-                            {% for cat, msg in messages %}
-                                <div class="alert alert-{{ 'error' if cat == 'danger' else cat }} mb-2">
-                                    {{ msg }}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'error' if category == 'danger' else category }} mb-2">
+                                    {{ message }}
                                 </div>
                             {% endfor %}
                         </div>
                     {% endif %}
                 {% endwith %}
 
-                <form method="post" action="{{ url_for('auth.login') }}">
+                <form method="post" action="{{ url_for('auth.login') }}" novalidate>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     
-                    <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
-                    </div>
-
+                    <!-- Поле для логина -->
                     <div class="mb-4">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input 
+                            type="text" 
+                            id="username"
+                            name="username" 
+                            class="form-control" 
+                            placeholder="Введите имя пользователя" 
+                            required
+                            autocomplete="username"
+                            autofocus
+                        >
+                        <div class="form-text mt-1">Используйте ваше уникальное имя пользователя</div>
                     </div>
 
-                    <button type="submit" class="btn btn-login">LOGIN</button>
+                    <!-- Поле для пароля -->
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Пароль</label>
+                        <input 
+                            type="password" 
+                            id="password"
+                            name="password" 
+                            class="form-control" 
+                            placeholder="Введите пароль" 
+                            required
+                            autocomplete="current-password"
+                        >
+                        <div class="form-text mt-1">Пароль чувствителен к регистру</div>
+                    </div>
+
+                    <!-- Кнопка отправки -->
+                    <button type="submit" class="btn btn-login">
+                        <span>ВОЙТИ В СИСТЕМУ</span>
+                    </button>
                 </form>
-            </div>
+            </main>
             
-            <div class="login-footer">
-                &copy; 2024 Admin Panel. Secure Access Only.
-            </div>
+            <!-- Футер формы -->
+            <footer class="login-footer">
+                <p class="mb-0">&copy; {{ current_year }} Административная панель. Доступ только для авторизованного персонала.</p>
+                <small>Версия 1.0.0</small>
+            </footer>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Дополнительный скрипт для улучшения UX -->
+    <script>
+        // Добавляем год в футер
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElements = document.querySelectorAll('footer p');
+            yearElements.forEach(el => {
+                el.innerHTML = el.innerHTML.replace('{{ current_year }}', new Date().getFullYear());
+            });
+            
+            // Фокус на поле ввода при загрузке
+            const usernameInput = document.getElementById('username');
+            if (usernameInput && !usernameInput.value) {
+                usernameInput.focus();
+            }
+            
+            // Валидация формы
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const inputs = this.querySelectorAll('input[required]');
+                let valid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        valid = false;
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+                
+                if (!valid) {
+                    e.preventDefault();
+                    alert('Пожалуйста, заполните все обязательные поля');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
