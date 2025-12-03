@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ project.title }}</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon_io/site.webmanifest') }}">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #f97316;
+            --accent: #3b82f6;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #334155;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+        }
+        
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-family: "Oswald", sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--secondary);
+            background: rgba(249, 115, 22, 0.1);
+        }
+        
+        /* ===== HERO GALLERY ===== */
+        .hero-gallery {
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-slider {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            max-height: 800px;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gallery-slide.active {
+            opacity: 1;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+            padding: 60px 40px 40px;
+            color: white;
+        }
+        
+        .gallery-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .gallery-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .gallery-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: 12px;
+            padding: 20px 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+        
+        .gallery-thumb {
+            width: 140px;
+            height: 90px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            border: 3px solid transparent;
+        }
+        
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            opacity: 1;
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+        
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ===== PROJECT DETAILS ===== */
+        .project-details {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .detail-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .detail-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #fdba74);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        /* ===== SPECIFICATIONS ===== */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .spec-item {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .spec-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+        
+        .spec-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .spec-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        /* ===== MORTGAGE CARD ===== */
+        .mortgage-card {
+            background: linear-gradient(135deg, var(--primary), #1e293b);
+            border-radius: 25px;
+            padding: 40px;
+            color: white;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mortgage-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .mortgage-amount {
+            font-size: 3rem;
+            font-family: "Oswald";
+            font-weight: 700;
+            color: var(--secondary);
+            line-height: 1;
+            margin: 10px 0;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary), #ea580c);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(249, 115, 22, 0.5);
+            color: white;
+        }
+        
+        .btn-outline-custom {
+            border: 2px solid white;
+            color: white;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-custom:hover {
+            background: white;
+            color: var(--primary);
+            border-color: white;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .gallery-slider {
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .gallery-overlay {
+                padding: 30px 20px 20px;
+            }
+            
+            .gallery-thumb {
+                width: 100px;
+                height: 70px;
+            }
+            
+            .mortgage-amount {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-slider {
+                height: 50vh;
+                min-height: 350px;
+                border-radius: 0;
+            }
+            
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .detail-card {
+                margin-bottom: 20px;
+            }
+            
+            .mortgage-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                КРЕПКИЙ <span>ФУНДАМЕНТ</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#details">О проекте</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#specs">Характеристики</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO GALLERY -->
+    <section class="hero-gallery" id="gallery">
+        <div class="gallery-slider">
+            {% for image in project.images %}
+            <div class="gallery-slide {% if loop.first %}active{% endif %}" 
+                 style="background-image: url('{{ url_for('static', filename=image.url) }}');">
+            </div>
+            {% endfor %}
+            
+            <div class="gallery-overlay" data-aos="fade-up">
+                <div class="container">
+                    
+                    <div class="d-flex flex-wrap gap-3 align-items-center">
+                        <div class="badge bg-secondary px-3 py-2 fs-6 rounded-pill">
+                            <i class="bi bi-arrows-fullscreen me-2"></i>{{ project.square }} м²
+                        </div>
+                        <div class="badge bg-primary px-3 py-2 fs-6 rounded-pill">
+                            <i class="bi bi-house-door me-2"></i>Под ключ
+                        </div>
+                        <div class="badge bg-success px-3 py-2 fs-6 rounded-pill">
+                            <i class="bi bi-clock-history me-2"></i>Строительство 90 дней
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-controls">
+                <div class="gallery-btn" onclick="prevSlide()">
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="gallery-btn" onclick="nextSlide()">
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container mt-4">
+            <div class="gallery-thumbnails">
+                {% for image in project.images %}
+                <div class="gallery-thumb {% if loop.first %}active{% endif %}" 
+                     onclick="goToSlide({{ loop.index0 }})">
+                    <img src="{{ url_for('static', filename=image.url) }}" 
+                         alt="{{ project.title }} - фото {{ loop.index }}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT DETAILS -->
+    <section class="project-details" id="details">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-house-heart"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Комфорт проживания</h3>
+                        <p class="text-muted">Просторные помещения с оптимальной планировкой, панорамные окна, система "умный дом".</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Надёжность и безопасность</h3>
+                        <p class="text-muted">Использование материалов премиум-класса, 10-летняя гарантия, современные системы безопасности.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-currency-exchange"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Выгодная инвестиция</h3>
+                        <p class="text-muted">Рост стоимости недвижимости до 20% в год. Программа trade-in и гибкие условия рассрочки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIFICATIONS & MORTGAGE -->
+    <section class="py-5 bg-white" id="specs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <h2 class="mb-4">Технические характеристики</h2>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="bi bi-aspect-ratio"></i>
+                            </div>
+                            <div class="spec-value">{{ project.square }} м²</div>
+                            <div class="spec-label">Общая площадь</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="bi bi-layers"></i>
+                            </div>
+                            <div class="spec-value">{{ project.floors or 2 }}</div>
+                            <div class="spec-label">Количество этажей</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="bi bi-door-closed"></i>
+                            </div>
+                            <div class="spec-value">{{ project.rooms or 4 }}</div>
+                            <div class="spec-label">Количество комнат</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="bi bi-thermometer-sun"></i>
+                            </div>
+                            <div class="spec-value">Газобетон</div>
+                            <div class="spec-label">Материал стен</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h4 class="mb-3">Особенности проекта</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Тёплый контур с отделкой</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Все инженерные коммуникации</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Панорамное остекление</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Система вентиляции с рекуперацией</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Умный дом и видеонаблюдение</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-5" data-aos="fade-left">
+                    <div class="mortgage-card">
+                        <h3 class="text-center mb-4">Финансовые условия</h3>
+                        
+                        <div class="text-center mb-4">
+                            <div class="text-white-50 mb-2">Ежемесячный платёж по ипотеке</div>
+                            <div class="mortgage-amount">
+                                {{ "{:,}".format(project.mortgage_price_per_month).replace(',', ' ') }} ₽
+                            </div>
+                            <div class="text-white-50 mt-2">Первоначальный взнос от 15%</div>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <div class="fs-5 text-white-50">Стоимость проекта</div>
+                            <div class="display-6 fw-bold text-white">
+                                {{ "{:,}".format(project.total_price or project.mortgage_price_per_month * 240).replace(',', ' ') }} ₽
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-3 mt-4">
+                            <button class="btn btn-primary-custom btn-lg">
+                                <i class="bi bi-house-check me-2"></i>Забронировать дом
+                            </button>
+                            <button class="btn btn-outline-custom btn-lg">
+                                <i class="bi bi-calculator me-2"></i>Рассчитать ипотеку
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-4 text-white-50 small">
+                            *Расчёт является предварительным. Точные условия уточняйте у менеджера.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h4 mb-3">КРЕПКИЙ ФУНДАМЕНТ</h3>
+                    <p class="text-white-50">Премиум-строительство домов под ключ с 2010 года. Более 500 реализованных проектов.</p>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h4 class="h5 mb-3">Контакты</h4>
+                    <p class="mb-2"><i class="bi bi-telephone me-2"></i>+7 (XXX) XXX-XX-XX</p>
+                    <p class="mb-2"><i class="bi bi-envelope me-2"></i>info@krepiyfundament.ru</p>
+                    <p><i class="bi bi-geo-alt me-2"></i>г. Москва, ул. Строителей, 15</p>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h4 class="h5 mb-3">Часы работы</h4>
+                    <p class="mb-2">Пн-Пт: 9:00 - 19:00</p>
+                    <p class="mb-2">Сб: 10:00 - 17:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top border-secondary">
+                <p class="mb-0 text-white-50">© 2010-2023 "Крепкий Фундамент". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <a href="#" class="back-to-top" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+        <div style="width: 50px; height: 50px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);">
+            <i class="bi bi-arrow-up"></i>
+        </div>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Gallery Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+        const thumbs = document.querySelectorAll('.gallery-thumb');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                thumbs[i].classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                    thumbs[i].classList.add('active');
+                }
+            });
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function goToSlide(index) {
+            showSlide(index);
+        }
+        
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+                navbar.style.padding = '8px 0';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+                navbar.style.padding = '12px 0';
+            }
+        });
+    </script>
+</body>
+</html>

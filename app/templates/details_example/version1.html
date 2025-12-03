@@ -16,8 +16,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">На главную</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#aboutProject">О проекте</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
                         <li class="nav-item"><a class="nav-link" href="#specs">Комплектация</a></li>
                         <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
@@ -53,7 +52,7 @@
         </section>
 
         <!-- PROJECT HERO -->
-        <section class="project-hero" id="aboutProject">
+        <section class="project-hero" id="home">
             <!-- INLINE STYLE BG PICTURE -->
             <style> 
                 .project-hero {
@@ -134,14 +133,10 @@
                                 </div>
                                 <div class="mortgage-label">Первоначальный взнос от 15%</div>
                             </div>
-                            <div class="d-grid gap-2 text-center">
-                                <a href="#contact">
-                                    <button class="btn btn-primary-custom">
-                                        <i class="bi bi-house-check me-2"></i>Забронировать дом
-                                    </button>
-                                </a>
-                                
-
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary-custom">
+                                <i class="bi bi-house-check me-2"></i>Забронировать дом
+                                </button>
                                 <button class="btn btn-outline-custom border-white text-white">
                                 <i class="bi bi-calculator me-2"></i>Рассчитать ипотеку
                                 </button>
@@ -287,7 +282,7 @@
             </div>
         </section>
         <!-- CTA SECTION -->
-        <!-- <section class="py-5 bg-light">
+        <section class="py-5 bg-light">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center" data-aos="fade-up">
@@ -301,13 +296,7 @@
                     </div>
                 </div>
             </div>
-        </section> -->
-
-{% block stat %}
-{% endblock %}
-        
-{% endblock %}
-{% block projects %}
+        </section>
         <!-- PROJECTS -->
         <section id="projects" class="projects-section">
             <div class="container">
@@ -315,8 +304,8 @@
                 {% include 'projects_row.html' %}
             </div>
         </section>
+        
 {% endblock %}
-
 
 {% block page_script %}
 <script>

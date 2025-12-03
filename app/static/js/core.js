@@ -47,4 +47,19 @@ document.addEventListener("DOMContentLoaded", function () {
     updateNavbar();
 
     window.addEventListener('scroll', updateNavbar);
+
+
+    // ===========================
+    // CLOSE BURGER ON LINK CLICK
+    // ===========================
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+            let navbar = document.getElementById('navbarNav');
+            let bsCollapse = bootstrap.Collapse.getInstance(navbar);
+
+            if (bsCollapse) {
+                bsCollapse.hide();
+            }
+        });
+    });
 });

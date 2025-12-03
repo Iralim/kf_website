@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали проекта</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --secondary: #f97316;
+            --accent: #0ea5e9;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+        }
+
+        /* ===== BASE STYLES ===== */
+        body {
+            background: var(--light);
+            font-family: "Montserrat", sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-top: 20px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: "Oswald", sans-serif;
+            font-weight: 700;
+        }
+        
+        /* ===== CUSTOM STYLES ===== */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .project-title {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .project-slug {
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        
+        .project-description {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+            padding: 1.8rem;
+            height: 100%;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card.price-card {
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .info-card-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+        
+        .price-card .info-card-icon {
+            color: var(--secondary);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-unit {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .price-badge {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .price-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+        
+        .price-item:last-child {
+            border-bottom: none;
+        }
+        
+        .price-label {
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        .price-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .mortgage-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+        
+        .mortgage-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .mortgage-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .mortgage-note {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+        
+        .back-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        
+        .back-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+            
+            .card-value {
+                font-size: 1.7rem;
+            }
+            
+            .mortgage-price {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка проекта -->
+        
+        <!-- Основная информация о проекте -->
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <h2 class="section-title">О проекте</h2>
+                <p class="project-description" id="project-description">
+                    {{project.description}}
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Основные параметры</h3>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <div class="card-value" id="project-square">{{project.square}}</div>
+                            <div class="card-unit">общая площадь, м²</div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="card-value" id="project-size">{{project.size}}</div>
+                            <div class="card-unit">размеры, м</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Секция с ценами -->
+        <h2 class="section-title">Стоимость проекта</h2>
+        <div class="row mb-5">
+            <!-- Базовая комплектация -->
+            <div class="col-md-4 mb-4">
+                <div class="info-card price-card">
+                    <div class="info-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+                            <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                        </svg>
+                    </div>
+                    <span class="price-badge">Базовая</span>
+                    <h3 class="card-title">Коробка дома</h3>
+                    <div class="card-value" id="price-base">3 850 000</div>
+                    <div class="card-unit">рублей</div>
+                    <div class="mt-3">
+                        <p>Фундамент, стены, крыша, окна, наружные двери.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- С коммуникациями -->
+            <div class="col-md-4 mb-4">
+                <div class="info-card price-card">
+                    <div class="info-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+                            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"/>
+                        </svg>
+                    </div>
+                    <span class="price-badge">С коммуникациями</span>
+                    <h3 class="card-title">Под ключ</h3>
+                    <div class="card-value" id="price-communications">5 120 000</div>
+                    <div class="card-unit">рублей</div>
+                    <div class="mt-3">
+                        <p>Включает электрику, сантехнику, отопление, вентиляцию.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Полностью готовый -->
+            <div class="col-md-4 mb-4">
+                <div class="info-card price-card">
+                    <div class="info-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
+                            <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
+                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
+                        </svg>
+                    </div>
+                    <span class="price-badge">Полностью готовый</span>
+                    <h3 class="card-title">С отделкой</h3>
+                    <div class="card-value" id="price-ready">6 750 000</div>
+                    <div class="card-unit">рублей</div>
+                    <div class="mt-3">
+                        <p>Чистовая отделка, установленная техника, светильники, сантехника.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ипотечный калькулятор -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="mortgage-card">
+                    <h3 class="mortgage-title">Рассчитайте ипотеку</h3>
+                    <p class="mb-4">Узнайте, сколько будет составлять ежемесячный платеж при покупке этого проекта</p>
+                    
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white">Стоимость проекта</label>
+                                    <select class="form-select" id="price-select">
+                                        <option value="3850000">Базовая комплектация - 3 850 000 руб.</option>
+                                        <option value="5120000">С коммуникациями - 5 120 000 руб.</option>
+                                        <option value="6750000" selected>Полностью готовый - 6 750 000 руб.</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white">Первоначальный взнос</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="initial-payment" value="1350000" min="0" step="10000">
+                                        <span class="input-group-text">руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="mortgage-price" id="mortgage-price">45 200</div>
+                            <div class="card-unit text-white">рублей в месяц</div>
+                            <p class="mortgage-note">*Расчет на 20 лет под 8% годовых</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дополнительная информация -->
+        <div class="row">
+            <div class="col-12">
+                <div class="info-card">
+                    <h3 class="card-title">Дополнительная информация</h3>
+                    <p>Все цены указаны с учетом НДС. В стоимость включены проектные работы, доставка материалов и монтаж. 
+                    Срок строительства составляет от 4 до 6 месяцев в зависимости от выбранной комплектации.</p>
+                    <p>Для получения индивидуального расчета и консультации свяжитесь с нашими менеджерами по телефону 
+                    <strong>8 (800) 123-45-67</strong> или оставьте заявку на сайте.</p>
+                    
+                    <div class="mt-4 pt-3 border-top">
+                        <a href="#" class="btn btn-lg px-4 me-3" style="background-color: var(--secondary); color: white; font-weight: 600;">
+                            Оставить заявку
+                        </a>
+                        <a href="#" class="btn btn-lg px-4" style="background-color: var(--accent); color: white; font-weight: 600;">
+                            Скачать проект в PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="mt-5 py-4 text-center text-muted">
+            <p>© 2023 Строительная компания. Все права защищены.</p>
+        </footer>
+    </div>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript для динамического обновления данных -->
+    <script>
+        // Пример данных, которые могут приходить из Flask
+        const projectData = {
+            id: 1,
+            title: "Двухэтажный дом с гаражом",
+            slug: "two-story-house-garage",
+            description: "Просторный двухэтажный дом с современной планировкой и встроенным гаражом на две машины. Проект включает в себя 4 спальни, 3 санузла, просторную гостиную с камином, кухню-столовую и отдельный кабинет. Большие панорамные окна обеспечивают естественное освещение в течение всего дня. Отделка включает в себя качественные материалы премиум-класса. Идеальное решение для большой семьи, ценящей комфорт и современный дизайн.",
+            square: 150,
+            size: "12x15",
+            price_base: 3850000,
+            price_with_communications: 5120000,
+            price_ready: 6750000,
+            mortgage_price_per_month: 45200
+        };
+        
+        // Функция для форматирования чисел с разделителями
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+        
+        // Функция для расчета ипотеки
+        function calculateMortgage() {
+            const price = parseInt(document.getElementById('price-select').value);
+            const initialPayment = parseInt(document.getElementById('initial-payment').value) || 0;
+            
+            // Простой расчет ипотеки (для демонстрации)
+            const loanAmount = price - initialPayment;
+            const annualRate = 0.08; // 8% годовых
+            const years = 20;
+            const months = years * 12;
+            const monthlyRate = annualRate / 12;
+            
+            // Формула аннуитетного платежа
+            const mortgage = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+            
+            // Округление до сотен
+            const roundedMortgage = Math.round(mortgage / 100) * 100;
+            
+            // Обновление отображения
+            document.getElementById('mortgage-price').textContent = formatNumber(roundedMortgage);
+        }
+        
+        // Инициализация страницы с данными
+        document.addEventListener('DOMContentLoaded', function() {
+            // Заполняем данные о проекте
+            document.getElementById('project-title').textContent = projectData.title;
+            document.getElementById('project-slug').textContent = projectData.slug;
+            document.getElementById('project-description').textContent = projectData.description;
+            document.getElementById('project-square').textContent = projectData.square;
+            document.getElementById('project-size').textContent = projectData.size;
+            document.getElementById('price-base').textContent = formatNumber(projectData.price_base);
+            document.getElementById('price-communications').textContent = formatNumber(projectData.price_with_communications);
+            document.getElementById('price-ready').textContent = formatNumber(projectData.price_ready);
+            
+            // Устанавливаем первоначальный взнос (20% от полной стоимости)
+            const initialPayment = Math.round(projectData.price_ready * 0.2 / 10000) * 10000;
+            document.getElementById('initial-payment').value = initialPayment;
+            
+            // Устанавливаем расчет ипотеки
+            calculateMortgage();
+            
+            // Добавляем обработчики событий
+            document.getElementById('price-select').addEventListener('change', calculateMortgage);
+            document.getElementById('initial-payment').addEventListener('input', calculateMortgage);
+        });
+    </script>
+</body>
+</html>

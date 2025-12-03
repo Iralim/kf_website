@@ -63,8 +63,8 @@ def send():
 #TEST
 @main_bp.route('/test')
 def test():
-
-    return render_template('test.html')
+    project = Project.query.first()
+    return render_template('test.html', project=project)
 
 
 @main_bp.route('/check_title')
