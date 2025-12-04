@@ -18,8 +18,8 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">На главную</a></li>
                         <li class="nav-item"><a class="nav-link" href="#aboutProject">О проекте</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#prices">Цены</a></li>
                         <li class="nav-item"><a class="nav-link" href="#specs">Комплектация</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#stats">О нас</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
                     </ul>
@@ -54,77 +54,74 @@
 
         <!-- PROJECT HERO -->
         <section class="project-hero" id="aboutProject">
-            <!-- INLINE STYLE BG PICTURE -->
-            <style> 
-                .project-hero {
-                    background: linear-gradient(125deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%), 
-                                url("{{ url_for('static', filename=project.images.first().url) }}");
-                    background-size: cover;
-                    background-position: center;
-                    padding: 140px 0 80px;
-                    color: white;
-                    position: relative;
-                    overflow: hidden;
-            }
-            </style>
             
             <div class="container position-relative" style="z-index: 2;">
                 <div class="row align-items-center">
                     <!-- LEFT CONTENT -->
                     <div class="col-lg-7" data-aos="fade-right">
-                        <!-- Title -->
-                        <h1 class="hero-project-title">О проекте</h1>
-                        <!-- Description -->
-                        {% if project.description %}
-                        <p class="lead opacity-90 mb-4">{{ project.description }}</p>
-                        {% endif %}
-                        <!-- SPECS HERO -->
-                        <div class="specs-grid">
-                            <div class="spec-item" data-aos="fade-up" data-aos-delay="100">
-                                <div class="spec-icon">
-                                    <i class="bi bi-aspect-ratio"></i>
+                        <div class="about-project-card ">
+
+                            <!-- Title -->
+                            <h1 class="section-title">О проекте</h1>
+                            <!-- Description -->
+                            {% if project.description %}
+                            <p class="lead opacity-90 mb-4">{{ project.description }}</p>
+                            {% endif %}
+                            
+                            <!-- SPECS HERO -->
+                            <div class="specs-grid">
+    
+                                <!-- Блок 1 -->
+                                <div class="spec-block" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="spec-label">Площадь</div>
+                                    <div class="spec-line">
+                                        <div class="spec-icon"><i class="bi bi-aspect-ratio"></i></div>
+                                        <span class="spec-value">{{ project.square }} м²</span>
+                                    </div>
                                 </div>
-                                <div class="spec-value">{{ project.square }} м²</div>
-                                <div class="spec-label">Площадь</div>
+    
+                                <!-- Блок 2 -->
+                                <div class="spec-block" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="spec-label">Размер дома</div>
+                                    <div class="spec-line">
+                                        <div class="spec-icon"><i class="bi bi-arrows-fullscreen"></i></div>
+                                        <span class="spec-value">{{ project.size }} м</span>
+                                    </div>
+                                </div>
+    
                             </div>
-                            <div class="spec-item" data-aos="fade-up" data-aos-delay="200">
-                                <div class="spec-icon">
-                                    <i class="bi bi-arrows-fullscreen"></i>
+    
+                            <!-- ADVANTAGES HERO -->
+                            <div class="advantages-grid" data-aos="fade-up" data-aos-delay="500">
+                                <div class="advantage-item">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-house-check-fill"></i>
+                                    </div>
+                                    <span>Тёплый контур <span class="advantage-price">{{project.price_base | money}} ₽</span></span>
                                 </div>
-                                <div class="spec-value">{{ project.size }}</div>
-                                <div class="spec-label">Размер дома</div>
-                            </div>
-                        </div>
-                        <!-- ADVANTAGES HERO -->
-                        <div class="advantages-grid" data-aos="fade-up" data-aos-delay="500">
-                            <div class="advantage-item">
-                                <div class="advantage-icon">
-                                    <i class="bi bi-house-check-fill"></i>
+                                <div class="advantage-item">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-tools"></i>
+                                    </div>
+                                    <span>С коммуникациями <span class="advantage-price">{{ project.price_with_communications | money}} ₽</span></span>
                                 </div>
-                                <span>Тёплый контур</span>
-                            </div>
-                            <div class="advantage-item">
-                                <div class="advantage-icon">
-                                    <i class="bi bi-tools"></i>
+                                <div class="advantage-item">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-key"></i>
+                                    </div>
+                                    <span>Под ключ <span class="advantage-price">{{ project.price_ready | money}} ₽</span></span>
                                 </div>
-                                <span>Коммуникации под ключ</span>
-                            </div>
-                            <div class="advantage-item">
-                                <div class="advantage-icon">
-                                    <i class="bi bi-key"></i>
+                                <div class="advantage-item">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <span>Гарантия 10 лет</span>
                                 </div>
-                                <span>Готов к заселению</span>
-                            </div>
-                            <div class="advantage-item">
-                                <div class="advantage-icon">
-                                    <i class="bi bi-shield-check"></i>
-                                </div>
-                                <span>Гарантия 10 лет</span>
                             </div>
                         </div>
                     </div>
                     <!-- RIGHT MORTGAGE BOX -->
-                    <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
+                    <div class="col-lg-5" data-aos="fade-up" data-aos-delay="300">
                         <div class="mortgage-card">
                             <div class="text-center mb-4">
                                 <h3 class="mb-3">Ипотека от 0,1%</h3>
@@ -135,12 +132,9 @@
                                 <div class="mortgage-label">Первоначальный взнос от 15%</div>
                             </div>
                             <div class="d-grid gap-2 text-center">
-                                <a href="#contact">
-                                    <button class="btn btn-primary-custom">
+                                <a href="#contact" class="btn btn-primary-custom">
                                         <i class="bi bi-house-check me-2"></i>Забронировать дом
-                                    </button>
                                 </a>
-                                
 
                                 <button class="btn btn-outline-custom border-white text-white">
                                 <i class="bi bi-calculator me-2"></i>Рассчитать ипотеку
@@ -154,7 +148,60 @@
                 </div>
             </div>
         </section>
-
+        <!-- PRICES -->
+        <section class="price-section" id="prices">
+            <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Стоимость строительства</h2>
+            <div class="price-cards">
+                <!-- PRICES -->
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="price-stage">Базовая комплектация</div>
+                    <div class="price-amount">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</div>
+                    <div class="price-description">
+                        Тёплый контур дома: фундамент, стены, перекрытия, кровля, окна.
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="bi bi-check feature-check"></i>Фундамент</li>
+                        <li><i class="bi bi-check feature-check"></i>Стены и перекрытия</li>
+                        <li><i class="bi bi-check feature-check"></i>Кровля</li>
+                        <li><i class="bi bi-check feature-check"></i>Окна и двери</li>
+                        <li><i class="bi bi-x feature-dash"></i>Коммуникации</li>
+                        <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
+                    </ul>
+                </div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="price-stage">С коммуникациями</div>
+                    <div class="price-amount">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</div>
+                    <div class="price-description">
+                        Полный комплекс инженерных систем: электрика, отопление, водоснабжение.
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="bi bi-check feature-check"></i>Всё из базового</li>
+                        <li><i class="bi bi-check feature-check"></i>Электрика и щиток</li>
+                        <li><i class="bi bi-check feature-check"></i>Водоснабжение</li>
+                        <li><i class="bi bi-check feature-check"></i>Отопление и вентиляция</li>
+                        <li><i class="bi bi-check feature-check"></i>Канализация</li>
+                        <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
+                    </ul>
+                </div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="popular-badge">Популярный</div>
+                    <div class="price-stage">Под ключ</div>
+                    <div class="price-amount">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</div>
+                    <div class="price-description">
+                        Полностью готовый дом с отделкой — можно сразу заезжать.
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="bi bi-check feature-check"></i>Всё из предыдущих этапов</li>
+                        <li><i class="bi bi-check feature-check"></i>Чистовая отделка</li>
+                        <li><i class="bi bi-check feature-check"></i>Натяжные потолки</li>
+                        <li><i class="bi bi-check feature-check"></i>Тёплые полы</li>
+                        <li><i class="bi bi-check feature-check"></i>Сантехника</li>
+                        <li><i class="bi bi-check feature-check"></i>Электрика с розетками</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
         <!-- SPECS 4 CARDS -->
         <section id = "specs" class="bg-light specs-section">
             <div class="container">
@@ -233,80 +280,12 @@
                 </div>
             </div>
         </section>
-        <section class="price-section">
-            <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Стоимость строительства</h2>
-            <div class="price-cards">
-                <!-- PRICES -->
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="price-stage">Базовая комплектация</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_base).replace(',', ' ') }} ₽</div>
-                    <div class="price-description">
-                        Тёплый контур дома: фундамент, стены, перекрытия, кровля, окна.
-                    </div>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check feature-check"></i>Фундамент</li>
-                        <li><i class="bi bi-check feature-check"></i>Стены и перекрытия</li>
-                        <li><i class="bi bi-check feature-check"></i>Кровля</li>
-                        <li><i class="bi bi-check feature-check"></i>Окна и двери</li>
-                        <li><i class="bi bi-x feature-dash"></i>Коммуникации</li>
-                        <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
-                    </ul>
-                </div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="price-stage">С коммуникациями</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_with_communications).replace(',', ' ') }} ₽</div>
-                    <div class="price-description">
-                        Полный комплекс инженерных систем: электрика, отопление, водоснабжение.
-                    </div>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check feature-check"></i>Всё из базового</li>
-                        <li><i class="bi bi-check feature-check"></i>Электрика и щиток</li>
-                        <li><i class="bi bi-check feature-check"></i>Водоснабжение</li>
-                        <li><i class="bi bi-check feature-check"></i>Отопление и вентиляция</li>
-                        <li><i class="bi bi-check feature-check"></i>Канализация</li>
-                        <li><i class="bi bi-x feature-dash"></i>Чистовая отделка</li>
-                    </ul>
-                </div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="popular-badge">Популярный</div>
-                    <div class="price-stage">Под ключ</div>
-                    <div class="price-amount">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</div>
-                    <div class="price-description">
-                        Полностью готовый дом с отделкой — можно сразу заезжать.
-                    </div>
-                    <ul class="price-features">
-                        <li><i class="bi bi-check feature-check"></i>Всё из предыдущих этапов</li>
-                        <li><i class="bi bi-check feature-check"></i>Чистовая отделка</li>
-                        <li><i class="bi bi-check feature-check"></i>Натяжные потолки</li>
-                        <li><i class="bi bi-check feature-check"></i>Тёплые полы</li>
-                        <li><i class="bi bi-check feature-check"></i>Сантехника</li>
-                        <li><i class="bi bi-check feature-check"></i>Электрика с розетками</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <!-- CTA SECTION -->
-        <!-- <section class="py-5 bg-light">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center" data-aos="fade-up">
-                        <h2 class="section-title">Готовы стать владельцем этого дома?</h2>
-                        <p class="fs-5 mb-4">Всего 3 месяца — и вы получаете ключи от готового дома с полной отделкой</p>
-                        <div class="d-flex flex-wrap gap-3 justify-content-center">
-                            <button class="btn btn-primary-custom btn-lg">Забронировать дом</button>
-                            <button class="btn btn-outline-custom btn-lg">Рассчитать ипотеку</button>
-                            <a href="{{ url_for('main.index') }}#contact" class="btn btn-outline-custom btn-lg">Получить консультацию</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
+        
+{% endblock %}
 
 {% block stat %}
 {% endblock %}
-        
-{% endblock %}
+
 {% block projects %}
         <!-- PROJECTS -->
         <section id="projects" class="projects-section">
