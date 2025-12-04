@@ -109,19 +109,22 @@
         margin-bottom: 1rem;
     }
 
-    .project-square {
+    .project-sizes {
         display: flex;
         align-items: center;
         color: var(--gray);
         font-size: 1.2rem;
         font-weight: 500;
+        margin-right: 25px;
     }
 
-    .project-square i {
-        margin-right: 5px;
+    .project-sizes i {
+        margin-right: 10px;
         color: var(--accent);
     }
+    
 
+    
     .card-price-section {
         margin-bottom: 1rem;
     }
