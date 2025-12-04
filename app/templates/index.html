@@ -8,6 +8,36 @@
 
 <!-- SECTIONS -->
 {% block sections %}
+<style>
+.hero-section {
+    background:
+        /* Градиент-туман */
+        /* linear-gradient(to right, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.0) 50%),
+        url('{{ url_for("static", filename=projects[0].images.first().url) }}'); */
+        linear-gradient(to right, rgba(255,255,255,0.5) 40%, 
+        rgba(255,255,255,0) 60%), url('/static/uploads/bergen-60/1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* только для десктопа */
+    min-height: 100vh;
+    padding: 180px 0 120px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+
+/* На мобильных отключаем fixed */
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+}
+
+</style>
     <section id="home" class="hero-section">
         <div class="container">
             <div class="row align-items-center min-vh-100">
