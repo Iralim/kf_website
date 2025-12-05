@@ -1,35 +1,25 @@
             <div class="row">
-                {% for project in projects %}
+             {% for project in projects %}
                 <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="">
                     <div class="project-card">
-                        <!-- IMAGES CAROUSEL  -->
-                        <div class="project-carousel">
-                            <div id="carousel{{ project.id }}" class="carousel slide">
-                                <div class="carousel-indicators">
+                        <!-- IMAGES CAROUSEL WITH SWIPER -->
+                        <div class="project-carousel swiper-container-{{ project.id }}">
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
                                     {% for image in project.images.all() %}
-                                    <button type="button" data-bs-target="#carousel{{ project.id }}" 
-                                        data-bs-slide-to="{{ loop.index0 }}" 
-                                        class="{% if loop.first %}active{% endif %}" 
-                                        aria-label="Slide {{ loop.index }}"></button>
-                                    {% endfor %}
-                                </div>
-                                <div class="carousel-inner">
-                                    {% for image in project.images.all() %}
-                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <div class="swiper-slide">
                                         <img src="{{ url_for('static', filename=image.url) }}" 
                                             class="d-block w-100" 
-                                            alt="{{ project.title }}">
+                                            alt="{{ project.title }}"
+                                            loading="lazy">
                                     </div>
                                     {% endfor %}
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                                </button>
+                                <!-- Пагинация (точки) -->
+                                <div class="swiper-pagination"></div>
+                                <!-- Кнопки навигации -->
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
                             </div>
                         </div>
                         <!-- PROJECT PRICES -->
@@ -69,7 +59,7 @@
                                 Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
                             </div>
                             {% endif %}
-                            <a href="{{ url_for('main.details', id=project.id) }}" class="btn-project-details">
+                            <a href="{{ url_for('main.details', slug=project.slug) }}" class="btn-project-details">
                             Подробнее о проекте
                             <i class="bi bi-arrow-right"></i>
                             </a>
@@ -78,3 +68,78 @@
                 </div>
                 {% endfor %}
             </div>
+           
+    <!-- Swiper is here because of dependency of jinja    -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация Swiper для каждого проекта
+    {% for project in projects %}
+    new Swiper('.swiper-container-{{ project.id }} .swiper', {
+        // Параметры
+        direction: 'horizontal',
+        loop: true,
+        
+        // Пагинация
+        pagination: {
+            el: '.swiper-container-{{ project.id }} .swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+        },
+        
+        // Навигация - всегда показываем стрелки
+        navigation: {
+            nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+            prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+        },
+        
+        // Свайп на мобильных
+        touchEventsTarget: 'container',
+        allowTouchMove: true,
+        
+        // Адаптивные настройки
+        breakpoints: {
+            // На мобильных
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                allowTouchMove: true,
+                touchRatio: 1,
+                touchAngle: 45,
+                grabCursor: true,
+                navigation: {
+                    nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+                    prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+                    enabled: true // Включаем навигацию на мобильных
+                }
+            },
+            // На планшетах и десктопах
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                allowTouchMove: false, // Отключаем свайп на больших экранах если хотите
+                navigation: {
+                    nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+                    prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+                    enabled: true
+                }
+            }
+        },
+        
+        // Эффекты
+        effect: 'slide',
+        speed: 300,
+        
+        // Предотвращение конфликтов
+        preventClicks: true,
+        preventClicksPropagation: true,
+        
+        // Доступность
+        a11y: {
+            prevSlideMessage: 'Предыдущий слайд',
+            nextSlideMessage: 'Следующий слайд',
+            paginationBulletMessage: 'Перейти к слайду {{index}}',
+        }
+    });
+    {% endfor %}
+});
+</script>

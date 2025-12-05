@@ -1,0 +1,549 @@
+{% extends 'base.html' %}
+
+{% block title %}Крепкий Фундамент{% endblock %}
+
+{% block page_style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index/main_index.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% endblock %}
+
+<!-- SECTIONS -->
+{% block sections %}
+<style>
+.hero-section {
+    background:
+        /* Градиент-туман */
+        /* linear-gradient(to right, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.0) 50%),
+        url('{{ url_for("static", filename=projects[0].images.first().url) }}'); */
+        linear-gradient(to right, rgba(255,255,255,0.5) 40%, 
+        rgba(255,255,255,0) 60%), url('/static/uploads/bergen-60/1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* только для десктопа */
+    min-height: 100vh;
+    padding: 180px 0 120px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+
+/* На мобильных отключаем fixed */
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+}
+
+</style>
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="hero-content">
+                        <!-- Бейдж -->
+                        <div class="hero-badge" data-aos="fade-up" data-aos-delay="200">
+                            <i class="bi bi-award-fill"></i>
+                            Строим с 2010 года
+                        </div>
+                        <!-- Заголовок -->
+                        <h1 class="hero-title">
+                            Строим современные<br>
+                            <span class="hero-highlight">энергоэффективные</span><br>
+                            дома под ключ
+                        </h1>
+                        <!-- Технология -->
+                        <div class="technology-badge" data-aos="fade-up" data-aos-delay="300">
+                            <i class="bi bi-lightning-charge"></i>
+                            Технология: СИП-панели
+                        </div>
+                        <!-- Подзаголовок -->
+                        <p class="hero-subtitle">
+                            Премиум-качество <span class="text-accent">без переплаты</span></p>
+                        <!-- Геолокации -->
+                        <div class="hero-locations" data-aos="fade-up" data-aos-delay="300">
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Стерлитамак</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Салават</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Ишимбай</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Кумертау</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Северо-Восток</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Булгаково</span>
+                            </div>
+                        </div>
+                        <!-- Кнопки -->
+                        <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
+                            <a href="#contact" class="btn btn-primary-custom">
+                            <i class="bi bi-house-check me-2"></i>
+                            Получить консультацию
+                            </a>
+                            <a href="#projects" class="btn btn-outline-custom">
+                            <i class="bi bi-images me-2"></i>
+                            Смотреть проекты
+                            </a>
+                        </div>
+                        
+                        <!-- Преимущества -->
+                        <div class="hero-features" data-aos="fade-up" data-aos-delay="300">
+                            <div class="feature-item">
+                                <i class="bi bi-clock-fill"></i>
+                                <span>3 месяца</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-shield-check"></i>
+                                <span>Гарантия 10 лет</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-safe-fill"></i>
+                                <span>Ипотека через эскроу</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-building-check"></i>
+                                <span>Строительный надзор</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Почему выбирают нас</h2>
+            <div class="row g-4">
+                <!-- Карточка 1: Готовый дом -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-house-check-fill"></i></div>
+                        <h3>Дом — полностью готов к жизни</h3>
+                        <p>Всё, что нужно для комфортного переезда — уже включено. Полная отделка и готовая инженерия.</p>
+                        <ul class="feature-list mt-3">
+                            <li><i class="bi bi-check-circle-fill"></i> Стены под поклейку обоев</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Межкомнатные двери и натяжные потолки</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Тёплые полы в ключевых зонах</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Чистовая отделка и санузел</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Ламинат, плитка, сантехника</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Электрика: щиток, розетки, выключатели</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Вода, отопление, канализация</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Архитектурная подсветка и ниши</li>
+                        </ul>
+                        <p class="mt-3 fw-semibold">Вы получаете дом, в который можно заехать в день получения ключей.</p>
+                    </div>
+                </div>
+                <!-- Карточка 2: Ипотека -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-bank2"></i></div>
+                        <h3>Ипотека и полное сопровождение</h3>
+                        <p>Мы оформим льготную ипотеку на весь комплекс: дом, забор, баню, гараж и даже мебель — одной выгодной ставкой.</p>
+                        <p>Работаем с ведущими банками и полностью ведём процесс: от покупки участка до ввода дома в эксплуатацию и постановки на учёт.</p>
+                        <p class="fw-semibold mt-3">Принцип “единого окна”: все вопросы — у нас, результат — у вас.</p>
+                    </div>
+                </div>
+                <!-- Карточка 3: Проекты -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-pencil-square"></i></div>
+                        <h3>Проекты, созданные профессионалами</h3>
+                        <p>Все дома разрабатываются опытными архитекторами и дизайнерами, поэтому выглядят современно и продуманно:</p>
+                        <ul class="feature-list mt-3">
+                            <li><i class="bi bi-check-circle-fill"></i> Без лишних квадратов, только полезные площади</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Удобные планировки</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Панорамная раздвижная дверь на террасу 2,3 м по стандарту</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Индивидуальный проект — если не нашли подходящий среди готовых</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Карточка 4: Надёжность -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-shield-check"></i></div>
+                        <h3>Надёжность и энергоэффективность</h3>
+                        <p>Мы строим дома по энергоэффективным технологиям, что обеспечивает тепло и минимальные затраты на отопление.</p>
+                        <p>Используем проверенные материалы и собственные стандарты строительства — ваш дом надолго сохранит внешний вид и комфорт.</p>
+                    </div>
+                </div>
+                <!-- Карточка 5: О компании -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-building"></i></div>
+                        <h3>О компании</h3>
+                        <p>«Крепкий Фундамент» — строительная компания, специализирующаяся на домах под ключ.</p>
+                        <p>Мы делаем процесс максимально простым и понятным, а результат — качественным и долговечным.</p>
+                    </div>
+                </div>
+                <!-- Карточка 6: Сроки -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="bi bi-lightning-charge"></i></div>
+                        <h3>Быстрые сроки</h3>
+                        <p>Всего <strong>3 месяца</strong> — от договора до переезда в готовый дом.</p>
+                        <p>Мы ценим ваше время и соблюдаем все оговоренные сроки строительства.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<style>
+/* Стили для Swiper */
+.swiper {
+    /* width: 100%; */
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+/* Стили для стрелок навигации */
+.swiper-button-prev,
+.swiper-button-next {
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex !important; /* Всегда показываем */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+ 
+}
+
+.swiper-button-prev {
+    left: 10px !important;
+    right: auto;
+}
+
+.swiper-button-next {
+    right: 10px !important;
+    left: auto;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* На мобильных уменьшаем стрелки */
+@media (max-width: 767px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 32px;
+        height: 32px;
+        opacity: 0.6;
+    }
+    
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+        font-size: 16px;
+    }
+    
+    .swiper-button-prev {
+        left: 5px !important;
+    }
+    
+    .swiper-button-next {
+        right: 5px !important;
+    }
+    
+    .swiper-pagination {
+        display: block;
+        bottom: 10px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .swiper {
+        height: 300px;
+    }
+    
+    .swiper-button-prev {
+        left: 15px !important;
+    }
+    
+    .swiper-button-next {
+        right: 15px !important;
+    }
+}
+
+/* Для очень маленьких экранов можно скрыть стрелки */
+@media (max-width: 480px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: flex !important;
+        /* Можно сделать меньше или полупрозрачными */
+        width: 28px;
+        height: 28px;
+        opacity: 0.5;
+    }
+    
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+        opacity: 0.8;
+    }
+}
+
+/* Если хотите, чтобы стрелки были по центру вертикально (вариант 2) */
+.swiper-button-prev,
+.swiper-button-next {
+    top: 50% !important;
+    transform: translateY(-50%);
+
+}
+
+/* Альтернативный вариант с более крупными стрелками на мобильных */
+.mobile-swiper-arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.mobile-swiper-arrows .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    pointer-events: auto;
+    z-index: 11;
+}
+
+.mobile-swiper-arrows .arrow-prev {
+    left: 10px;
+}
+
+.mobile-swiper-arrows .arrow-next {
+    right: 10px;
+}
+</style>
+
+
+    <!-- PROJECTS -->
+<section id="projects" class="projects-section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Наши проекты</h2>
+            <div class="row">
+             {% for project in projects %}
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="">
+                    <div class="project-card">
+                        <!-- IMAGES CAROUSEL WITH SWIPER -->
+                        <div class="project-carousel swiper-container-{{ project.id }}">
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                    {% for image in project.images.all() %}
+                                    <div class="swiper-slide">
+                                        <img src="{{ url_for('static', filename=image.url) }}" 
+                                            class="d-block w-100" 
+                                            alt="{{ project.title }}"
+                                            loading="lazy">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <!-- Пагинация (точки) -->
+                                <div class="swiper-pagination"></div>
+                                <!-- Кнопки навигации -->
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                            </div>
+                        </div>
+                        <!-- PROJECT PRICES -->
+                        <div class="project-info">
+                            <h4 class="project-title">{{ project.title }}</h4>
+                            <div class="project-meta">
+                                <div class="project-sizes">
+                                    <i class="bi bi-aspect-ratio"></i>
+                                    {{ project.square }} м²
+                                </div>
+                                <div class="project-sizes">
+                                    <i class="bi bi-arrows-fullscreen"></i>
+                                    {{ project.size }} м
+                                </div>
+                            </div>
+                            <div class="card-price-section">
+                                <div class="price-tier">
+                                    <span class="price-label">Базовая отделка</span>
+                                    <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
+                                </div>
+                                {% if project.price_with_communications %}
+                                <div class="price-tier">
+                                    <span class="price-label">С коммуникациями</span>
+                                    <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
+                                </div>
+                                {% endif %}
+                                {% if project.price_ready %}
+                                <div class="price-tier highlight">
+                                    <span class="price-label">Под ключ</span>
+                                    <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% if project.mortgage_price_per_month %}
+                            <div class="mortgage-section">
+                                <i class="bi bi-house-check"></i>
+                                Ипотека от&nbsp;<strong>{{ "{:,}".format(project.mortgage_price_per_month).replace(",", " ") }} ₽/мес</strong>
+                            </div>
+                            {% endif %}
+                            <a href="{{ url_for('main.details', slug=project.slug) }}" class="btn-project-details">
+                            Подробнее о проекте
+                            <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация Swiper для каждого проекта
+    {% for project in projects %}
+    new Swiper('.swiper-container-{{ project.id }} .swiper', {
+        // Параметры
+        direction: 'horizontal',
+        loop: true,
+        
+        // Пагинация
+        pagination: {
+            el: '.swiper-container-{{ project.id }} .swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+        },
+        
+        // Навигация - всегда показываем стрелки
+        navigation: {
+            nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+            prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+        },
+        
+        // Свайп на мобильных
+        touchEventsTarget: 'container',
+        allowTouchMove: true,
+        
+        // Адаптивные настройки
+        breakpoints: {
+            // На мобильных
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                allowTouchMove: true,
+                touchRatio: 1,
+                touchAngle: 45,
+                grabCursor: true,
+                navigation: {
+                    nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+                    prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+                    enabled: true // Включаем навигацию на мобильных
+                }
+            },
+            // На планшетах и десктопах
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                allowTouchMove: false, // Отключаем свайп на больших экранах если хотите
+                navigation: {
+                    nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
+                    prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
+                    enabled: true
+                }
+            }
+        },
+        
+        // Эффекты
+        effect: 'slide',
+        speed: 300,
+        
+        // Предотвращение конфликтов
+        preventClicks: true,
+        preventClicksPropagation: true,
+        
+        // Доступность
+        a11y: {
+            prevSlideMessage: 'Предыдущий слайд',
+            nextSlideMessage: 'Следующий слайд',
+            paginationBulletMessage: 'Перейти к слайду {{index}}',
+        }
+    });
+    {% endfor %}
+});
+</script>
+
+
+
+
+
+{% endblock %}
+
+
+{% block page_script %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endblock %}
+

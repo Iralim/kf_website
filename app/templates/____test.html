@@ -197,6 +197,154 @@
         </div>
     </div>
 </section>
+<style>
+    /* Стили для Swiper */
+    .swiper {
+    /* width: 100%; */
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    }
+    .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    }
+    .swiper-pagination-bullet-active {
+    background: #fff;
+    }
+    /* Стили для стрелок навигации */
+    .swiper-button-prev,
+    .swiper-button-next {
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex !important; /* Всегда показываем */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    }
+    .swiper-button-prev {
+    left: 10px !important;
+    right: auto;
+    }
+    .swiper-button-next {
+    right: 10px !important;
+    left: auto;
+    }
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+    font-size: 20px;
+    font-weight: bold;
+    }
+    /* На мобильных уменьшаем стрелки */
+    @media (max-width: 767px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+    width: 32px;
+    height: 32px;
+    opacity: 0.6;
+    }
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+    font-size: 16px;
+    }
+    .swiper-button-prev {
+    left: 5px !important;
+    }
+    .swiper-button-next {
+    right: 5px !important;
+    }
+    .swiper-pagination {
+    display: block;
+    bottom: 10px !important;
+    }
+    }
+    @media (min-width: 768px) {
+    .swiper {
+    height: 300px;
+    }
+    .swiper-button-prev {
+    left: 15px !important;
+    }
+    .swiper-button-next {
+    right: 15px !important;
+    }
+    }
+    /* Для очень маленьких экранов можно скрыть стрелки */
+    @media (max-width: 480px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+    display: flex !important;
+    /* Можно сделать меньше или полупрозрачными */
+    width: 28px;
+    height: 28px;
+    opacity: 0.5;
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+    opacity: 0.8;
+    }
+    }
+    /* Если хотите, чтобы стрелки были по центру вертикально (вариант 2) */
+    .swiper-button-prev,
+    .swiper-button-next {
+    top: 50% !important;
+    transform: translateY(-50%);
+    }
+    /* Альтернативный вариант с более крупными стрелками на мобильных */
+    .mobile-swiper-arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    }
+    .mobile-swiper-arrows .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    pointer-events: auto;
+    z-index: 11;
+    }
+    .mobile-swiper-arrows .arrow-prev {
+    left: 10px;
+    }
+    .mobile-swiper-arrows .arrow-next {
+    right: 10px;
+    }
+</style>
 <!-- PROJECTS -->
 <section id="projects" class="projects-section">
     <div class="container">
@@ -206,4 +354,5 @@
 </section>
 {% endblock %}
 {% block page_script %}
+
 {% endblock %}

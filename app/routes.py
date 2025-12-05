@@ -25,9 +25,10 @@ def index():
     return render_template('index.html', projects=projects)
 
 
-@main_bp.route('/details/<int:id>')
-def details(id):
-    project = Project.query.get(id)
+@main_bp.route('/details/<slug>')
+def details(slug):
+    # project = Project.query.get(id)
+    project = Project.query.filter_by(slug=slug).first_or_404()
     first_image_url = os.path.join(current_app.static_folder, project.images.first().url)
 
     projects = Project.query.all()
@@ -60,15 +61,17 @@ def send():
     except Exception as e:
         return jsonify(status="error", error=str(e))
 
-#TEST
-@main_bp.route('/test')
-def test():
-    project = Project.query.first()
-    return render_template('test.html', project=project)
-
 
 @main_bp.route('/check_title')
 def check_title():
     title = request.args.get('title', '').strip()
     exists = Project.query.filter_by(title=title).first() is not None
     return jsonify({'exists': exists})
+
+
+# TEST
+@main_bp.route('/test')
+def test():
+    project = Project.query.first()
+    projects = Project.query.all()
+    return render_template('____test.html', project=project, projects=projects)
