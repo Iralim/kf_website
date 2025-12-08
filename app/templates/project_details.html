@@ -28,15 +28,15 @@
 <!-- GALLERY -->
 <section class="py-5 bg-light">
     <div class="container">
-
         <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">Проект {{project.title}}</h2>
-
         <!-- Main gallery -->
         <div class="swiper gallery-top" data-aos="fade-up">
             <div class="swiper-wrapper">
                 {% for image in project.images %}
-                <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename=image.url) }}" alt="{{ project.title }}">
+                <div class="swiper-slide" onclick="openFullscreenSlider({{ loop.index0 }})">
+                    <img src="{{ url_for('static', filename=image.url) }}" 
+                        alt="{{ project.title }}" 
+                        style="cursor: zoom-in;">
                 </div>
                 {% endfor %}
             </div>
@@ -54,6 +54,35 @@
         </div>
 
     </div>
+
+<!-- Fullscreen Modal -->
+<div class="modal fade fullscreen-modal" id="fullscreenSlider" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="fullscreen-close" data-bs-dismiss="modal">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="modal-body">
+                <div class="swiper fullscreen-slider">
+                    <div class="swiper-wrapper">
+                        {% for image in project.images %}
+                        <div class="swiper-slide">
+                            <img src="{{ url_for('static', filename=image.url) }}" 
+                                 alt="{{ project.title }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="full-screen-gallery">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </section>
 <!-- PROJECT HERO -->
 <section class="project-hero" id="aboutProject">
@@ -288,29 +317,5 @@
 </section>
 {% endblock %}
 {% block page_script %}
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-
-    const galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 5,
-        freeMode: true,
-        watchSlidesProgress: true,
-        breakpoints: {
-            320: { slidesPerView: 4 },
-            480: { slidesPerView: 5 },
-            768: { slidesPerView: 6 }
-        }
-    });
-
-    const galleryTop = new Swiper('.gallery-top', {
-        spaceBetween: 10,
-        effect: "slide",
-        thumbs: {
-            swiper: galleryThumbs
-        }
-    });
-
-});
-</script>
+<script src="{{ url_for('static', filename='js/gallery.js') }}""></script>
 {% endblock %}
