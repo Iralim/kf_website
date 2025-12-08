@@ -28,22 +28,31 @@
 <!-- GALLERY -->
 <section class="py-5 bg-light">
     <div class="container">
+
         <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">Проект {{project.title}}</h2>
-        <div class="row">
-            <div class="col-12 mb-4">
-                <div class="gallery-main" data-aos="fade-up">
-                    <img id="mainImage" src="{{ url_for('static', filename=project.images.first().url) }}" alt="{{ project.title }}">
+
+        <!-- Main gallery -->
+        <div class="swiper gallery-top" data-aos="fade-up">
+            <div class="swiper-wrapper">
+                {% for image in project.images %}
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename=image.url) }}" alt="{{ project.title }}">
                 </div>
-                <div class="gallery-thumbnails">
-                    {% for image in project.images %}
-                    <div class="gallery-thumb {% if loop.first %}active{% endif %}" 
-                        onclick="changeImage('{{ url_for('static', filename=image.url) }}', this)">
-                        <img src="{{ url_for('static', filename=image.url) }}" alt="{{ project.title }} - фото {{ loop.index }}">
-                    </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
+
+        <!-- Thumbnails -->
+        <div class="swiper gallery-thumbs mt-3">
+            <div class="swiper-wrapper">
+                {% for image in project.images %}
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename=image.url) }}" alt="thumb">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 </section>
 <!-- PROJECT HERO -->
@@ -280,17 +289,28 @@
 {% endblock %}
 {% block page_script %}
 <script>
-    // Gallery functionality
-    function changeImage(src, element) {
-    document.getElementById('mainImage').src = src;
-    
-    // Remove active class from all thumbnails
-    document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-        thumb.classList.remove('active');
+document.addEventListener("DOMContentLoaded", function() {
+
+    const galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+            320: { slidesPerView: 4 },
+            480: { slidesPerView: 5 },
+            768: { slidesPerView: 6 }
+        }
     });
-    
-    // Add active class to clicked thumbnail
-    element.classList.add('active');
-    }
+
+    const galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 10,
+        effect: "slide",
+        thumbs: {
+            swiper: galleryThumbs
+        }
+    });
+
+});
 </script>
 {% endblock %}

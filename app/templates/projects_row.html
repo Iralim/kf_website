@@ -1,10 +1,10 @@
             <div class="row">
-             {% for project in projects %}
+                {% for project in projects %}
                 <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="">
                     <div class="project-card">
                         <!-- IMAGES CAROUSEL WITH SWIPER -->
                         <div class="project-carousel swiper-container-{{ project.id }}">
-                            <div class="swiper">
+                            <div class="swiper"> 
                                 <div class="swiper-wrapper">
                                     {% for image in project.images.all() %}
                                     <div class="swiper-slide">

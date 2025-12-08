@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} Проект {{ project.title }} {% endblock %}
 {% block page_style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 {% endblock %}
 <!-- NAVBAR -->
@@ -84,13 +86,6 @@
 {% endblock %}
 
 {% block projects %}
-<!-- PROJECTS -->
-<section id="projects" class="projects-section">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Все проекты</h2>
-        {% include 'projects_row.html' %}
-    </div>
-</section>
 {% endblock %}
 
 {% block page_script %}

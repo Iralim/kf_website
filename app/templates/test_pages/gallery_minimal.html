@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} Проект {{ project.title }} {% endblock %}
+{% block page_style %}
+
+{% endblock %}
+<!-- NAVBAR -->
+{% block navbar %} 
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="bi bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">На главную</a></li>
+                <li class="nav-item"><a class="nav-link" href="#aboutProject">О проекте</a></li>
+                <li class="nav-item"><a class="nav-link" href="#prices">Цены</a></li>
+                <li class="nav-item"><a class="nav-link" href="#specs">Комплектация</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block sections %}
+<!-- GALLERY -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">Проект {{project.title}}</h2>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="gallery-main" data-aos="fade-up">
+                    <img id="mainImage" src="{{ url_for('static', filename=project.images.first().url) }}" alt="{{ project.title }}">
+                </div>
+                <div class="gallery-thumbnails">
+                    {% for image in project.images %}
+                    <div class="gallery-thumb {% if loop.first %}active{% endif %}" 
+                        onclick="changeImage('{{ url_for('static', filename=image.url) }}', this)">
+                        <img src="{{ url_for('static', filename=image.url) }}" alt="{{ project.title }} - фото {{ loop.index }}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block stat %}
+{% endblock %}
+
+{% block projects %}
+{% endblock %}
+
+{% block page_script %}
+<script>
+    // Gallery functionality
+    function changeImage(src, element) {
+    document.getElementById('mainImage').src = src;
+    
+    // Remove active class from all thumbnails
+    document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    
+    // Add active class to clicked thumbnail
+    element.classList.add('active');
+    }
+</script>
+{% endblock %}
