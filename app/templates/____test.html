@@ -1,246 +1,104 @@
-{% extends 'base.html' %}
-{% block title %} Проект {{ project.title }} {% endblock %}
-{% block page_style %}
-
-{% endblock %}
-<!-- NAVBAR -->
-{% block navbar %} 
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url_for('main.index') }}">КРЕПКИЙ <span>ФУНДАМЕНТ</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <i class="bi bi-list"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">На главную</a></li>
-                <li class="nav-item"><a class="nav-link" href="#aboutProject">О проекте</a></li>
-                <li class="nav-item"><a class="nav-link" href="#prices">Цены</a></li>
-                <li class="nav-item"><a class="nav-link" href="#specs">Комплектация</a></li>
-                <li class="nav-item"><a class="nav-link" href="#projects">Все проекты</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-{% endblock %}
-{% block sections %}
-<style>
-    .gallery-top img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.gallery-thumbs img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.gallery-thumbs .swiper-slide-thumb-active img {
-    opacity: 1;
-    border: 2px solid #007bff;
-}
-
-</style>
-<section class="py-5 bg-light">
-    <div class="container">
-
-        <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">Проект {{project.title}}</h2>
-
-<!-- Main gallery -->
-<div class="swiper gallery-top" data-aos="fade-up">
-    <div class="swiper-wrapper">
-        {% for image in project.images %}
-        <div class="swiper-slide" onclick="openFullscreenSlider({{ loop.index0 }})">
-            <img src="{{ url_for('static', filename=image.url) }}" 
-                 alt="{{ project.title }}" 
-                 style="cursor: zoom-in;">
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-        <!-- Thumbnails -->
-        <div class="swiper gallery-thumbs mt-3">
-            <div class="swiper-wrapper">
-                {% for image in project.images %}
-                <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename=image.url) }}" alt="thumb">
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-    </div>
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Critical CSS встроенный -->
     <style>
-    .fullscreen-modal .modal-dialog {
-        max-width: 100%;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+    .hero-section{min-height:100vh;position:relative}
+    .hero-title{font-size:clamp(2rem,5vw,3.5rem);line-height:1.2}
+    /* ... остальные необходимые стили ... */
+    </style>
     
-    .fullscreen-modal .modal-content {
-        height: 100%;
-        border-radius: 0;
-        background: rgba(0, 0, 0, 0.9);
-    }
+    <!-- Предзагрузка важных ресурсов -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
     
-    .fullscreen-modal .modal-body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        height: 100%;
-    }
-    
-    .fullscreen-slider {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .fullscreen-slider .swiper-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-    
-    .fullscreen-slider img {
-        max-width: 100%;
-        max-height: 90vh;
-        object-fit: contain;
-    }
-    
-    .fullscreen-close {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        z-index: 1000;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        opacity: 0.8;
-        transition: opacity 0.3s;
-    }
-    
-    .fullscreen-close:hover {
-        opacity: 1;
-    }
-</style>
-
-<!-- Fullscreen Modal -->
-<div class="modal fade fullscreen-modal" id="fullscreenSlider" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="fullscreen-close" data-bs-dismiss="modal">
-                <i class="bi bi-x-lg"></i>
-            </button>
-            <div class="modal-body">
-                <div class="swiper fullscreen-slider">
-                    <div class="swiper-wrapper">
-                        {% for image in project.images %}
-                        <div class="swiper-slide">
-                            <img src="{{ url_for('static', filename=image.url) }}" 
-                                 alt="{{ project.title }}">
+    <!-- Остальные стили асинхронно -->
+    <link rel="stylesheet" href="bootstrap-icons.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="main.css" media="print" onload="this.media='all'">
+</head>
+<body>
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <!-- Упрощенные анимации -->
+                        <div class="hero-badge">
+                            <i class="bi bi-award-fill"></i>
+                            Строим с 2010 года
                         </div>
-                        {% endfor %}
+                        
+                        <h1 class="hero-title">
+                            Строим современные<br>
+                            <span class="hero-highlight">энергоэффективные</span><br>
+                            дома под ключ
+                        </h1>
+                        
+                        <div class="technology-badge">
+                            <i class="bi bi-lightning-charge"></i>
+                            Технология: СИП-панели
+                        </div>
+                        
+                        <p class="hero-subtitle">
+                            Премиум-качество <span class="text-accent">без переплаты</span>
+                        </p>
+                        
+                        <!-- Геолокации - можно оптимизировать иконки -->
+                        <div class="hero-locations">
+                            <div class="location-item">
+                                <svg width="16" height="16" fill="currentColor"><use href="#geo-icon"></use></svg>
+                                <span>Стерлитамак</span>
+                            </div>
+                            <!-- ... остальные локации ... -->
+                        </div>
+                        
+                        <div class="hero-actions">
+                            <a href="#contact" class="btn btn-primary-custom">
+                                <i class="bi bi-house-check me-2"></i>
+                                Получить консультацию
+                            </a>
+                            <a href="#projects" class="btn btn-outline-custom">
+                                <i class="bi bi-images me-2"></i>
+                                Смотреть проекты
+                            </a>
+                        </div>
+                        
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="bi bi-clock-fill"></i>
+                                <span>3 месяца</span>
+                            </div>
+                            <!-- ... остальные преимущества ... -->
+                        </div>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-</section>
+    <!-- SVG спрайт для иконок -->
+    <svg style="display:none">
+        <symbol id="geo-icon" viewBox="0 0 16 16">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+        </symbol>
+    </svg>
 
-
-{% endblock %}
-
-{% block stat %}
-{% endblock %}
-
-{% block projects %}
-<!-- PROJECTS -->
-<section id="projects" class="projects-section">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Все проекты</h2>
-        {% include 'projects_row.html' %}
-    </div>
-</section>
-{% endblock %}
-
-{% block page_script %}
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let fullscreenSlider = null;
-    const fullscreenModal = new bootstrap.Modal(document.getElementById('fullscreenSlider'));
-
-    // Инициализация основной галереи
-    const galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 5,
-        freeMode: true,
-        watchSlidesProgress: true,
-        breakpoints: {
-            320: { slidesPerView: 4 },
-            480: { slidesPerView: 5 },
-            768: { slidesPerView: 6 }
-        }
-    });
-
-    const galleryTop = new Swiper('.gallery-top', {
-        spaceBetween: 10,
-        effect: "slide",
-        thumbs: {
-            swiper: galleryThumbs
-        }
-    });
-
-    // Функция открытия полноэкранного слайдера
-    window.openFullscreenSlider = function(startIndex = 0) {
-        // Инициализация или обновление слайдера
-        if (!fullscreenSlider) {
-            fullscreenSlider = new Swiper('.fullscreen-slider', {
-                initialSlide: startIndex,
-                spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                keyboard: {
-                    enabled: true,
-                },
-                loop: true,
-                effect: 'slide',
-                speed: 300
-            });
-        } else {
-            fullscreenSlider.slideTo(startIndex, 0);
-        }
+    <!-- Скрипты в конце body -->
+    <script>
+    // Загрузка AOS только при необходимости
+    if (window.innerWidth > 768) {
+        const aosScript = document.createElement('script');
+        aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+        aosScript.async = true;
+        document.body.appendChild(aosScript);
         
-        // Показываем модальное окно
-        fullscreenModal.show();
-    };
-
-    // Закрытие по клавише ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && fullscreenModal && fullscreenModal._isShown) {
-            fullscreenModal.hide();
+        aosScript.onload = function() {
+            AOS.init({duration: 800, once: true});
         }
-    });
-});
-</script>
-
-{% endblock %}
+    }
+    </script>
+</body>
+</html>

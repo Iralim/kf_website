@@ -15,7 +15,7 @@
 
 .gallery-thumbs .swiper-slide-thumb-active img {
     opacity: 1;
-    border: 2px solid #007bff;
+    border: 2px solid var(--secondary);
 }
 
 /* Full Screen  */

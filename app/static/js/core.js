@@ -3,13 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===========================
     // AOS INIT
     // ===========================
-    if (window.AOS) {
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-    }
+if (window.AOS) {
+    AOS.init({
+        // Основные настройки
+        offset: 50,                   // Уменьшил с 120px - начинать раньше
+        delay: 0,
+        duration: 800,                // Немного дольше для плавности
+        easing: 'ease-out-cubic',     // Более плавное easing
+        once: true,
+        
+        // КРИТИЧЕСКО ВАЖНО для вашей проблемы:
+        anchorPlacement: 'center-bottom', // Когда ЦЕНТР элемента касается НИЗА окна
+        
+        // Дополнительные настройки
+        startEvent: 'DOMContentLoaded',
+        disable: false,
+        throttleDelay: 99,
+        
+        // Оптимизация производительности
+        disableMutationObserver: false,
+        debounceDelay: 50
+    });
+    
+    // ДОПОЛНИТЕЛЬНО: Перезапуск после полной загрузки страницы
+    window.addEventListener('load', function() {
+        AOS.refreshHard(); // Форсированный пересчет позиций
+    });
+}
 
     // ===========================
     // BACK TO TOP BUTTON
