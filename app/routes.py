@@ -23,8 +23,65 @@ main_bp = Blueprint('main', __name__)
 def index():
     projects = Project.query.all()
     bg_image_url = projects[0].images.first().url
-
     return render_template('index.html', projects=projects)
+
+
+from flask import send_file, abort
+from PIL import Image
+import io, os
+
+@main_bp.route('/img_compressed/<path:filename>')
+def img_compressed(filename):
+    full_path = os.path.join(current_app.static_folder, filename)
+
+
+    if not os.path.exists(full_path):
+        abort(404)
+
+    img = Image.open(full_path)
+
+    # Буфер в памяти
+    buffer = io.BytesIO()
+
+    # Сжатие на ~50% (quality 50–60 отлично)
+    img.save(buffer, format="WEBP", quality=10, method=6)
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        mimetype="image/webp",
+        as_attachment=False,
+        download_name="compressed.webp"
+    )
+
+@main_bp.route('/img_blur/<path:filename>')
+def img_blur(filename):
+    full_path = os.path.join(current_app.static_folder, filename)
+
+    if not os.path.exists(full_path):
+        abort(404)
+
+    img = Image.open(full_path)
+
+    # 1. Уменьшаем картинку (это критично для blur)
+    img.thumbnail((50, 50))  # ширина максимум 50px
+
+    # 2. Сохраняем в памяти
+    buffer = io.BytesIO()
+    img.save(
+        buffer,
+        format="WEBP",
+        quality=20,    # качество 10–20 идеально
+        method=6
+    )
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        mimetype="image/webp",
+        download_name="blur.webp"
+    )
+
 
 
 @main_bp.route('/details/<slug>')

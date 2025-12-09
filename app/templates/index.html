@@ -3,6 +3,7 @@
 {% block page_style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index/main_index.css') }}">
 {% endblock %}
+
 <!-- SECTIONS -->
 {% block sections %}
 <style>
@@ -10,7 +11,7 @@
     background:
     /* Градиент-туман */
     linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%),
-    url('{{ url_for("static", filename="images/out.webp") }}');
+    url('{{ url_for("main.img_blur", filename=projects[0].images.first().url) }}');
 
     background-size: cover;
     background-position: center;
@@ -118,21 +119,6 @@
         </div>
     </div>
 </section>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const section = document.querySelector(".hero-section");
-    const fullImage = section.dataset.full;
-
-    const img = new Image();
-    img.src = fullImage;
-    img.onload = () => {
-        section.style.backgroundImage =
-            `linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%), url('${fullImage}')`;
-    };
-});
-</script>
-
 <!-- FEATURES -->
 <section id="features" class="features-section">
     <div class="container">
@@ -220,4 +206,18 @@ document.addEventListener("DOMContentLoaded", () => {
 </section>
 {% endblock %}
 {% block page_script %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector(".hero-section");
+    const fullImage = section.dataset.full;
+
+    const img = new Image();
+    img.src = fullImage;
+    img.onload = () => {
+        section.style.backgroundImage =
+            `linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%), url('${fullImage}')`;
+    };
+});
+</script>
+
 {% endblock %}
