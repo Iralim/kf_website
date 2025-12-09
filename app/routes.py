@@ -1,19 +1,13 @@
 import os.path
-from pathlib import Path
-import shutil
+import io, os
 
-from flask import Blueprint, render_template, redirect, current_app, request, jsonify, flash
-from flask_login import login_required, current_user
-from flask_wtf.csrf import CSRFError
+from flask import Blueprint, render_template, redirect, current_app, request, jsonify, flash, send_file, abort
 from flask import jsonify
-from sqlalchemy.exc import IntegrityError
-from werkzeug.utils import secure_filename
-from slugify import slugify
-from app import db
-from app.models import Project, ProjectImages
-from app.forms import ProjectForm
-
 from flask_mail import Message
+
+from PIL import Image
+
+from app.models import Project, ProjectImages
 from app import mail
 
 main_bp = Blueprint('main', __name__)
@@ -26,14 +20,9 @@ def index():
     return render_template('index.html', projects=projects)
 
 
-from flask import send_file, abort
-from PIL import Image
-import io, os
-
 @main_bp.route('/img_compressed/<path:filename>')
 def img_compressed(filename):
     full_path = os.path.join(current_app.static_folder, filename)
-
 
     if not os.path.exists(full_path):
         abort(404)
@@ -54,6 +43,7 @@ def img_compressed(filename):
         download_name="compressed.webp"
     )
 
+
 @main_bp.route('/img_blur/<path:filename>')
 def img_blur(filename):
     full_path = os.path.join(current_app.static_folder, filename)
@@ -62,23 +52,23 @@ def img_blur(filename):
         abort(404)
 
     img = Image.open(full_path)
+    img.thumbnail((50, 50))
 
-    # ↓↓↓ УМЕНЬШАЕМ ФАКТИЧЕСКИЙ РАЗМЕР ДЛЯ УСКОРЕНИЯ ↓↓↓
-    img.thumbnail((900, 900), Image.LANCZOS)  # мягкое уменьшение
-
+    # 2. Сохраняем в памяти
     buffer = io.BytesIO()
-
-    # ↓↓↓ ЛУЧШИЙ БАЛАНС КАЧЕСТВА И ВЕСА ↓↓↓
-    img.save(buffer, format="WEBP", quality=30, method=6)
+    img.save(
+        buffer,
+        format="WEBP",
+        quality=20,
+        method=6
+    )
     buffer.seek(0)
 
     return send_file(
         buffer,
         mimetype="image/webp",
-        as_attachment=False,
-        download_name="compressed.webp"
+        download_name="blur.webp"
     )
-
 
 
 @main_bp.route('/details/<slug>')

@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index/main_index.css') }}">
 {% endblock %}
 
-<!-- SECTIONS -->
+<!-- SECTIONS 2-->
 {% block sections %}
 <style>
     .hero-section {
+        /* Градиент-туман */
     background:
-    /* Градиент-туман */
     linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%),
     url('{{ url_for("main.img_blur", filename=projects[0].images.first().url) }}');
 
@@ -33,19 +33,24 @@
     }
     }
 
-    .hero-hd {
+
+.hero-hd {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
     opacity: 0;
-    transition: opacity 1s ease-out;
-    z-index: 0; /* важно, чтобы слой был под текстом */
+    filter: blur(20px);
+    transform: scale(1.05);
+
+    transition:
+        opacity 2.2s ease,
+        filter 2.0s ease-out,
+        transform 2.0s ease-out;
 }
+
 
 </style>
 <section id="home" class="hero-section"
@@ -233,12 +238,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const img = new Image();
     img.src = fullImage;
+
     img.onload = () => {
+        // ставим HQ-фон
         hdLayer.style.backgroundImage =
             `linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%), url('${fullImage}')`;
 
-        // плавное проявление главный момент!
-        hdLayer.style.opacity = 1;
+        // даём браузеру 1 кадр времени (очень важный хак!)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                hdLayer.style.opacity = 1;
+                hdLayer.style.filter = "blur(0px)";
+                hdLayer.style.transform = "scale(1.0)";
+            });
+        });
     };
 });
 
