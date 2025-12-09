@@ -10,7 +10,7 @@
     background:
     /* Градиент-туман */
     linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%),
-    url('{{ url_for("static", filename=projects[0].images.first().url) }}');
+    url('{{ url_for("static", filename="images/out.webp") }}');
 
     background-size: cover;
     background-position: center;
@@ -31,7 +31,7 @@
     }
     }
 </style>
-<section id="home" class="hero-section">
+<section id="home" class="hero-section" data-full="{{ url_for('static', filename=projects[0].images.first().url) }}">
     <div class="container">
         <div class="row align-items-center min-vh-100">
             <div class="col-lg-8" data-aos="fade-up" data-aos-duration="100">
@@ -118,6 +118,21 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector(".hero-section");
+    const fullImage = section.dataset.full;
+
+    const img = new Image();
+    img.src = fullImage;
+    img.onload = () => {
+        section.style.backgroundImage =
+            `linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%), url('${fullImage}')`;
+    };
+});
+</script>
+
 <!-- FEATURES -->
 <section id="features" class="features-section">
     <div class="container">

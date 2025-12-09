@@ -22,6 +22,8 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     projects = Project.query.all()
+    bg_image_url = projects[0].images.first().url
+
     return render_template('index.html', projects=projects)
 
 
