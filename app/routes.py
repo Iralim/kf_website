@@ -63,23 +63,20 @@ def img_blur(filename):
 
     img = Image.open(full_path)
 
-    # 1. Уменьшаем картинку (это критично для blur)
-    img.thumbnail((50, 50))  # ширина максимум 50px
+    # ↓↓↓ УМЕНЬШАЕМ ФАКТИЧЕСКИЙ РАЗМЕР ДЛЯ УСКОРЕНИЯ ↓↓↓
+    img.thumbnail((900, 900), Image.LANCZOS)  # мягкое уменьшение
 
-    # 2. Сохраняем в памяти
     buffer = io.BytesIO()
-    img.save(
-        buffer,
-        format="WEBP",
-        quality=20,    # качество 10–20 идеально
-        method=6
-    )
+
+    # ↓↓↓ ЛУЧШИЙ БАЛАНС КАЧЕСТВА И ВЕСА ↓↓↓
+    img.save(buffer, format="WEBP", quality=30, method=6)
     buffer.seek(0)
 
     return send_file(
         buffer,
         mimetype="image/webp",
-        download_name="blur.webp"
+        as_attachment=False,
+        download_name="compressed.webp"
     )
 
 
