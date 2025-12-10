@@ -1,60 +1,55 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-    // ===========================
-    // AOS INIT
-    // ===========================
-if (window.AOS) {
-    AOS.init({
-        // Основные настройки
-        offset: 50,                   // Уменьшил с 120px - начинать раньше
-        delay: 0,
-        duration: 800,                // Немного дольше для плавности
-        easing: 'ease-out-cubic',     // Более плавное easing
-        once: true,
-        
-        // КРИТИЧЕСКО ВАЖНО для вашей проблемы:
-        anchorPlacement: 'center-bottom', // Когда ЦЕНТР элемента касается НИЗА окна
-        
-        // Дополнительные настройки
-        startEvent: 'DOMContentLoaded',
-        disable: false,
-        throttleDelay: 99,
-        
-        // Оптимизация производительности
-        disableMutationObserver: false,
-        debounceDelay: 50
-    });
+document.addEventListener("DOMContentLoaded", () => {
     
-    // ДОПОЛНИТЕЛЬНО: Перезапуск после полной загрузки страницы
-    window.addEventListener('load', function() {
-        AOS.refreshHard(); // Форсированный пересчет позиций
-    });
-}
-
+    // ===========================
+    // AOS INITIALIZATION
+    // ===========================
+    if (window.AOS) {
+        AOS.init({
+            offset: 50,
+            delay: 0,
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            anchorPlacement: 'center-bottom',
+            startEvent: 'DOMContentLoaded',
+            disable: false,
+            throttleDelay: 99,
+            disableMutationObserver: false,
+            debounceDelay: 50
+        });
+        
+        // Перезапуск после полной загрузки страницы
+        window.addEventListener('load', () => {
+            if (AOS.refreshHard) {
+                AOS.refreshHard();
+            }
+        });
+    }
+    
     // ===========================
     // BACK TO TOP BUTTON
     // ===========================
     const backToTopButton = document.querySelector('.back-to-top');
-
+    
     if (backToTopButton) {
         window.addEventListener('scroll', () => {
             backToTopButton.classList.toggle('active', window.scrollY > 300);
         });
-
+        
         backToTopButton.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-
+    
     // ===========================
     // NAVBAR SCROLL EFFECT
     // ===========================
     const navbar = document.querySelector('.navbar');
-
+    
     function updateNavbar() {
         if (!navbar) return;
-
+        
         if (window.scrollY > 50) {
             navbar.style.padding = '8px 0';
             navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
@@ -63,22 +58,31 @@ if (window.AOS) {
             navbar.style.boxShadow = 'none';
         }
     }
-
-    updateNavbar();
-
-    window.addEventListener('scroll', updateNavbar);
-
-
+    
+    if (navbar) {
+        updateNavbar();
+        window.addEventListener('scroll', updateNavbar);
+    }
+    
     // ===========================
-    // CLOSE BURGER ON LINK CLICK
+    // CLOSE BURGER MENU ON LINK CLICK
     // ===========================
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(function (link) {
-        link.addEventListener('click', function () {
-            let navbar = document.getElementById('navbarNav');
-            let bsCollapse = bootstrap.Collapse.getInstance(navbar);
-
-            if (bsCollapse) {
-                bsCollapse.hide();
+    document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            const navbarCollapse = document.getElementById('navbarNav');
+            
+            if (!navbarCollapse) return;
+            
+            // Bootstrap 5
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                const collapseInstance = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (collapseInstance) {
+                    collapseInstance.hide();
+                }
+            }
+            // Bootstrap 4 (для обратной совместимости)
+            else if (typeof $ !== 'undefined' && $.fn.collapse) {
+                $(navbarCollapse).collapse('hide');
             }
         });
     });

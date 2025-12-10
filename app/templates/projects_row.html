@@ -2,26 +2,34 @@
                 {% for project in projects %}
                 <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="">
                     <div class="project-card">
-                        <!-- IMAGES CAROUSEL WITH SWIPER -->
-                        <div class="project-carousel swiper-container-{{ project.id }}">
-                            <div class="swiper"> 
-                                <div class="swiper-wrapper">
-                                    {% for image in project.images.all() %}
-                                    <div class="swiper-slide">
-                                        <img src="{{ url_for('static', filename=image.url) }}" 
-                                            class="d-block w-100" 
-                                            alt="{{ project.title }}"
-                                            loading="lazy">
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- Пагинация (точки) -->
-                                <div class="swiper-pagination"></div>
-                                <!-- Кнопки навигации -->
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-button-next"></div>
-                            </div>
-                        </div>
+<div class="project-carousel swiper-container-{{ project.id }}">
+    <div class="swiper"> 
+        <div class="swiper-wrapper">
+            {% for image in project.images.all() %}
+            <div class="swiper-slide" style="position: relative;">
+                <!-- Сжатая версия сразу -->
+                <img src="{{ url_for('main.img_lq', filename=image.url) }}" 
+                     class="low-res d-block w-100" 
+                     loading="lazy">
+
+                <!-- HD версия, пока прозрачная -->
+                <img data-src="{{ url_for('main.img_resize', filename=image.url) }}" 
+                class="high-res d-block w-100" 
+                style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; transition: opacity 1s ease-in-out;">
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
                         <!-- PROJECT PRICES -->
                         <div class="project-info">
                             <h4 class="project-title">{{ project.title }}</h4>
@@ -72,33 +80,26 @@
     <!-- Swiper is here because of dependency of jinja    -->
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация Swiper для каждого проекта
     {% for project in projects %}
     new Swiper('.swiper-container-{{ project.id }} .swiper', {
-        // Параметры
         direction: 'horizontal',
         loop: true,
         
-        // Пагинация
         pagination: {
             el: '.swiper-container-{{ project.id }} .swiper-pagination',
             clickable: true,
             dynamicBullets: true,
         },
         
-        // Навигация - всегда показываем стрелки
         navigation: {
             nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
             prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
         },
         
-        // Свайп на мобильных
         touchEventsTarget: 'container',
         allowTouchMove: true,
         
-        // Адаптивные настройки
         breakpoints: {
-            // На мобильных
             320: {
                 slidesPerView: 1,
                 spaceBetween: 0,
@@ -109,14 +110,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 navigation: {
                     nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
                     prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
-                    enabled: true // Включаем навигацию на мобильных
+                    enabled: true 
                 }
             },
-            // На планшетах и десктопах
+
             768: {
                 slidesPerView: 1,
                 spaceBetween: 0,
-                allowTouchMove: false, // Отключаем свайп на больших экранах если хотите
+                allowTouchMove: false,
                 navigation: {
                     nextEl: '.swiper-container-{{ project.id }} .swiper-button-next',
                     prevEl: '.swiper-container-{{ project.id }} .swiper-button-prev',
@@ -125,15 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         
-        // Эффекты
         effect: 'slide',
         speed: 300,
         
-        // Предотвращение конфликтов
         preventClicks: true,
         preventClicksPropagation: true,
         
-        // Доступность
         a11y: {
             prevSlideMessage: 'Предыдущий слайд',
             nextSlideMessage: 'Следующий слайд',
