@@ -16,7 +16,7 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     projects = Project.query.all()
-    img_url = ensure_hero_webp(projects[0].images.first().url)
+    img_url = ensure_hero_webp(projects[0].images.first().url, overwrite=False)
     return render_template('index.html', projects=projects, hero_bg=img_url)
 
 
@@ -65,36 +65,51 @@ def check_title():
 
 
 # IMAGE COMPRESSORS
-def ensure_hero_webp(input_path):
+def ensure_hero_webp(input_path, overwrite=True):
     original_file_path = os.path.join(current_app.static_folder, input_path)
-    bg_hd_path = os.path.join(current_app.static_folder, 'images', 'hero_bg', 'bg_hd.webp')
-    bg_lq_path = os.path.join(current_app.static_folder, 'images', 'hero_bg', 'bg_lq.webp')
+    bg_dir = os.path.join(current_app.static_folder, 'images', 'hero_bg')
 
-    if not (os.path.exists(bg_hd_path) and os.path.exists(bg_lq_path)):
-        hero_bg_dir_path = os.path.join(current_app.static_folder, 'images', 'hero_bg')
-        os.makedirs(hero_bg_dir_path, exist_ok=True)
+    bg_hd_path = os.path.join(bg_dir, 'bg_hd.webp')
+    bg_lq_path = os.path.join(bg_dir, 'bg_lq.webp')
 
-        # HD
+    # Создаём директорию, если её нет
+    os.makedirs(bg_dir, exist_ok=True)
+
+    # ---- УСЛОВИЕ СОЗДАНИЯ ----
+    need_regenerate = (
+        overwrite or
+        not os.path.exists(bg_hd_path) or
+        not os.path.exists(bg_lq_path)
+    )
+
+    if need_regenerate:
+        # HD ---
         hd_img = Image.open(original_file_path)
-        hd_img.save(bg_hd_path, "WEBP", quality=20, method=6, lossless=False)
+        hd_img.save(
+            bg_hd_path,
+            "WEBP",
+            quality=50,
+            method=6,
+            lossless=False
+        )
 
-        # BLUR
-        lq_img = Image.open(bg_hd_path)
-        lq_img = lq_img.resize((100, 100), Image.LANCZOS)
-        lq_img = lq_img.filter(ImageFilter.GaussianBlur(1))  # размытие
-        lq_img.save(bg_lq_path, "WEBP", quality=15, method=6, lossless=False)
+        # LQ / BLUR ---
+        lq_img = hd_img.resize((100, 100), Image.LANCZOS)
+        lq_img = lq_img.filter(ImageFilter.GaussianBlur(1))
+        lq_img.save(
+            bg_lq_path,
+            "WEBP",
+            quality=15,
+            method=6,
+            lossless=False
+        )
 
-        # lq_img = Image.open(original_file_path)
-        # lq_img = lq_img.resize((20,20), Image.LANCZOS)  # уменьшаем до миниатюры
-        # # img = img.filter(ImageFilter.GaussianBlur(1))
-        # lq_img.save(bg_lq_path, "WEBP", quality=20)
+    # Возвращаем пути для HTML
+    return [
+        os.path.join('static', 'images', 'hero_bg', 'bg_lq.webp'),
+        os.path.join('static', 'images', 'hero_bg', 'bg_hd.webp'),
+    ]
 
-    hd_img_relative_path = os.path.join('static', 'images', 'hero_bg', 'bg_hd.webp')
-    lq_img_relative_path = os.path.join('static', 'images', 'hero_bg', 'bg_lq.webp')
-
-    images_path = [lq_img_relative_path, hd_img_relative_path]
-    print(images_path)
-    return images_path
 
 
 @main_bp.route('/img_blur/<path:filename>')
