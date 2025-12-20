@@ -111,6 +111,11 @@
 
 /* ===== PRICE FEATURES LIST ===== */
 /* Features list for pricing plans */
+.feature-add {
+    color: #28a745; 
+    margin-right: 8px;
+}
+
 .price-features {
   list-style: none;
   padding: 0;

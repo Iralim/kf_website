@@ -38,21 +38,21 @@
                 </div>
                 <div class="card-price-section">
                     <div class="price-tier">
-                        <span class="price-label">Базовая отделка</span>
+                        <span class="price-label">Черновая отделка</span>
                         <span class="price-value">{{ "{:,}".format(project.price_base).replace(",", " ") }} ₽</span>
                     </div>
                     {% if project.price_with_communications %}
-                    <div class="price-tier">
-                        <span class="price-label">С коммуникациями</span>
+                    <div class="price-tier ">
+                        <span class="price-label">Получистовая отделка</span>
                         <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
                     </div>
                     {% endif %}
-                    {% if project.price_ready %}
+                    
                     <div class="price-tier highlight">
-                        <span class="price-label">Под ключ</span>
-                        <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
+                        <span class="price-label">Дополнительные услуги</span>
+                        <i class="bi bi-plus-circle-fill feature-add"></i>
                     </div>
-                    {% endif %}
+                
                 </div>
                 {% if project.mortgage_price_per_month %}
                 <div class="mortgage-section">

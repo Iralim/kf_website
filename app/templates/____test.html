@@ -3,102 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея проекта дома</title>
     
-    <!-- Critical CSS встроенный -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-    .hero-section{min-height:100vh;position:relative}
-    .hero-title{font-size:clamp(2rem,5vw,3.5rem);line-height:1.2}
-    /* ... остальные необходимые стили ... */
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --secondary: #f97316;
+            --accent: #0ea5e9;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+        }
+
+        /* ===== BASE STYLES ===== */
+        body {
+            background: var(--light);
+            font-family: "Montserrat", sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: "Oswald", sans-serif;
+            font-weight: 700;
+        }
+
+        /* ===== GALLERY STYLES ===== */
+        .gallery-container {
+            padding: 3rem 0;
+            min-height: 100vh;
+        }
+        
+        .gallery-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(15, 23, 42, 0.1);
+        }
+        
+        .gallery-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-info {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .project-info h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Main image styling */
+        .main-image-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            height: 500px;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-image-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .image-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Thumbnails styling */
+        .thumbnail-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .thumbnail-item {
+            flex: 0 0 calc(25% - 0.8rem);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100px;
+            position: relative;
+        }
+        
+        .thumbnail-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .thumbnail-item.active {
+            border: 3px solid var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+        }
+        
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Modal styling */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .modal-body {
+            padding: 0;
+        }
+        
+        .modal-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .main-image-container {
+                height: 400px;
+            }
+            
+            .thumbnail-item {
+                flex: 0 0 calc(33.333% - 0.8rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-image-container {
+                height: 350px;
+            }
+            
+            .thumbnail-item {
+                flex: 0 0 calc(50% - 0.8rem);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-container {
+                padding: 1.5rem 0;
+            }
+            
+            .main-image-container {
+                height: 250px;
+            }
+            
+            .thumbnail-item {
+                flex: 0 0 calc(50% - 0.8rem);
+                height: 80px;
+            }
+            
+            .project-info {
+                padding: 1rem;
+            }
+        }
+        
+        /* Animation for image change */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        
+        /* Navigation buttons */
+        .gallery-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Image counter */
+        .image-counter {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
     </style>
-    
-    <!-- Предзагрузка важных ресурсов -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
-    
-    <!-- Остальные стили асинхронно -->
-    <link rel="stylesheet" href="bootstrap-icons.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="main.css" media="print" onload="this.media='all'">
 </head>
 <body>
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-8">
-                    <div class="hero-content">
-                        <!-- Упрощенные анимации -->
-                        <div class="hero-badge">
-                            <i class="bi bi-award-fill"></i>
-                            Строим с 2010 года
-                        </div>
-                        
-                        <h1 class="hero-title">
-                            Строим современные<br>
-                            <span class="hero-highlight">энергоэффективные</span><br>
-                            дома под ключ
-                        </h1>
-                        
-                        <div class="technology-badge">
-                            <i class="bi bi-lightning-charge"></i>
-                            Технология: СИП-панели
-                        </div>
-                        
-                        <p class="hero-subtitle">
-                            Премиум-качество <span class="text-accent">без переплаты</span>
-                        </p>
-                        
-                        <!-- Геолокации - можно оптимизировать иконки -->
-                        <div class="hero-locations">
-                            <div class="location-item">
-                                <svg width="16" height="16" fill="currentColor"><use href="#geo-icon"></use></svg>
-                                <span>Стерлитамак</span>
-                            </div>
-                            <!-- ... остальные локации ... -->
-                        </div>
-                        
-                        <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary-custom">
-                                <i class="bi bi-house-check me-2"></i>
-                                Получить консультацию
-                            </a>
-                            <a href="#projects" class="btn btn-outline-custom">
-                                <i class="bi bi-images me-2"></i>
-                                Смотреть проекты
-                            </a>
-                        </div>
-                        
-                        <div class="hero-features">
-                            <div class="feature-item">
-                                <i class="bi bi-clock-fill"></i>
-                                <span>3 месяца</span>
-                            </div>
-                            <!-- ... остальные преимущества ... -->
-                        </div>
-                    </div>
+    <div class="container gallery-container">
+        <!-- Gallery Header -->
+        <div class="gallery-header">
+            <h1>Проект "Современный загородный дом"</h1>
+            <p class="text-muted">Архитектурный проект с общей площадью 240 м²</p>
+        </div>
+        
+        <div class="row">
+            <!-- Project Information -->
+            <div class="col-lg-4 order-lg-2">
+                <div class="project-info">
+                    <h3><i class="fas fa-home me-2"></i>О проекте</h3>
+                    <p>Современный двухэтажный дом с панорамным остеклением, террасой и гаражом на две машины.</p>
+                    
+                    <h5 class="mt-4"><i class="fas fa-ruler-combined me-2"></i>Характеристики</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Площадь:</strong> 240 м²</li>
+                        <li><strong>Этажность:</strong> 2</li>
+                        <li><strong>Спальни:</strong> 4</li>
+                        <li><strong>Санузлы:</strong> 3</li>
+                        <li><strong>Гараж:</strong> на 2 авто</li>
+                    </ul>
+                    
+                    <h5 class="mt-4"><i class="fas fa-calendar-alt me-2"></i>Сроки</h5>
+                    <p>Проектирование: 2 месяца<br>Строительство: 8-10 месяцев</p>
+                </div>
+            </div>
+            
+            <!-- Gallery -->
+            <div class="col-lg-8 order-lg-1">
+                <!-- Main Image Container -->
+                <div class="main-image-container">
+                    <div class="image-badge">Главный вид</div>
+                    <img id="mainImage" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Главный вид проекта дома" class="main-image fade-in">
+                </div>
+                
+                <!-- Image Counter -->
+                <div class="image-counter">
+                    <span id="currentImage">1</span> из <span id="totalImages">8</span>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="gallery-nav">
+                    <button id="prevBtn" class="nav-btn"><i class="fas fa-chevron-left me-1"></i> Предыдущее</button>
+                    <button id="nextBtn" class="nav-btn">Следующее <i class="fas fa-chevron-right ms-1"></i></button>
+                </div>
+                
+                <!-- Thumbnails -->
+                <div class="thumbnail-container mt-4">
+                    <!-- Thumbnails will be generated by JavaScript -->
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- SVG спрайт для иконок -->
-    <svg style="display:none">
-        <symbol id="geo-icon" viewBox="0 0 16 16">
-            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-        </symbol>
-    </svg>
-
-    <!-- Скрипты в конце body -->
+    </div>
+    
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Просмотр изображения</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" src="" alt="" class="modal-image">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-    // Загрузка AOS только при необходимости
-    if (window.innerWidth > 768) {
-        const aosScript = document.createElement('script');
-        aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-        aosScript.async = true;
-        document.body.appendChild(aosScript);
+        // Image data for the gallery
+        const images = [
+            {
+                id: 1,
+                url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Главный вид",
+                alt: "Главный фасад современного загородного дома"
+            },
+            {
+                id: 2,
+                url: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Вид сбоку",
+                alt: "Боковой фасад дома с террасой"
+            },
+            {
+                id: 3,
+                url: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Вид сзади",
+                alt: "Задний фасад с панорамным остеклением"
+            },
+            {
+                id: 4,
+                url: "https://images.unsplash.com/photo-1600585154340-0437884474e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Интерьер гостиной",
+                alt: "Современная гостиная с камином"
+            },
+            {
+                id: 5,
+                url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Кухня-столовая",
+                alt: "Современная кухня с островом"
+            },
+            {
+                id: 6,
+                url: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Спальня",
+                alt: "Главная спальня с панорамным окном"
+            },
+            {
+                id: 7,
+                url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Ванная комната",
+                alt: "Современная ванная комната"
+            },
+            {
+                id: 8,
+                url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                title: "Терраса",
+                alt: "Терраса с видом на сад"
+            }
+        ];
         
-        aosScript.onload = function() {
-            AOS.init({duration: 800, once: true});
+        // Current image index
+        let currentImageIndex = 0;
+        
+        // DOM elements
+        const mainImage = document.getElementById('mainImage');
+        const modalImage = document.getElementById('modalImage');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentImageSpan = document.getElementById('currentImage');
+        const totalImagesSpan = document.getElementById('totalImages');
+        const thumbnailContainer = document.querySelector('.thumbnail-container');
+        const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        
+        // Initialize gallery
+        function initGallery() {
+            // Set total images count
+            totalImagesSpan.textContent = images.length;
+            
+            // Create thumbnails
+            images.forEach((image, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = `thumbnail-item ${index === 0 ? 'active' : ''}`;
+                thumbnail.innerHTML = `<img src="${image.url}" alt="${image.alt}" class="thumbnail-image">`;
+                
+                // Add click event to thumbnail
+                thumbnail.addEventListener('click', () => {
+                    changeMainImage(index);
+                });
+                
+                thumbnailContainer.appendChild(thumbnail);
+            });
+            
+            // Update navigation buttons
+            updateNavigation();
         }
-    }
+        
+        // Change main image
+        function changeMainImage(index) {
+            // Update current index
+            currentImageIndex = index;
+            
+            // Update main image with fade effect
+            mainImage.classList.remove('fade-in');
+            setTimeout(() => {
+                mainImage.src = images[index].url;
+                mainImage.alt = images[index].alt;
+                mainImage.classList.add('fade-in');
+            }, 50);
+            
+            // Update badge text
+            document.querySelector('.image-badge').textContent = images[index].title;
+            
+            // Update current image counter
+            currentImageSpan.textContent = index + 1;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            
+            // Update navigation buttons
+            updateNavigation();
+        }
+        
+        // Update navigation buttons state
+        function updateNavigation() {
+            prevBtn.disabled = currentImageIndex === 0;
+            nextBtn.disabled = currentImageIndex === images.length - 1;
+        }
+        
+        // Navigate to previous image
+        function prevImage() {
+            if (currentImageIndex > 0) {
+                changeMainImage(currentImageIndex - 1);
+            }
+        }
+        
+        // Navigate to next image
+        function nextImage() {
+            if (currentImageIndex < images.length - 1) {
+                changeMainImage(currentImageIndex + 1);
+            }
+        }
+        
+        // Open image in modal
+        function openModal() {
+            modalImage.src = images[currentImageIndex].url;
+            modalImage.alt = images[currentImageIndex].alt;
+            imageModal.show();
+        }
+        
+        // Event listeners
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
+        mainImage.addEventListener('click', openModal);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+        
+        // Initialize gallery on load
+        document.addEventListener('DOMContentLoaded', initGallery);
     </script>
 </body>
 </html>

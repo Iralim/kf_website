@@ -16,7 +16,7 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     projects = Project.query.all()
-    img_url = ensure_hero_webp(projects[0].images.first().url, overwrite=False)
+    img_url = ensure_hero_webp(os.path.join(current_app.static_folder, 'images', 'piclumen4.png', ), overwrite=False)
     return render_template('index.html', projects=projects, hero_bg=img_url)
 
 
