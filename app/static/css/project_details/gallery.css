@@ -199,6 +199,7 @@
 .gallery-thumbs .swiper-scrollbar-drag {
     background: var(--secondary);
     border-radius: 2px;
+    
 }
 
 /* Mobile — делаем чуть заметнее */
