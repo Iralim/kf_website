@@ -1,58 +1,73 @@
-document.addEventListener("DOMContentLoaded", function() {
-    let fullscreenSlider = null;
-    const fullscreenModal = new bootstrap.Modal(document.getElementById('fullscreenSlider'));
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Инициализация основной галереи
+    let fullscreenSlider = null;
+    const fullscreenModalEl = document.getElementById('fullscreenSlider');
+    const fullscreenModal = new bootstrap.Modal(fullscreenModalEl);
+
+    /* =========================
+       THUMB GALLERY
+       ========================= */
+
     const galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 5,
+        spaceBetween: 15,
+        slidesPerView: 4,
         freeMode: true,
         watchSlidesProgress: true,
         breakpoints: {
-            320: { slidesPerView: 4 },
-            480: { slidesPerView: 5 },
-            768: { slidesPerView: 6 }
+            320: { slidesPerView: 2 },
+            480: { slidesPerView: 3 },
+            768: { slidesPerView: 4 },
+            1024: { slidesPerView: 6 }
         }
     });
 
-    const galleryTop = new Swiper('.gallery-top', {
-        spaceBetween: 10,
-        effect: "slide",
-        thumbs: {
-            swiper: galleryThumbs
-        }
-    });
+    /* =========================
+       OPEN FULLSCREEN
+       ========================= */
 
-    // Функция открытия полноэкранного слайдера
-    window.openFullscreenSlider = function(startIndex = 0) {
-        // Инициализация или обновление слайдера
+    window.openFullscreenSlider = function (startIndex = 0) {
+
         if (!fullscreenSlider) {
             fullscreenSlider = new Swiper('.fullscreen-slider', {
-                initialSlide: startIndex,
+                loop: true,
                 spaceBetween: 10,
+                initialSlide: startIndex,
                 navigation: {
                     nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    prevEl: '.swiper-button-prev'
                 },
                 keyboard: {
-                    enabled: true,
+                    enabled: true
                 },
-                loop: true,
                 effect: 'slide',
                 speed: 300
             });
         } else {
-            fullscreenSlider.slideTo(startIndex, 0);
+            // при loop используем slideToLoop
+            fullscreenSlider.slideToLoop(startIndex, 0);
         }
-        
-        // Показываем модальное окно
+
         fullscreenModal.show();
     };
 
-    // Закрытие по клавише ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && fullscreenModal && fullscreenModal._isShown) {
+    /* =========================
+       ESC close
+       ========================= */
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && fullscreenModalEl.classList.contains('show')) {
             fullscreenModal.hide();
         }
     });
+
+    /* =========================
+       FIX resize when modal opens
+       ========================= */
+
+    fullscreenModalEl.addEventListener('shown.bs.modal', function () {
+        if (fullscreenSlider) {
+            fullscreenSlider.update();
+        }
+    });
+
 });

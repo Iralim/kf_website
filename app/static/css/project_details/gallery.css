@@ -1,16 +1,26 @@
-   .gallery-top img {
+/* =========================
+   THUMB GALLERY (основная)
+   ========================= */
+
+.gallery-thumbs {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+}
+
+.gallery-thumbs .swiper-slide {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
 }
 
 .gallery-thumbs img {
     width: 100%;
-    height: auto;
+    height: 100%;              /* КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
+    object-fit: cover;         /* всегда аккуратно */
     border-radius: 8px;
-    cursor: pointer;
     opacity: 0.6;
-    transition: 0.3s;
+    transition: opacity 0.3s;
 }
 
 .gallery-thumbs .swiper-slide-thumb-active img {
@@ -18,66 +28,90 @@
     border: 2px solid var(--secondary);
 }
 
-/* Full Screen  */
- .fullscreen-modal .modal-dialog {
-        max-width: 100%;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
+/* Адаптивные размеры миниатюр */
+@media (max-width: 768px) {
+    .gallery-thumbs .swiper-slide {
+        height: 110px;
     }
-    
-    .fullscreen-modal .modal-content {
-        height: 100%;
-        border-radius: 0;
-        background: rgba(0, 0, 0, 0.9);
-    }
-    
-    .fullscreen-modal .modal-body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        height: 100%;
-    }
-    
-    .fullscreen-slider {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .fullscreen-slider .swiper-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-    
-    .fullscreen-slider img {
-        max-width: 100%;
-        max-height: 90vh;
-        object-fit: contain;
-    }
-    
-    .fullscreen-close {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        z-index: 1000;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        opacity: 0.8;
-        transition: opacity 0.3s;
-    }
-    
-    .fullscreen-close:hover {
-        opacity: 1;
-    }
+}
 
-    /* Стрелки навигации для проектов */
+@media (max-width: 480px) {
+    .gallery-thumbs .swiper-slide {
+        height: 90px;
+    }
+}
+
+/* =========================
+   FULLSCREEN MODAL
+   ========================= */
+
+.fullscreen-modal .modal-dialog {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.fullscreen-modal .modal-content {
+    height: 100%;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.fullscreen-modal .modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+}
+
+/* Fullscreen Swiper */
+.fullscreen-slider {
+    width: 100vw;
+    height: 100vh;
+}
+
+.fullscreen-slider .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.fullscreen-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* НИЧЕГО НЕ ОБРЕЗАЕТСЯ */
+}
+
+/* =========================
+   Close button
+   ========================= */
+
+.fullscreen-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 1000;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.fullscreen-close:hover {
+    opacity: 1;
+}
+
+/* =========================
+   Fullscreen navigation
+   ========================= */
+
 .full-screen-gallery .swiper-button-prev,
 .full-screen-gallery .swiper-button-next {
     color: white;
@@ -103,12 +137,10 @@
 
 .full-screen-gallery .swiper-button-prev {
     left: 10px !important;
-    right: auto;
 }
 
 .full-screen-gallery .swiper-button-next {
     right: 10px !important;
-    left: auto;
 }
 
 .full-screen-gallery .swiper-button-prev:after,
@@ -117,7 +149,10 @@
     font-weight: bold;
 }
 
-/* Адаптивность для проектов */
+/* =========================
+   Responsive fullscreen
+   ========================= */
+
 @media (max-width: 767px) {
     .full-screen-gallery .swiper-button-prev,
     .full-screen-gallery .swiper-button-next {
@@ -125,51 +160,50 @@
         height: 32px;
         opacity: 0.6;
     }
-    
+
     .full-screen-gallery .swiper-button-prev:after,
     .full-screen-gallery .swiper-button-next:after {
         font-size: 16px;
     }
-    
+
     .full-screen-gallery .swiper-button-prev {
         left: 5px !important;
     }
-    
+
     .full-screen-gallery .swiper-button-next {
         right: 5px !important;
-    }
-    
-    .full-screen-gallery .swiper-pagination {
-        display: block;
-        bottom: 10px !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .full-screen-gallery .swiper {
-        height: 300px;
-    }
-    
-    .full-screen-gallery .swiper-button-prev {
-        left: 15px !important;
-    }
-    
-    .full-screen-gallery .swiper-button-next {
-        right: 15px !important;
     }
 }
 
 @media (max-width: 480px) {
     .full-screen-gallery .swiper-button-prev,
     .full-screen-gallery .swiper-button-next {
-        display: flex !important;
         width: 28px;
         height: 28px;
         opacity: 0.5;
     }
-    
+
     .full-screen-gallery .swiper-button-prev:hover,
     .full-screen-gallery .swiper-button-next:hover {
         opacity: 0.8;
+    }
+}
+
+/* Scrollbar for thumbs */
+.gallery-thumbs .swiper-scrollbar {
+    height: 4px;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.gallery-thumbs .swiper-scrollbar-drag {
+    background: var(--secondary);
+    border-radius: 2px;
+}
+
+/* Mobile — делаем чуть заметнее */
+@media (max-width: 768px) {
+    .gallery-thumbs .swiper-scrollbar {
+        height: 5px;
     }
 }

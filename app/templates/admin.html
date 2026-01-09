@@ -101,24 +101,26 @@
                                 {{ form.size(class="form-control", placeholder="15×7") }}
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Базовая цена</label>
+                                <label class="form-label fw-semibold">Черновая отделка</label>
                                 <div class="price-input-group">
                                     {{ form.price_base(class="form-control", placeholder="0") }}
                                 </div>
-                                <small class="text-muted">Тёплый контур</small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">С коммуникациями</label>
+                                <label class="form-label fw-semibold">Получистовая отделка</label>
                                 <div class="price-input-group">
                                     {{ form.price_with_communications(class="form-control", placeholder="0") }}
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            {#
+                                     <!-- <div class="mb-3">
                                 <label class="form-label fw-semibold">Под ключ</label>
                                 <div class="price-input-group">
                                     {{ form.price_ready(class="form-control", placeholder="0") }}
                                 </div>
-                            </div>
+                            </div> -->
+                            #}
+                       
                             <div class="mb-0">
                                 <label class="form-label fw-semibold">Ипотека в месяц</label>
                                 <div class="price-input-group">

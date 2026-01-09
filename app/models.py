@@ -38,7 +38,7 @@ class Project(db.Model):
     size = db.Column(db.String(15), nullable=False)
     price_base = db.Column(db.Integer, nullable=False)
     price_with_communications = db.Column(db.Integer)
-    price_ready = db.Column(db.Integer)
+    # price_ready = db.Column(db.Integer)
     mortgage_price_per_month = db.Column(db.Integer)
 
     images_directory_path = db.Column(db.String(300), nullable=False)

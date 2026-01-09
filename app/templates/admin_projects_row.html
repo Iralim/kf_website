@@ -63,12 +63,15 @@
                         <span class="price-value">{{ "{:,}".format(project.price_with_communications).replace(",", " ") }} ₽</span>
                     </div>
                     {% endif %}
-                    {% if project.price_ready %}
+                    {#
+                    <!-- {% if project.price_ready %}
                     <div class="price-tier highlight">
                         <span class="price-label">Под ключ</span>
                         <span class="price-value">{{ "{:,}".format(project.price_ready).replace(",", " ") }} ₽</span>
                     </div>
-                    {% endif %}
+                    {% endif %} -->
+                    #}
+                    
                 </div>
                 {% if project.mortgage_price_per_month %}
                 <div class="mortgage-section">

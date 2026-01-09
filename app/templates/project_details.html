@@ -28,62 +28,60 @@
 <!-- GALLERY -->
 <section class="py-5 bg-light">
     <div class="container">
-        <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">Проект {{project.title}}</h2>
-        <!-- Main gallery -->
-        <div class="swiper gallery-top" data-aos="fade-up">
-            <div class="swiper-wrapper">
-                {% for image in project.images %}
-                <div class="swiper-slide" onclick="openFullscreenSlider({{ loop.index0 }})">
-                    <img src="{{ url_for('static', filename=image.url) }}" 
-                        alt="{{ project.title }}" 
-                        style="cursor: zoom-in;">
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">
+            Проект {{ project.title }}
+        </h2>
 
-        <!-- Thumbnails -->
-        <div class="swiper gallery-thumbs mt-3">
+        <!-- THUMB GALLERY -->
+        <div class="swiper gallery-thumbs mt-4" data-aos="fade-up">
             <div class="swiper-wrapper">
                 {% for image in project.images %}
-                <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename=image.url) }}" alt="thumb">
+                <div class="swiper-slide"
+                    onclick="openFullscreenSlider({{ loop.index0 }})">
+                    <img src="{{ url_for('static', filename=image.url) }}"
+                        alt="{{ project.title }}">
                 </div>
                 {% endfor %}
             </div>
+
+            <!-- SCROLLBAR -->
         </div>
+        <div class="swiper-scrollbar"></div>
 
     </div>
 
-<!-- Fullscreen Modal -->
-<div class="modal fade fullscreen-modal" id="fullscreenSlider" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="fullscreen-close" data-bs-dismiss="modal">
-                <i class="bi bi-x-lg"></i>
-            </button>
-            <div class="modal-body">
-                <div class="swiper fullscreen-slider">
-                    <div class="swiper-wrapper">
-                        {% for image in project.images %}
-                        <div class="swiper-slide">
-                            <img src="{{ url_for('static', filename=image.url) }}" 
-                                 alt="{{ project.title }}">
+    <!-- FULLSCREEN MODAL -->
+    <div class="modal fade fullscreen-modal" id="fullscreenSlider" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content bg-dark">
+                <button type="button"
+                        class="fullscreen-close"
+                        data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+                <div class="modal-body p-0">
+                    <div class="swiper fullscreen-slider">
+                        <div class="swiper-wrapper">
+                            {% for image in project.images %}
+                            <div class="swiper-slide">
+                                <img src="{{ url_for('static', filename=image.url) }}"
+                                     alt="{{ project.title }}">
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                    </div>
+
                     <div class="full-screen-gallery">
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
-                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </section>
+
 <!-- PROJECT HERO -->
 <section class="project-hero" id="aboutProject">
     <div class="container position-relative" style="z-index: 2;">
@@ -222,7 +220,10 @@
         <div class="price-card" data-aos="fade-up" data-aos-delay="300">
             <!-- <div class="popular-badge">Популярный</div> -->
             <div class="price-stage">Дополнительные услуги</div>
-            <!-- <div class="price-amount">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</div> -->
+            {#
+             <!-- <div class="price-amount">{{ "{:,}".format(project.price_ready).replace(',', ' ') }} ₽</div> -->
+            #}
+           
             <div class="price-description">
                 Комплектация на ваш выбор
             </div>
@@ -349,5 +350,28 @@
             img.style.opacity = 1;
         };
     });    
+</script>
+<script>
+    const galleryThumbs = new Swiper('.gallery-thumbs', {
+    spaceBetween: 15,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+    grabCursor: true,
+
+    scrollbar: {
+        el: '.gallery-thumbs .swiper-scrollbar',
+        draggable: true,
+        hide: false
+    },
+
+    breakpoints: {
+        320: { slidesPerView: 2 },
+        480: { slidesPerView: 3 },
+        768: { slidesPerView: 4 },
+        1024: { slidesPerView: 6 }
+    }
+});
+
 </script>
 {% endblock %}

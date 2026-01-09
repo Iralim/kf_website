@@ -42,7 +42,7 @@ def add_project():
         size=form.size.data,
         price_base=form.price_base.data,
         price_with_communications=form.price_with_communications.data,
-        price_ready=form.price_ready.data,
+        # price_ready=form.price_ready.data,
         mortgage_price_per_month=form.mortgage_price_per_month.data
     )
 

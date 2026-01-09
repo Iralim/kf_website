@@ -11,7 +11,7 @@ class ProjectForm(FlaskForm):
     size = StringField('Габариты', validators=[DataRequired()])
     price_base = IntegerField('Теплый контур', validators=[DataRequired(), NumberRange(min=0)])
     price_with_communications = IntegerField('Готовые коммуникации', validators=[Optional(), NumberRange(min=0)])
-    price_ready = IntegerField('Заезжай и живи', validators=[Optional(), NumberRange(min=0)])
+    # price_ready = IntegerField('Заезжай и живи', validators=[Optional(), NumberRange(min=0)])
     mortgage_price_per_month = IntegerField('В ипотеку', validators=[Optional(), NumberRange(min=0)])
     img_files = MultipleFileField("Изображение", validators=[
         FileAllowed(['jpg', 'jpeg', 'png', 'webp'], "Допустимы только изображения")
