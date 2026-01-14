@@ -4,11 +4,10 @@ import io, os
 from flask import Blueprint, render_template, redirect, current_app, request, jsonify, flash, send_file, abort, url_for
 from flask import jsonify
 from flask_mail import Message
-
+from app import mail
 from PIL import Image, ImageFilter
 
 from app.models import Project, ProjectImages
-from app import mail
 
 main_bp = Blueprint('main', __name__)
 
@@ -30,28 +29,33 @@ def details(slug):
     return render_template('project_details.html', project=project, first_image_url=first_image_url, projects=projects)
 
 
-@main_bp.route("/send", methods=["POST"])
-def send():
+@main_bp.route("/send-contact", methods=["POST"])
+def send_contact():
     try:
         name = request.form.get("name")
         phone = request.form.get("phone")
         message_text = request.form.get("message")
 
         msg = Message(
-            "Новая заявка с сайта",
-            recipients=["kf@iralim.com"]
-        )
+            subject="Новая заявка с сайта",
+            recipients=["info@krepfund.ru"],
+            body=f"""
+            Новая заявка с сайта:
 
-        msg.body = f"""
-Имя: {name}
-Телефон: {phone}
-Сообщение:
-{message_text}
-        """
+            Имя: {name}
+            Телефон: {phone}
+
+            Сообщение:
+            {message_text}
+                    """
+        )
 
         mail.send(msg)
 
-        return jsonify(status="ok")
+        return jsonify({
+            "status": "ok",
+            "message": "Заявка успешно отправлена!"
+        })
 
     except Exception as e:
         return jsonify(status="error", error=str(e))

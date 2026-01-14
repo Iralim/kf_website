@@ -6,10 +6,11 @@ document.getElementById("contactForm").addEventListener("submit", async function
     let msgBox = document.getElementById("formResult");
 
     try {
-        let response = await fetch("/send", {
-            method: "POST",
-            body: formData
-        });
+        let response = await fetch(form.dataset.url, {
+        method: "POST",
+        body: formData
+    });
+
 
         // Получаем ответ всегда как текст
         let raw = await response.text();
