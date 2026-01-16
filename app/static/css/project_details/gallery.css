@@ -2,21 +2,21 @@
    THUMB GALLERY (основная)
    ========================= */
 
-.gallery-thumbs {
-    width: 100%;
-}
+
+
 
 .gallery-thumbs .swiper-slide {
-    height: 140px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: zoom-in;
+    cursor: pointer;
+
 }
 
 .gallery-thumbs img {
     width: 100%;
-    height: 100%;              /* КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
+    height: 50%;              /* КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
     object-fit: cover;         /* всегда аккуратно */
     border-radius: 8px;
     opacity: 0.6;
@@ -31,13 +31,13 @@
 /* Адаптивные размеры миниатюр */
 @media (max-width: 768px) {
     .gallery-thumbs .swiper-slide {
-        height: 110px;
+        height: 200px;
     }
 }
 
 @media (max-width: 480px) {
     .gallery-thumbs .swiper-slide {
-        height: 90px;
+        height: 200px;
     }
 }
 

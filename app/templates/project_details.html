@@ -25,63 +25,6 @@
 </nav>
 {% endblock %}
 {% block sections %}
-<!-- GALLERY -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up" style="margin-top: 100px;">
-            Проект {{ project.title }}
-        </h2>
-
-        <!-- THUMB GALLERY -->
-        <div class="swiper gallery-thumbs mt-4" data-aos="fade-up">
-            <div class="swiper-wrapper">
-                {% for image in project.images %}
-                <div class="swiper-slide"
-                    onclick="openFullscreenSlider({{ loop.index0 }})">
-                    <img src="{{ url_for('static', filename=image.url) }}"
-                        alt="{{ project.title }}">
-                </div>
-                {% endfor %}
-                  <!-- SCROLLBAR -->
-        </div>
-        <div class="swiper-scrollbar"></div>
-            </div>
-
-          
-
-    </div>
-
-    <!-- FULLSCREEN MODAL -->
-    <div class="modal fade fullscreen-modal" id="fullscreenSlider" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content bg-dark">
-                <button type="button"
-                        class="fullscreen-close"
-                        data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-
-                <div class="modal-body p-0">
-                    <div class="swiper fullscreen-slider">
-                        <div class="swiper-wrapper">
-                            {% for image in project.images %}
-                            <div class="swiper-slide">
-                                <img src="{{ url_for('static', filename=image.url) }}"
-                                     alt="{{ project.title }}">
-                            </div>
-                            {% endfor %}
-                        </div>
-
-                    <div class="full-screen-gallery">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- PROJECT HERO -->
 <section class="project-hero" id="aboutProject">
@@ -90,8 +33,24 @@
             <!-- LEFT CONTENT -->
             <div class="col-lg-7" data-aos="fade-up">
                 <div class="about-project-card ">
+
                     <!-- Title -->
-                    <h1 class="section-title">О проекте</h1>
+                    <h1 class="section-title">{{ project.title }}</h1>
+                                            <!-- PROJECT GALLERY (внутри карточки) -->
+                    <div class="project-gallery mb-4">
+                        <div class="swiper gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                {% for image in project.images %}
+                                <div class="swiper-slide"
+                                    onclick="openFullscreenSlider({{ loop.index0 }})">
+                                    <img src="{{ url_for('static', filename=image.url) }}"
+                                        alt="{{ project.title }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-scrollbar"></div>
+                        </div>
+                    </div>
                     <!-- Description -->
                     {% if project.description %}
                     <p class="lead opacity-90 mb-4">{{ project.description }}</p>
@@ -378,4 +337,33 @@
 });
 
 </script>
+<!-- FULLSCREEN MODAL -->
+<div class="modal fade full-screen-gallery" id="fullscreenSlider" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content bg-dark">
+            <button type="button"
+                    class="fullscreen-close"
+                    data-bs-dismiss="modal">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <div class="modal-body p-0">
+                <div class="swiper fullscreen-slider">
+                    <div class="swiper-wrapper">
+                        {% for image in project.images %}
+                        <div class="swiper-slide">
+                            <img src="{{ url_for('static', filename=image.url) }}"
+                                 alt="{{ project.title }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
