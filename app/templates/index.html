@@ -7,50 +7,197 @@
 {% block sections %}
 <style>
     .hero-section {
-    /* Градиент-туман */
-    background:
-    linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%),
-    url('{{ hero_bg[0] }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* только для десктопа */
-    min-height: 100vh;
-    padding: 180px 0 120px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-    transition: filter 0.5s ease-out, background-image 0.5s ease-out;
+        position: relative;
+        min-height: 100vh;
+        padding: 180px 0 120px;
+        color: white;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        z-index: 1;
     }
-    /* На мобильных отключаем fixed */
-    @media (max-width: 768px) {
-    .hero-section {
-    background-attachment: scroll;
+
+    /* Контейнер для изображения (SEO-дружественный подход) */
+    .hero-image-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
     }
+
+    .hero-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
-    .hero-section.loaded {
-    background-image: linear-gradient(to right, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 50%), url('{{ hero_bg[1] }}');
+
+    /* Эффект размытия при загрузке */
+    .hero-image-container .blur-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(20px);
+        transform: scale(1.05); /* Убираем белые края при размытии */
+        transition: opacity 0.5s ease-out;
+        z-index: 1;
     }
+
+    .hero-image-container .main-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+        z-index: 2;
+    }
+
+    .hero-image-container.loaded .blur-image {
+        opacity: 0;
+    }
+
+    .hero-image-container.loaded .main-image {
+        opacity: 1;
+    }
+
+    /* Ваши существующие стили для контента */
     .hero-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url('{{ hero_bg[0] }}');
-    background-size: cover;
-    background-position: center;
-    filter: blur(20px);
-    transition: opacity 0.5s ease-out;
-    z-index: -1;
-    opacity: 1;
+        display: none; /* Убираем старый псевдоэлемент */
     }
-    .hero-section.loaded::before {
-    opacity: 0;
+
+    /* На мобильных отключаем fixed (оставляем ваш код) */
+    @media (max-width: 768px) {
+        .hero-image-container img {
+            background-attachment: scroll;
+        }
     }
+
+    /* Остальные ваши стили остаются без изменений */
+    .hero-content { /* ваши стили */ }
+    .hero-badge { /* ваши стили */ }
+    /* ... и так далее */
 </style>
+
 <section id="home" class="hero-section">
+<div class="hero-image-container">
+    <!-- Размытая версия -->
+    <img 
+        src="{{ hero_images.blur }}"
+        alt=""
+        class="blur-image"
+        loading="eager"
+        width="100"
+        height="100"
+    >
+    
+    <!-- Основное WebP -->
+    <img 
+        src="{{ hero_images.webp_hd }}"
+        srcset="{{ hero_images.webp_mobile }} 768w, {{ hero_images.webp_hd }} 1920w"
+        sizes="(max-width: 768px) 100vw, 1920px"
+        alt="Современный энергоэффективный дом под ключ в Стерлитамаке - фасад современного коттеджа с панорамными окнами"
+        class="main-image"
+        loading="eager"
+        fetchpriority="high"
+        width="1920"
+        height="1080"
+    >
+</div>
+
+<style>
+.hero-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #1a1a1a; /* Цвет фона на время загрузки */
+}
+
+.hero-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Размытое изображение показываем сразу */
+.blur-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(20px);
+    transform: scale(1.05);
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Основное изображение показываем сразу, но под размытым */
+.main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 1;  /* ← ВАЖНО: всегда видимо для поисковиков */
+}
+
+/* Анимация через CSS, без JS */
+.main-image {
+    animation: fadeInBlur 0.5s ease-out forwards;
+}
+
+@keyframes fadeInBlur {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Для очень старых браузеров - просто показываем изображение */
+.no-js .main-image {
+    opacity: 1;
+}
+</style>
+
+<!-- Для браузеров без JS (крайне редко) -->
+<noscript>
+    <style>
+        .blur-image {
+            display: none;
+        }
+        .main-image {
+            opacity: 1 !important;
+        }
+    </style>
+</noscript>
+
+<!-- Микроразметка для SEO (добавьте в <head> или перед закрывающим </body>) -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "contentUrl": "https://ваш-сайт.ru/hero.webp",
+    "name": "Современный энергоэффективный дом под ключ",
+    "description": "Фасад современного каменного дома с панорамными окнами, построенного строительной компанией в Стерлитамаке",
+    "representativeOfPage": "true",
+    "keywords": "строительство домов, каменные дома, энергоэффективные дома, Стерлитамак"
+}
+</script>
+    
+
     <div class="container">
         <div class="row align-items-center min-vh-100">
             <div class="col-lg-8" data-aos="fade-up" data-aos-duration="100">
@@ -225,24 +372,7 @@
 {% endblock %}
 {% block page_script %}
 <script>
-    // ===========================
-    // HERO SECTION IMAGE LOADER
-    // ===========================
-    const heroSection = document.querySelector('.hero-section');
-    const img = new Image();
-    
-    img.src = '{{ hero_bg[1] }}';
-    img.onload = () => {
-    // Основная картинка полностью загружена
-    heroSection.classList.add('loaded');
-    const highResImgs = document.querySelectorAll('.high-res[data-src]');
-    highResImgs.forEach(img => {
-        img.src = img.dataset.src;
-        img.onload = () => {
-            img.style.opacity = 1;
-        };
-    });
-    };
+
     
 </script>
 {% endblock %}

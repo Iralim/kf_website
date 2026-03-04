@@ -15,8 +15,133 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     projects = Project.query.all()
-    img_url = ensure_hero_webp(os.path.join(current_app.static_folder, 'images', 'piclumen4.png', ), overwrite=False)
-    return render_template('index.html', projects=projects, hero_bg=img_url)
+    """Главная страница"""
+    try:
+        # Исправляем путь: убираем os.path.join, передаем просто относительный путь
+        hero_images = ensure_hero_images('images/bg_HQ.webp', overwrite=False)
+    except Exception as e:
+        print(f"Ошибка при создании hero-изображений: {e}")
+        # Если что-то пошло не так, используем fallback пути только для WebP
+        hero_images = {
+            'webp_hd': url_for('static', filename='images/hero_bg/hero.webp'),
+            'webp_mobile': url_for('static', filename='images/hero_bg/hero-mobile.webp'),
+            'blur': url_for('static', filename='images/hero_bg/hero-blur.webp'),
+            # JPG больше не нужны, но оставим для обратной совместимости
+            'jpg_hd': None,
+            'jpg_mobile': None,
+        }
+
+    # Данные для микроразметки
+    schema_data = {
+        'content_url': request.host_url.rstrip('/') + hero_images['webp_hd'],
+        'name': 'Современный энергоэффективный дом под ключ',
+        'description': 'Фасад современного каменного дома с панорамными окнами, построенного строительной компанией в Стерлитамаке',
+        'keywords': 'строительство домов, каменные дома, энергоэффективные дома, Стерлитамак'
+    }
+
+    return render_template('index.html',
+                           projects=projects,
+                           hero_images=hero_images,
+                           schema_data=schema_data)
+
+
+# IMAGE COMPRESSORS
+def ensure_hero_images(input_path, overwrite=True):
+    """
+    Создаёт все необходимые версии hero-изображения (только WebP)
+
+    Args:
+        input_path: путь к исходному изображению относительно static_folder
+        overwrite: перезаписывать ли существующие файлы
+
+    Returns:
+        dict: словарь с путями ко всем созданным изображениям
+    """
+    original_file_path = os.path.join(current_app.static_folder, input_path)
+    bg_dir = os.path.join(current_app.static_folder, 'images', 'hero_bg')
+
+    # Создаём директорию, если её нет
+    os.makedirs(bg_dir, exist_ok=True)
+
+    # Пути только для WebP версий (JPG больше не создаем)
+    images = {
+        # Основные WebP (десктоп и мобильный)
+        'webp_hd': os.path.join(bg_dir, 'hero.webp'),  # десктоп (1920px)
+        'webp_mobile': os.path.join(bg_dir, 'hero-mobile.webp'),  # мобильный (768px)
+        # Размытая версия для прелоадера
+        'blur': os.path.join(bg_dir, 'hero-blur.webp'),  # очень легкая, quality 10-20
+    }
+
+    # Проверяем, нужно ли что-то создавать
+    need_regenerate = overwrite
+    if not need_regenerate:
+        for img_path in images.values():
+            if not os.path.exists(img_path):
+                need_regenerate = True
+                break
+
+    if need_regenerate and os.path.exists(original_file_path):
+        # Открываем оригинальное изображение
+        original = Image.open(original_file_path)
+
+        # Конвертируем в RGB если нужно
+        if original.mode in ('RGBA', 'P'):
+            original = original.convert('RGB')
+
+        # 1. HD WebP (десктоп) - качество 50%
+        hd_img = original.copy()
+        if hd_img.width > 1920:
+            ratio = 1920 / hd_img.width
+            new_height = int(hd_img.height * ratio)
+            hd_img = hd_img.resize((1920, new_height), Image.Resampling.LANCZOS)
+
+        hd_img.save(
+            images['webp_hd'],
+            "WEBP",
+            quality=50,
+            method=6,  # максимальное сжатие
+            lossless=False
+        )
+
+        # 2. Mobile WebP (768px) - качество 45%
+        mobile_img = original.copy()
+        if mobile_img.width > 768:
+            ratio = 768 / mobile_img.width
+            new_height = int(mobile_img.height * ratio)
+            mobile_img = mobile_img.resize((768, new_height), Image.Resampling.LANCZOS)
+
+        mobile_img.save(
+            images['webp_mobile'],
+            "WEBP",
+            quality=45,
+            method=6,
+            lossless=False
+        )
+
+        # 3. BLUR версия (очень легкая, для прелоадера)
+        blur_img = original.copy()
+        blur_img = blur_img.resize((100, 100), Image.Resampling.LANCZOS)
+        blur_img = blur_img.filter(ImageFilter.GaussianBlur(3))
+
+        blur_img.save(
+            images['blur'],
+            "WEBP",
+            quality=10,
+            method=6,
+            lossless=False
+        )
+
+        print(f"✅ Созданы все версии hero-изображения:")
+        print(f"   - Десктоп WebP: {os.path.basename(images['webp_hd'])}")
+        print(f"   - Мобильный WebP: {os.path.basename(images['webp_mobile'])}")
+        print(f"   - Blur прелоадер: {os.path.basename(images['blur'])}")
+
+    # Возвращаем пути для HTML, используя url_for
+    return {
+        'webp_hd': url_for('static', filename='images/hero_bg/hero.webp'),
+        'webp_mobile': url_for('static', filename='images/hero_bg/hero-mobile.webp'),
+        'blur': url_for('static', filename='images/hero_bg/hero-blur.webp'),
+    }
 
 
 @main_bp.route('/details/<slug>')
@@ -68,51 +193,6 @@ def check_title():
     return jsonify({'exists': exists})
 
 
-# IMAGE COMPRESSORS
-def ensure_hero_webp(input_path, overwrite=True):
-    original_file_path = os.path.join(current_app.static_folder, input_path)
-    bg_dir = os.path.join(current_app.static_folder, 'images', 'hero_bg')
-
-    bg_hd_path = os.path.join(bg_dir, 'bg_hd.webp')
-    bg_lq_path = os.path.join(bg_dir, 'bg_lq.webp')
-
-    # Создаём директорию, если её нет
-    os.makedirs(bg_dir, exist_ok=True)
-
-    # ---- УСЛОВИЕ СОЗДАНИЯ ----
-    need_regenerate = (
-        overwrite or
-        not os.path.exists(bg_hd_path) or
-        not os.path.exists(bg_lq_path)
-    )
-
-    if need_regenerate:
-        # HD ---
-        hd_img = Image.open(original_file_path)
-        hd_img.save(
-            bg_hd_path,
-            "WEBP",
-            quality=50,
-            method=6,
-            lossless=False
-        )
-
-        # LQ / BLUR ---
-        lq_img = hd_img.resize((100, 100), Image.LANCZOS)
-        lq_img = lq_img.filter(ImageFilter.GaussianBlur(1))
-        lq_img.save(
-            bg_lq_path,
-            "WEBP",
-            quality=15,
-            method=6,
-            lossless=False
-        )
-
-    # Возвращаем пути для HTML
-    return [
-        os.path.join('static', 'images', 'hero_bg', 'bg_lq.webp'),
-        os.path.join('static', 'images', 'hero_bg', 'bg_hd.webp'),
-    ]
 
 
 
